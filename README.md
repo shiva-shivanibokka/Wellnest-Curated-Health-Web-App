@@ -37,7 +37,7 @@ The following step should be performed by every student in the team, including t
    |:--------:|:--------------------:|:---------------------:|:--------------------:|:---------------------:|:---------:|:---------------------------:|
    |    #1    |                      |                       |                      |                       | Team-lead |             No              |
    |    #2    |                      |                       |                      |                       |           |             No              |
-   |    #3    |                      |                       |                      |                       |           |             No              |
+   |    #3    |        Jacob Vuong              |      jvuong@sfsu.edu                 |        jacobvuong              |     Jacob Vuong                  |  Front End         |             Yes              |
    |    #4    |                      |                       |                      |                       |           |             No              |
    |    #5    |                      |                       |                      |                       |           |             No              |
    |    #6    |                      |                       |                      |                       |           |             No              |
