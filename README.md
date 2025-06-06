@@ -36,11 +36,11 @@ The following step should be performed by every student in the team, including t
    | Student  | Full Name            | SFSU Email            | GitHub Username      | Discord Username      |  Role(s)  | Contract Signed (Yes or No) |
    |:--------:|:--------------------:|:---------------------:|:--------------------:|:---------------------:|:---------:|:---------------------------:|
    |    #1    |          Hamed Emari            |       hemari@sfsu.edu                |         HamedEmari  |          hamedak              | Team-lead/scrum master |            yes          |
-   |    #2    |                      |                       |                      |                       |           |             No              |
+   |    #2    |     Jacob Cordano                 |             jcordano1@sfsu.edu           |             JTCSnaps         |         JacobSnaps              |    Technical Writer/ Database Lead       |             Yes              |
    |    #3    |        Jacob Vuong              |      jvuong@sfsu.edu                 |        jacobvuong              |     Jacob Vuong                  |  Front End         |             Yes              |
-   |    #4    |                      |                       |                      |                       |           |             No              |
-   |    #5    |                      |                       |                      |                       |           |             No              |
-   |    #6    |                      |                       |                      |                       |           |             No              |
+   |    #4    |        Shivani Bokka              |           sbokka@sfsu.edu            |          shivani-shivanibokka            |            shivanibokka_76817           |       Bank-end Lead    |             Yes              |
+   |    #5    |        Kevin Hu              |        zhu6@sfsu.edu               |          kevinhu03             |           kevinhu03             |           |             Yes              |
+   |    #6    |      Diego Antunez                |        dantunez1@sfsu.edu               |          diegoantunez03            |    101blue                   |        Software Architect   |             Yes              |
    |    #7    |                      |                       |                      |                       |           |             No              |
 
    - A role, in this course, indicates the main responsibility each student will handle, but **EVERY STUDENT** must 
