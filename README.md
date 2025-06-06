@@ -35,7 +35,7 @@ The following step should be performed by every student in the team, including t
 
    | Student  | Full Name            | SFSU Email            | GitHub Username      | Discord Username      |  Role(s)  | Contract Signed (Yes or No) |
    |:--------:|:--------------------:|:---------------------:|:--------------------:|:---------------------:|:---------:|:---------------------------:|
-   |    #1    |                      |                       |                      |                       | Team-lead |             No              |
+   |    #1    |          Hamed Emari            |       hemari@sfsu.edu                |         HamedEmari  |          hamedak              | Team-lead/scrum master |            yes          |
    |    #2    |                      |                       |                      |                       |           |             No              |
    |    #3    |        Jacob Vuong              |      jvuong@sfsu.edu                 |        jacobvuong              |     Jacob Vuong                  |  Front End         |             Yes              |
    |    #4    |                      |                       |                      |                       |           |             No              |
