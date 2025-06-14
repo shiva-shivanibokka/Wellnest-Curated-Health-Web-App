@@ -109,7 +109,7 @@ Best of luck, and let's make this semester one to remember!
 
 ---
 
-© 2025 **Replace this message with your team alias and team number**. All rights reserved.
+© 2025 Coding Gators 03 All rights reserved.
 
 No part of this repository may be reproduced, distributed, or transmitted in any form or by any means, 
 including photocopying, recording, or other electronic or mechanical methods, without the prior written 
