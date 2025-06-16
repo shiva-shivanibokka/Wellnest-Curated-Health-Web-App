@@ -33,7 +33,7 @@ coverY: 0
 
 ## <mark style="color:blue;">Table of Contents:</mark>
 
-<table><thead><tr><th width="638">Content</th><th>Page</th></tr></thead><tbody><tr><td>Executive Summary</td><td></td></tr><tr><td>Use Cases</td><td></td></tr><tr><td>         Actors</td><td></td></tr><tr><td>         Cases</td><td></td></tr><tr><td>Main Data Items and Entities</td><td></td></tr><tr><td>Functional Requirements</td><td></td></tr><tr><td>None-functional Requirements</td><td></td></tr><tr><td>Competitive Analysis</td><td></td></tr><tr><td>Technology Specifications</td><td></td></tr><tr><td>Checklist</td><td></td></tr><tr><td>List of Team Contributions</td><td></td></tr></tbody></table>
+<table><thead><tr><th width="638">Content</th><th>Page</th></tr></thead><tbody><tr><td>Executive Summary</td><td><a href="./#executive-summary">1</a></td></tr><tr><td>Use Cases</td><td>2</td></tr><tr><td>         Actors</td><td></td></tr><tr><td>         Cases</td><td></td></tr><tr><td>Main Data Items and Entities</td><td></td></tr><tr><td>Functional Requirements</td><td></td></tr><tr><td>None-functional Requirements</td><td></td></tr><tr><td>Competitive Analysis</td><td></td></tr><tr><td>Technology Specifications</td><td></td></tr><tr><td>Checklist</td><td></td></tr><tr><td>List of Team Contributions</td><td></td></tr></tbody></table>
 
 ## <mark style="color:blue;">Executive Summary</mark>
 
