@@ -1,4 +1,5 @@
 ---
+icon: laptop-code
 cover: >-
   https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHwyfHxjb2RlfGVufDB8fHx8MTc1MDExMzIyNXww&ixlib=rb-4.1.0&q=85
 coverY: 0
