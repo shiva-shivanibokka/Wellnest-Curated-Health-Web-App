@@ -1,56 +1,60 @@
-# SW Engineering CSC648-848-03 Summer 2025
+# Technical Documentation
 
-# WELLNEST
+## SW Engineering CSC648-848-03 Summer 2025
 
-![wellnest.png](Milestones/M1/Technical Documentation Images/wellnest.png)
+## WELLNEST
 
-                                                          **“A Habit tracker for Gators”**
+!\[wellnest.png]\(../Technical Documentation Images/wellnest.png)
 
-# Team 03
+```
+                                                      **“A Habit tracker for Gators”**
+```
 
-**Team Lead and Scrum Master:**  Hamed Emari - [hemari@sfsu.edu](mailto:hemari@sfsu.edu)
+## Team 03
 
-**Frontend Lead:**  Jacob Vuong
+**Team Lead and Scrum Master:** Hamed Emari - [hemari@sfsu.edu](mailto:hemari@sfsu.edu)
 
-**Backend lead:**  Shivani Bokka
+**Frontend Lead:** Jacob Vuong
 
-**GitHub Master and Database Lead:**  Kevin Hu
+**Backend lead:** Shivani Bokka
 
-**Technical Writer:**  Jacob Cordano
+**GitHub Master and Database Lead:** Kevin Hu
 
-**Software Architect:**  Diego Antunez
+**Technical Writer:** Jacob Cordano
 
-# Version History
+**Software Architect:** Diego Antunez
 
-| **Milestone** | **Version** | **Date** |
-| --- | --- | --- |
-| Milestone 1 | 1.0.0 | 6/15/2025 |
+## Version History
 
----
+| **Milestone** | **Version** | **Date**  |
+| ------------- | ----------- | --------- |
+| Milestone 1   | 1.0.0       | 6/15/2025 |
 
-# Table of Contents:
+***
+
+## Table of Contents:
 
 | [Executive Summary](https://www.notion.so/SW-Engineering-CSC648-848-03-Summer-2025-2118eea7c0ab8019889af2777ed1f7d7?pvs=21) | 1 |
-| --- | --- |
-| Use Cases |  |
-|         Actors |  |
-|         Cases |  |
-| Main Data Items and Entities |  |
-| Functional Requirements |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-| None-functional Requirements |  |
-| Competitive Analysis |  |
-| Technology Specifications |  |
-| Checklist |  |
-| List of Team Contributions |  |
+| --------------------------------------------------------------------------------------------------------------------------- | - |
+| Use Cases                                                                                                                   |   |
+| Actors                                                                                                                      |   |
+| Cases                                                                                                                       |   |
+| Main Data Items and Entities                                                                                                |   |
+| Functional Requirements                                                                                                     |   |
+|                                                                                                                             |   |
+|                                                                                                                             |   |
+|                                                                                                                             |   |
+|                                                                                                                             |   |
+|                                                                                                                             |   |
+| None-functional Requirements                                                                                                |   |
+| Competitive Analysis                                                                                                        |   |
+| Technology Specifications                                                                                                   |   |
+| Checklist                                                                                                                   |   |
+| List of Team Contributions                                                                                                  |   |
 
----
+***
 
-# Executive Summary
+## Executive Summary
 
 In a world where physical and mental well-being are increasingly compromised by sedentary lifestyles, inconsistent routines, and digital overwhelm, there is a growing need for wellness solutions that are both practical and empowering. As a team of software engineering students, we are building Wellnest — a holistic and socially driven mobile application that helps users cultivate healthier habits, set and achieve personal wellness goals, and live more balanced lives.
 
@@ -62,105 +66,105 @@ In addition to manual tracking, Wellnest leverages AI-powered insights and behav
 
 Built with scalability and user experience in mind, Wellnest features a modular architecture that supports future expansion — such as integration with wearable devices, mood tracking, and mindfulness modules. The app also prioritizes data privacy, using secure protocols to protect user information while maintaining a sleek, gamified interface for enjoyable daily use.
 
-From a technical and social standpoint, our goal is to develop a platform that is not only robust and secure, but also genuinely impactful. We believe that Wellnest fills a critical gap in today’s wellness market: it is an all-in-one habit companion that promotes consistency, self-awareness, and community — key pillars of sustainable lifestyle change.
+From a technical and social standpoint, our goal is to develop a platform that is not only robust and secure, but also genuinely impactful. We believe that Wellnest fills a critical gap in today’s wellness market: it is an all-in-one habit companion that promotes consistency, self-awareness, and community — key pillars of sustainable lifestyle change.\
 By combining thoughtful design, smart technology, and a deep understanding of user motivation, Wellnest aims to become more than just an app — it aspires to be a wellness movement.
 
-# Use Cases
+## Use Cases
 
-## Actors:
+### Actors:
 
-### **Rhea (Graduate Student, 25)**
-
-**Characteristics, Skills, and Pain Points:**
-
-- Balances a packed academic schedule with a part-time job
-- Health-conscious but struggles to maintain consistency
-- Skips meals and forgets to hydrate during long study sessions.
-- Finds existing apps overwhelming or too feature-limited
-
-**Goals:**
-
-- Track daily water intake and meal patterns
-- Set small, manageable health goals
-- Get timely reminders that do not feel intrusive
-- Compete with friends for motivation without social media distractions
-
-### **Devon (Tech Professional, 32)**
+#### **Rhea (Graduate Student, 25)**
 
 **Characteristics, Skills, and Pain Points:**
 
-- Works long hours in front of a computer
-- Suffers from irregular sleep and frequent back pain
-- Finds it difficult to stay motivated to work out
-- Rarely remembers to log habits manually
+* Balances a packed academic schedule with a part-time job
+* Health-conscious but struggles to maintain consistency
+* Skips meals and forgets to hydrate during long study sessions.
+* Finds existing apps overwhelming or too feature-limited
 
 **Goals:**
 
-- Automatically track daily steps and exercises
-- Set sleep goals and monitor progress
-- Receive weekly summaries and personalized suggestions
-- Reduce screen time before bed and improve sleep quality
+* Track daily water intake and meal patterns
+* Set small, manageable health goals
+* Get timely reminders that do not feel intrusive
+* Compete with friends for motivation without social media distractions
 
-### **Mary (Homemaker, 45)**
+#### **Devon (Tech Professional, 32)**
 
 **Characteristics, Skills, and Pain Points:**
 
-- Cares for her family full-time, putting her own wellness last
-- Suffers from stress and emotional eating
-- Has no time for complicated apps
-- Wants to feel supported and not judged
+* Works long hours in front of a computer
+* Suffers from irregular sleep and frequent back pain
+* Finds it difficult to stay motivated to work out
+* Rarely remembers to log habits manually
 
 **Goals:**
 
-- Track food intake and emotions around eating
-- Get kind, motivating nudges for self-care
-- Join community wellness challenges with family or friends
-- Learn small habits that improve overall mental and physical health
+* Automatically track daily steps and exercises
+* Set sleep goals and monitor progress
+* Receive weekly summaries and personalized suggestions
+* Reduce screen time before bed and improve sleep quality
 
-### **Arnold (College Athlete, 21)**
+#### **Mary (Homemaker, 45)**
 
 **Characteristics, Skills, and Pain Points:**
 
-- Extremely competitive and goal-oriented
-- Already tracks workouts but not other habits like sleep and hydration
-- Wants deeper insights, not basic graphs
-- Easily bored with basic UI/UX
+* Cares for her family full-time, putting her own wellness last
+* Suffers from stress and emotional eating
+* Has no time for complicated apps
+* Wants to feel supported and not judged
 
 **Goals:**
 
-- Sync data with wearables for better performance tracking
-- View detailed analytics and trends
-- Compete with friends through app leaderboards
-- Track macros and meal balance in addition to workouts
+* Track food intake and emotions around eating
+* Get kind, motivating nudges for self-care
+* Join community wellness challenges with family or friends
+* Learn small habits that improve overall mental and physical health
 
-### **Jenny (Corporate Manager, 39)**
+#### **Arnold (College Athlete, 21)**
 
 **Characteristics, Skills, and Pain Points:**
 
-- Highly organized and result-driven
-- Uses productivity tools but not health apps
-- Needs consolidated, intelligent health insights
-- Has privacy concerns about personal data
+* Extremely competitive and goal-oriented
+* Already tracks workouts but not other habits like sleep and hydration
+* Wants deeper insights, not basic graphs
+* Easily bored with basic UI/UX
 
 **Goals:**
 
-- Track all wellness metrics in one platform
-- Receive professional-level reports and recommendations
-- Export data for doctor consultations
-- Use the app discreetly during work hours
+* Sync data with wearables for better performance tracking
+* View detailed analytics and trends
+* Compete with friends through app leaderboards
+* Track macros and meal balance in addition to workouts
 
-## Use Cases:
+#### **Jenny (Corporate Manager, 39)**
 
-### **Signing Up and Setting Up Health Goals**
+**Characteristics, Skills, and Pain Points:**
+
+* Highly organized and result-driven
+* Uses productivity tools but not health apps
+* Needs consolidated, intelligent health insights
+* Has privacy concerns about personal data
+
+**Goals:**
+
+* Track all wellness metrics in one platform
+* Receive professional-level reports and recommendations
+* Export data for doctor consultations
+* Use the app discreetly during work hours
+
+### Use Cases:
+
+#### **Signing Up and Setting Up Health Goals**
 
 **Actor:** **Rhea (Graduate Student)**
 
-Rhea hears about Wellnest from a friend and decides to give it a try. She downloads the app and selects the “Sign Up” option. She enters her name, email, and password, and agrees to the privacy terms. After account creation, the app prompts her to select focus areas such as hydration, food logging, and sleep improvement.
+Rhea hears about Wellnest from a friend and decides to give it a try. She downloads the app and selects the “Sign Up” option. She enters her name, email, and password, and agrees to the privacy terms. After account creation, the app prompts her to select focus areas such as hydration, food logging, and sleep improvement.\
 Rhea sets a goal of drinking 2 liters of water daily and sleeping 7 hours per night. She enables smart reminders and selects “gentle” tone for notifications. She’s also invited to join the “30-Day Sleep Reset Challenge” with her classmates.
 
-![Screenshot_7.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_7.jpg)
+![Screenshot\_7.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_7.jpg)
 
-### **Logging and Controlling Smoking/Alcohol Habits**
+#### **Logging and Controlling Smoking/Alcohol Habits**
 
 **Actor:** **Devon (Tech Professional)**
 
@@ -172,9 +176,9 @@ Each time he smokes or drinks (e.g., beer at happy hour or a cigarette during br
 
 Devon accepts. The app enables “replacement reminders” and sends encouraging nudges at his usual craving times. After a month, Devon reduces both habits by over 40%.
 
-![Screenshot_8.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_8.jpg)
+![Screenshot\_8.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_8.jpg)
 
-### **Identifying Junk Food Patterns and Suggesting Alternatives**
+#### **Identifying Junk Food Patterns and Suggesting Alternatives**
 
 **Actor:** **Mary (Homemaker)**
 
@@ -182,13 +186,13 @@ Mary often snacks on highly processed foods, especially when under stress. She l
 
 **“50% of your logged meals are categorized as high in sodium or saturated fat. Want healthier 15-minute alternatives for your cravings?”**
 
-Mary clicks *Yes*, and Wellnest recommends recipes like baked sweet potato fries, turkey lettuce wraps, and homemade veggie quesadillas. It also enables a *Smart Substitution Alert* — when Mary logs a high-calorie snack, it gently suggests a swap with a healthier option.
+Mary clicks _Yes_, and Wellnest recommends recipes like baked sweet potato fries, turkey lettuce wraps, and homemade veggie quesadillas. It also enables a _Smart Substitution Alert_ — when Mary logs a high-calorie snack, it gently suggests a swap with a healthier option.
 
 Over time, Mary starts incorporating small changes that significantly reduce her reliance on junk food, without feeling deprived.
 
-![Screenshot_9.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_9.jpg)
+![Screenshot\_9.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_9.jpg)
 
-### **Smart Weekly Insights and Course Correction**
+#### **Smart Weekly Insights and Course Correction**
 
 **Actor:** **Jenny (Corporate Manager)**
 
@@ -198,9 +202,9 @@ Jenny uses Wellnest consistently to track sleep, meals, and caffeine intake. On 
 
 Wellnest recommends activating a “Caffeine Curfew” plan. Jenny agrees, enabling gentle evening nudges and replacing late-night coffee with herbal tea options. Within two weeks, her average sleep improves to over 7 hours.
 
-![Screenshot_10.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_10.jpg)
+![Screenshot\_10.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_10.jpg)
 
-### **Competing in a Wellness Challenge for Motivation**
+#### **Competing in a Wellness Challenge for Motivation**
 
 **Actor:** **Arnold (College Athlete)**
 
@@ -210,78 +214,78 @@ Arnold joins a “No Soda for 7 Days” challenge through the Wellness Circle. T
 
 He completes the walk and earns a recovery point. At the end of the challenge, Arnold earns a bronze badge and shares his win with his teammates — helping everyone stay motivated and accountable.
 
-![Screenshot_11.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_11.jpg)
+![Screenshot\_11.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_11.jpg)
 
-### **Customizing Notifications and Privacy Settings**
+#### **Customizing Notifications and Privacy Settings**
 
 **Actor:** **Rhea (Graduate Student)**
 
 After a few days of using Wellnest, Rhea finds the notifications a bit distracting during class. She opens Settings and customizes her experience:
 
-- Quiet Hours: 9 AM – 2 PM (no notifications during lectures)
-- Health summaries: Only at 8 PM
-- Privacy mode: On (hides health stats on lock screen)
+* Quiet Hours: 9 AM – 2 PM (no notifications during lectures)
+* Health summaries: Only at 8 PM
+* Privacy mode: On (hides health stats on lock screen)
 
 Wellnest respects her preferences, and her daily experience becomes smoother and more focused.
 
-![Screenshot_12.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_12.jpg)
+![Screenshot\_12.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_12.jpg)
 
-### **Syncing with a Wearable Device for Passive Tracking**
+#### **Syncing with a Wearable Device for Passive Tracking**
 
 **Actor: Arnold (College Athlete)**
 
-Arnold connects his Apple Watch to Wellnest via the app's “Sync Devices” section. With a few taps, his step count, resting heart rate, and sleep hours sync automatically.
+Arnold connects his Apple Watch to Wellnest via the app's “Sync Devices” section. With a few taps, his step count, resting heart rate, and sleep hours sync automatically.\
 The app now uses this data to recommend active recovery days and hydration tips post-workout. He no longer needs to log anything manually — just focuses on staying consistent.
 
-![Screenshot_13.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_13.jpg)
+![Screenshot\_13.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_13.jpg)
 
-### **Previewing Mood Tracking and Emotional Wellness Insights**
+#### **Previewing Mood Tracking and Emotional Wellness Insights**
 
 **Actor:** **Mary (Homemaker)**
 
-Mary enables the beta “Mood & Energy Tracker” feature. Every evening, she receives a question: *“How was your day?”* with mood emojis and a short text box. One night she logs: *“Felt low — kids were sick, grabbed drive-thru on the way home.”*
+Mary enables the beta “Mood & Energy Tracker” feature. Every evening, she receives a question: _“How was your day?”_ with mood emojis and a short text box. One night she logs: _“Felt low — kids were sick, grabbed drive-thru on the way home.”_
 
 After a week, the app notes: **“Lower moods are consistently logged on days with less than 6 hours of sleep and fast food meals. Try prepping easy grab-and-go options like a turkey sandwich or fruit parfait.”**
 
 Mary appreciates the insight and begins following a “Simple Meals for Busy Days” plan recommended by Wellnest, making small but meaningful shifts toward emotional and physical balance.
 
-![Screenshot_14.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_14.jpg)
+![Screenshot\_14.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_14.jpg)
 
-# Main Data Items and Entities:
+## Main Data Items and Entities:
 
-Users: Users are the people who will use Wellnest in order to track their habits and build new and healthier habits. They will be allowed full access to the app, meaning, they can create new habits, view the calendar, add friends, compete, add family members, delete habits, and delete their account if they wish to. 
+Users: Users are the people who will use Wellnest in order to track their habits and build new and healthier habits. They will be allowed full access to the app, meaning, they can create new habits, view the calendar, add friends, compete, add family members, delete habits, and delete their account if they wish to.
 
-Profile: Each user has their own profile, they can change their visible and hidden information, they can access the setting and dashboard through their profile. 
+Profile: Each user has their own profile, they can change their visible and hidden information, they can access the setting and dashboard through their profile.
 
-Habits: These are desirable tasks which the user wants to integrate in their daily life and routine, Habits have a date, time, and duration, they can be set to be repeated and can be shared with friends and family. Habits will be shown as missed if the user does not indicate they have accomplished the task. 
+Habits: These are desirable tasks which the user wants to integrate in their daily life and routine, Habits have a date, time, and duration, they can be set to be repeated and can be shared with friends and family. Habits will be shown as missed if the user does not indicate they have accomplished the task.
 
-Task: Task and habit will be used interchangeably 
+Task: Task and habit will be used interchangeably
 
-Family: A group of users who create a Family, will be able to share common habits and goals, these habits will require all the family members participation and if one misses a habit it will be shown as missed for all members. 
+Family: A group of users who create a Family, will be able to share common habits and goals, these habits will require all the family members participation and if one misses a habit it will be shown as missed for all members.
 
-Family-head: Is the administrator and creator of the family, they have the power to change add and remove habits and family members. 
+Family-head: Is the administrator and creator of the family, they have the power to change add and remove habits and family members.
 
 Friends: Two users who are friends, can share common goals and habits, and compete in completing their desired habits.
 
-Streak: When a habit is completed continuously without being missed for 3 days a streak will be created where it shows the days the user has spent without missing a certain task. 
+Streak: When a habit is completed continuously without being missed for 3 days a streak will be created where it shows the days the user has spent without missing a certain task.
 
 Calendar: The calendar shows an overview of all the tasks ahead, and reminds of the upcoming habits.
 
-Dashboard: The dashboard shows the users accomplishments, and a graph of the users past activities. 
+Dashboard: The dashboard shows the users accomplishments, and a graph of the users past activities.
 
-# Functional Requirements
+## Functional Requirements
 
 Registered Users
 
 1. Users shall be able to create and register an account
 2. Users shall be able to edit their profile information
 3. Users shall be able to delete their accounts
-4. Users shall be able to track their progress 
+4. Users shall be able to track their progress
 5. Users shall be able to navigate app without complication
 6. Users shall be able to create a profile picture
 7. Users shall be guided through helpful onboarding
 
-User Personal Survey 
+User Personal Survey
 
 1. Users shall be asked onboard questions for curated habit suggestions
 2. Users shall be able to skip survey
@@ -292,7 +296,7 @@ Personal Health Tracker
 2. Users shall be able to monitor indications of completed workout
 3. User shall monitor of indication of missed workout
 4. Users shall be able to view calorie goals met
-5. Users shall be able to see calorie loss goals  
+5. Users shall be able to see calorie loss goals
 
 Habit Tracking
 
@@ -304,7 +308,7 @@ Habit Tracking
 6. Users shall be able to track custom habits
 7. Users shall be able to view suggested habits to track
 
-Calendar 
+Calendar
 
 1. Users shall be able to view their weekly progress
 2. Users shall be able to change the time of their habit
@@ -352,9 +356,9 @@ Leaderboards and Progress
 4. User shall be able to have tiered awards
 5. Users shall be able to share completed goals to social media
 
-# Non-functional Requirements
+## Non-functional Requirements
 
-### System Requirements
+#### System Requirements
 
 1. The System shall be hosted on Amazon Web Services EC2
 2. A MySQL database shall be created and hosted on AWS EC2
@@ -365,90 +369,90 @@ Leaderboards and Progress
 7. Ubuntu Shall be used as Operating System on AWS
 8. A secure HTTPS website certificate is to be installed
 
-### Storage and Security Requirements
+#### Storage and Security Requirements
 
 1. User information and Password shall be encrypted
 2. Each user can only have one account created with their email
 3. Each user shall be able to login from any device and access their information
 4. If applied users shall be informed of their storage limitations
 
-### Content Requirements
+#### Content Requirements
 
 1. The list of user family and friends shall be saved and updated with every login
 2. The list of the user’s habits shall be updated with every login
 3. The Calendar shall be updated with every login
 4. The user Streak shall be saved kept track of automatically
-5. The user’s information shall be deleted automatically upon account deletion 
+5. The user’s information shall be deleted automatically upon account deletion
 
-# Competitive Analysis
+## Competitive Analysis
 
-| Features | MyFitnessPal | Samsung Health | Google Fit | Fitbit App | Wellnest      (our app) |
-| --- | --- | --- | --- | --- | --- |
-|                                                                                                                                                                                            Strengths | 🔹Largest food & nutrition database
-🔹Barcode scanning
-🔹Detailed macro tracking
- | 🔹Tracks sleep, stress, heart rate
-🔹Built-in with Samsung devices
-🔹Guided fitness programs | 🔹Minimalist UI
-🔹Deep integration with Android & wearables
-🔹Focused on daily activity | 🔹Advanced sleep & heart tracking
-🔹Social challenges
-🔹Fitbit device sync
- | 🔹Unified habit tracking (food, sleep, exercise, water, mood, smoking, alcohol)
-🔹Social wellness circles
-🔹AI suggestions & emotional tracking
-🔹Planned integration with Fitbit/Apple Health |
-| weaknesses | 🔸Cluttered interface
-🔸Premium-only advanced insights
- | 🔸Samsung device dependency
-🔸Lacks strong habit-building features
- | 🔸No social features
-🔸No nutrition tracking
-🔸Lacks reminders and nudges
- | 🔸Premium locked features
-🔸Limited value without Fitbit hardware
- | 🔸Wearable sync not yet live (planned post-launch)
-🔸Early-stage app still building user base
- |
-| Pricing | Free basic versionPremium: $9.99/mo | Free | Free | Free basic versionPremium: $9.99/mo | Free during launch phase; all features unlocked |
-| Social Media & Community | Facebook, Twitter, InstagramIn-app blog | Twitter, FacebookSome social challenges | No official community | Facebook, InstagramIn-app friend leaderboard | Built-in Wellness CirclesIn-app forumInstagram, TwitterChallenge friends and track together |
-| Onboarding Experience | 🔸Requires long setup
-🔸Feature-rich but overwhelming for first-time users
- | 🔹Quick start with Samsung login
-🔹Good for casual tracking
- | 🔸Fast setup
-🔸Basic goal setting | 🔹Quick for device users
-🔸May feel data-heavy for new users | 🔹Seamless onboarding
-🔹Pick goals and focus areas
-🔹Gentle tone and inclusive setup |
+| Features                                                                        | MyFitnessPal                            | Samsung Health                          | Google Fit            | Fitbit App                                   | Wellnest (our app)                                                                          |
+| ------------------------------------------------------------------------------- | --------------------------------------- | --------------------------------------- | --------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| Strengths                                                                       | 🔹Largest food & nutrition database     |                                         |                       |                                              |                                                                                             |
+| 🔹Barcode scanning                                                              |                                         |                                         |                       |                                              |                                                                                             |
+| 🔹Detailed macro tracking                                                       |                                         |                                         |                       |                                              |                                                                                             |
+| 🔹Tracks sleep, stress, heart rate                                              |                                         |                                         |                       |                                              |                                                                                             |
+| 🔹Built-in with Samsung devices                                                 |                                         |                                         |                       |                                              |                                                                                             |
+| 🔹Guided fitness programs                                                       | 🔹Minimalist UI                         |                                         |                       |                                              |                                                                                             |
+| 🔹Deep integration with Android & wearables                                     |                                         |                                         |                       |                                              |                                                                                             |
+| 🔹Focused on daily activity                                                     | 🔹Advanced sleep & heart tracking       |                                         |                       |                                              |                                                                                             |
+| 🔹Social challenges                                                             |                                         |                                         |                       |                                              |                                                                                             |
+| 🔹Fitbit device sync                                                            |                                         |                                         |                       |                                              |                                                                                             |
+| 🔹Unified habit tracking (food, sleep, exercise, water, mood, smoking, alcohol) |                                         |                                         |                       |                                              |                                                                                             |
+| 🔹Social wellness circles                                                       |                                         |                                         |                       |                                              |                                                                                             |
+| 🔹AI suggestions & emotional tracking                                           |                                         |                                         |                       |                                              |                                                                                             |
+| 🔹Planned integration with Fitbit/Apple Health                                  |                                         |                                         |                       |                                              |                                                                                             |
+| weaknesses                                                                      | 🔸Cluttered interface                   |                                         |                       |                                              |                                                                                             |
+| 🔸Premium-only advanced insights                                                |                                         |                                         |                       |                                              |                                                                                             |
+| 🔸Samsung device dependency                                                     |                                         |                                         |                       |                                              |                                                                                             |
+| 🔸Lacks strong habit-building features                                          |                                         |                                         |                       |                                              |                                                                                             |
+| 🔸No social features                                                            |                                         |                                         |                       |                                              |                                                                                             |
+| 🔸No nutrition tracking                                                         |                                         |                                         |                       |                                              |                                                                                             |
+| 🔸Lacks reminders and nudges                                                    |                                         |                                         |                       |                                              |                                                                                             |
+| 🔸Premium locked features                                                       |                                         |                                         |                       |                                              |                                                                                             |
+| 🔸Limited value without Fitbit hardware                                         |                                         |                                         |                       |                                              |                                                                                             |
+| 🔸Wearable sync not yet live (planned post-launch)                              |                                         |                                         |                       |                                              |                                                                                             |
+| 🔸Early-stage app still building user base                                      |                                         |                                         |                       |                                              |                                                                                             |
+|                                                                                 |                                         |                                         |                       |                                              |                                                                                             |
+| Pricing                                                                         | Free basic versionPremium: $9.99/mo     | Free                                    | Free                  | Free basic versionPremium: $9.99/mo          | Free during launch phase; all features unlocked                                             |
+| Social Media & Community                                                        | Facebook, Twitter, InstagramIn-app blog | Twitter, FacebookSome social challenges | No official community | Facebook, InstagramIn-app friend leaderboard | Built-in Wellness CirclesIn-app forumInstagram, TwitterChallenge friends and track together |
+| Onboarding Experience                                                           | 🔸Requires long setup                   |                                         |                       |                                              |                                                                                             |
+| 🔸Feature-rich but overwhelming for first-time users                            |                                         |                                         |                       |                                              |                                                                                             |
+| 🔹Quick start with Samsung login                                                |                                         |                                         |                       |                                              |                                                                                             |
+| 🔹Good for casual tracking                                                      |                                         |                                         |                       |                                              |                                                                                             |
+| 🔸Fast setup                                                                    |                                         |                                         |                       |                                              |                                                                                             |
+| 🔸Basic goal setting                                                            | 🔹Quick for device users                |                                         |                       |                                              |                                                                                             |
+| 🔸May feel data-heavy for new users                                             | 🔹Seamless onboarding                   |                                         |                       |                                              |                                                                                             |
+| 🔹Pick goals and focus areas                                                    |                                         |                                         |                       |                                              |                                                                                             |
+| 🔹Gentle tone and inclusive setup                                               |                                         |                                         |                       |                                              |                                                                                             |
 
-![Screenshot_15.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_15.jpg)
+![Screenshot\_15.jpg](SW%20Engineering%20CSC648-848-03%20Summer%202025%202118eea7c0ab8019889af2777ed1f7d7/Screenshot_15.jpg)
 
-With the above table, it becomes evident that while most competing health apps offer selective features like food logging, sleep tracking, or wearable syncing, they often operate in silos and lack a unified, user-centric approach. Additionally, several apps place essential features like habit insights or social engagement behind premium subscriptions, limiting accessibility for many users. Wellnest fills this gap by offering a holistic platform that combines core habit tracking (food, sleep, hydration, exercise) with often-overlooked aspects like mood logging and smoking/alcohol control.
-What sets Wellnest apart is its use of AI to provide personalized nudges, adaptive suggestions, and wellness insights — all without overwhelming the user. The inclusion of a "Wellness Circle" introduces a community-driven model where users can challenge, support, and grow with one another. Moreover, while full wearable integration is on the roadmap, Wellnest ensures that users can gain value even without external devices, making it both inclusive and scalable.
+With the above table, it becomes evident that while most competing health apps offer selective features like food logging, sleep tracking, or wearable syncing, they often operate in silos and lack a unified, user-centric approach. Additionally, several apps place essential features like habit insights or social engagement behind premium subscriptions, limiting accessibility for many users. Wellnest fills this gap by offering a holistic platform that combines core habit tracking (food, sleep, hydration, exercise) with often-overlooked aspects like mood logging and smoking/alcohol control.\
+What sets Wellnest apart is its use of AI to provide personalized nudges, adaptive suggestions, and wellness insights — all without overwhelming the user. The inclusion of a "Wellness Circle" introduces a community-driven model where users can challenge, support, and grow with one another. Moreover, while full wearable integration is on the roadmap, Wellnest ensures that users can gain value even without external devices, making it both inclusive and scalable.\
 In essence, Wellnest isn't just another health tracker — it is a smart, supportive companion that promotes sustainable lifestyle change through personalization, empathy, and social accountability. These differentiators position Wellnest uniquely in a crowded market and make it a promising alternative to traditional wellness apps.
 
-# Checklist
+## Checklist
 
-- The team has found a time slot to meet outside of class. **DONE**
-- GitHub Master has been chosen. **DONE**
-- The team has collectively decided on and agreed to use the listed software tools and deployment server. **DONE**
-- The team is ready to use the chosen front-end and back-end frameworks, and those who need to learn are actively working on it. **DONE**
-- The Team Lead has ensured that all members have read and understand the final M1 before submission. **DONE**
-- GitHub is organized as discussed in class (e.g., master branch, development branch, folder for milestone documents, etc.). **DONE**
+* The team has found a time slot to meet outside of class. **DONE**
+* GitHub Master has been chosen. **DONE**
+* The team has collectively decided on and agreed to use the listed software tools and deployment server. **DONE**
+* The team is ready to use the chosen front-end and back-end frameworks, and those who need to learn are actively working on it. **DONE**
+* The Team Lead has ensured that all members have read and understand the final M1 before submission. **DONE**
+* GitHub is organized as discussed in class (e.g., master branch, development branch, folder for milestone documents, etc.). **DONE**
 
-# Technology Specifications
+## Technology Specifications
 
-- **Server:** AWS EC2 (t2.micro free tier)
-- **Operating System:** Ubuntu 24.04
-- **Database:** MySQL 8.0.42
-- **App/WSGI server:** Gunicorn 23
-- **HTTP server:** Nginx 1.24
-- **Backend Language:** Python 3.12.3
-- **Frontend Language:** HTML/CSS/JavaScript
-- Additional Tech:
-- **Frontend Framework:** Vanilla html, javascript, css
-- **Backend Framework:** Django 5.2.3
-- **IDE:** Visual Studio Code, MySQL Workbench
-- **SSL Cert**: Lets Encrypt (Cert Bot)
-- **Docker:** Docker  28.2.2
+* **Server:** AWS EC2 (t2.micro free tier)
+* **Operating System:** Ubuntu 24.04
+* **Database:** MySQL 8.0.42
+* **App/WSGI server:** Gunicorn 23
+* **HTTP server:** Nginx 1.24
+* **Backend Language:** Python 3.12.3
+* **Frontend Language:** HTML/CSS/JavaScript
+* Additional Tech:
+* **Frontend Framework:** Vanilla html, javascript, css
+* **Backend Framework:** Django 5.2.3
+* **IDE:** Visual Studio Code, MySQL Workbench
+* **SSL Cert**: Lets Encrypt (Cert Bot)
+* **Docker:** Docker 28.2.2
