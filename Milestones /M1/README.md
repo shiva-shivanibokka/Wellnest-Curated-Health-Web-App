@@ -407,6 +407,7 @@ With the above table, it becomes evident that while most competing health apps o
 <mark style="color:blue;">Jacob Cordano (Technical Writer)</mark>
 
 * Worked on AWS Cloud Server
+* Configured ssh key
 * Installed the MySQL Database
 * Worked on website HTML and GitHub
 * Worked on Functional Requirements
