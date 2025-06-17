@@ -15,7 +15,7 @@ coverY: 0
 
 **Team Lead and Scrum Master:** Hamed Emari - [hemari@sfsu.edu](mailto:hemari@sfsu.edu)
 
-**Frontend Lead:** Jacob Vuong - [jvuong@sfsu.edu](https://outlook.office365.com/mail/inbox/id/AAQkAGM5YmE0ZjFmLWU0NGMtNDYxNS1hYTVjLTg4N2UzNzZlOThlMwAQAF4%2F48nXTrtLuBFXONl%2FRYs%3D)
+**Frontend Lead:** Jacob Vuong&#x20;
 
 **Backend lead:** Shivani Bokka
 
@@ -33,7 +33,7 @@ coverY: 0
 
 ## <mark style="color:blue;">Table of Contents:</mark>
 
-<table><thead><tr><th width="638">Content</th><th>Page</th></tr></thead><tbody><tr><td>Executive Summary</td><td><a href="./#executive-summary">1</a></td></tr><tr><td>Use Cases</td><td>2</td></tr><tr><td>         Actors</td><td></td></tr><tr><td>         Cases</td><td></td></tr><tr><td>Main Data Items and Entities</td><td></td></tr><tr><td>Functional Requirements</td><td></td></tr><tr><td>None-functional Requirements</td><td></td></tr><tr><td>Competitive Analysis</td><td></td></tr><tr><td>Technology Specifications</td><td></td></tr><tr><td>Checklist</td><td></td></tr><tr><td>List of Team Contributions</td><td></td></tr></tbody></table>
+<table><thead><tr><th width="638">Content</th></tr></thead><tbody><tr><td><a href="./#executive-summary">Executive Summary</a></td></tr><tr><td><a href="./#use-cases">Use Cases</a></td></tr><tr><td>         <a href="./#actors">Actors</a></td></tr><tr><td>         <a href="./#use-cases-1">Cases</a></td></tr><tr><td><a href="./#main-data-items-and-entities">Main Data Items and Entities</a></td></tr><tr><td><a href="./#non-functional-requirements">Functional Requirements</a></td></tr><tr><td><a href="./#non-functional-requirements">Non-functional Requirements</a></td></tr><tr><td><a href="./#competitive-analysis">Competitive Analysis</a></td></tr><tr><td><a href="./#technology-specifications">Technology Specifications</a></td></tr><tr><td><a href="./#checklist">Checklist</a></td></tr><tr><td>List of Team Contributions</td></tr></tbody></table>
 
 ## <mark style="color:blue;">Executive Summary</mark>
 
