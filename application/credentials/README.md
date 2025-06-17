@@ -38,7 +38,7 @@ Save the `.pem` file (e.g., `CodingGators.pem`) in a secure and easily accessibl
 2.  Use the following SSH command:
 
     ```bash
-    ssh -i /path/to/your/CodingGators.pem ubuntu@3.147.96.129
+    ssh -i /path/to/your/CodingGators.pem ec2-3-147-96-129.us-east-2.compute.amazonaws.com
     ```
 
     * Replace `/path/to/your/CodingGators.pem` with the full path to your `.pem` file (e.g., `~/.ssh/CodingGators.pem`).
