@@ -66,7 +66,7 @@ project. It is crucial to ensure that the URL is always functional and accessibl
 
    |      Team Alias       |     Name of the Project     |     URL of the Project      | Decision-Making Policy (Consensus or Majority Rule) |
    |:---------------------:|:---------------------------:|:---------------------------:|:---------------------------------------------------:|
-   |            Coding Gators           |            <br> WELLNEST             |            <br> [WellNest.com](ec2-3-147-96-129.us-east-2.compute.amazonaws.com)            |           <br>  Majority Rule                                   |
+   |            Coding Gators           |            <br> WELLNEST             |            <br> [WellNest.com](http://ec2-3-147-96-129.us-east-2.compute.amazonaws.com)            |           <br>  Majority Rule                                   |
 
 
 **Important:** Remember to complete the copyright section at the bottom.
