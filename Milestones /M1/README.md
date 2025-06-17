@@ -402,7 +402,8 @@ With the above table, it becomes evident that while most competing health apps o
 * Worked on Functional Requirements
 * Worked on the List of Main Data
 * Worked on List Non-functional Requirements
-* Worked on the website HTML and GitHub
+* Worked on the website HTML&#x20;
+* GitHub, and Gitbook editor
 
 <mark style="color:blue;">Jacob Cordano (Technical Writer)</mark>
 
