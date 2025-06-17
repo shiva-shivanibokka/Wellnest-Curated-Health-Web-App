@@ -66,7 +66,7 @@ project. It is crucial to ensure that the URL is always functional and accessibl
 
    |      Team Alias       |     Name of the Project     |     URL of the Project      | Decision-Making Policy (Consensus or Majority Rule) |
    |:---------------------:|:---------------------------:|:---------------------------:|:---------------------------------------------------:|
-   |                       |            <br>             |            <br>             |           <br>                                      |
+   |            Coding Gators           |            <br> WELLNEST             |            <br>             |           <br>  Majority Rule                                   |
 
 
 **Important:** Remember to complete the copyright section at the bottom.
