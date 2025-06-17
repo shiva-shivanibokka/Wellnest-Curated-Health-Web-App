@@ -433,6 +433,7 @@ With the above table, it becomes evident that while most competing health apps o
 <mark style="color:blue;">Diego Antunez</mark> <mark style="color:blue;">(Software Architect)</mark>
 
 * Worked on Competitive Analysis
+* Worked on Use Cases and Actors
 * Worked on website HTML
 
 <mark style="color:blue;">Kevin Hu (Database Lead)</mark>
