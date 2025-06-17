@@ -33,7 +33,7 @@ coverY: 0
 
 ## <mark style="color:blue;">Table of Contents:</mark>
 
-<table><thead><tr><th width="638">Content</th></tr></thead><tbody><tr><td><a href="./#executive-summary">Executive Summary</a></td></tr><tr><td><a href="./#use-cases">Use Cases</a></td></tr><tr><td>         <a href="./#actors">Actors</a></td></tr><tr><td>         <a href="./#use-cases-1">Cases</a></td></tr><tr><td><a href="./#main-data-items-and-entities">Main Data Items and Entities</a></td></tr><tr><td><a href="./#non-functional-requirements">Functional Requirements</a></td></tr><tr><td><a href="./#non-functional-requirements">Non-functional Requirements</a></td></tr><tr><td><a href="./#competitive-analysis">Competitive Analysis</a></td></tr><tr><td><a href="./#technology-specifications">Technology Specifications</a></td></tr><tr><td><a href="./#checklist">Checklist</a></td></tr><tr><td>List of Team Contributions</td></tr></tbody></table>
+<table><thead><tr><th width="638">Content</th></tr></thead><tbody><tr><td><a href="./#executive-summary">Executive Summary</a></td></tr><tr><td><a href="./#use-cases">Use Cases</a></td></tr><tr><td>         <a href="./#actors">Actors</a></td></tr><tr><td>         <a href="./#use-cases-1">Cases</a></td></tr><tr><td><a href="./#main-data-items-and-entities">Main Data Items and Entities</a></td></tr><tr><td><a href="./#non-functional-requirements">Functional Requirements</a></td></tr><tr><td><a href="./#non-functional-requirements">Non-functional Requirements</a></td></tr><tr><td><a href="./#competitive-analysis">Competitive Analysis</a></td></tr><tr><td><a href="./#technology-specifications">Technology Specifications</a></td></tr><tr><td><a href="./#checklist">Checklist</a></td></tr><tr><td><a href="./#list-of-team-contributions">List of Team Contributions</a></td></tr></tbody></table>
 
 ## <mark style="color:blue;">Executive Summary</mark>
 
@@ -394,3 +394,45 @@ With the above table, it becomes evident that while most competing health apps o
 * **IDE:** Visual Studio Code, MySQL Workbench
 * **SSL Cert**: Lets Encrypt (Cert Bot)
 * **Docker:** Docker 28.2.2
+
+## <mark style="color:blue;">List of Team Contributions</mark>
+
+<mark style="color:blue;">Hame Emari (Team Lead, Scrum Master)</mark>
+
+* Worked on Functional Requirements
+* Worked on the List of Main Data
+* Worked on List Non-functional Requirements
+* Worked on the website HTML and GitHub
+
+<mark style="color:blue;">Jacob Cordano (Technical Writer)</mark>
+
+* Worked on AWS Cloud Server
+* Installed the MySQL Database
+* Worked on website HTML and GitHub
+* Worked on Functional Requirements
+* Worked on High-level System Architecture and tech
+
+<mark style="color:blue;">Jacob Vuong (Front-end Lead)</mark>
+
+* Worked on AWS Cloud Server
+* Worked as the Front-end webmaster
+* Worked on Functional Requirements
+* Worked on High-level System Architecture and tech
+
+<mark style="color:blue;">Shivani Bokka (Back-end Lead)</mark>
+
+* Worked on the Executive Summary
+* Worked on Use Cases
+* Worked on Actors
+* Worked on Competitive Analysis
+* Worked on website HTML
+
+<mark style="color:blue;">Diego Antunez</mark> <mark style="color:blue;">(Software Architect)</mark>
+
+* Worked on Competitive Analysis
+* Worked on website HTML
+
+<mark style="color:blue;">Kevin Hu (Database Lead)</mark>
+
+* Worked on Functional Requirements
+* Worked on website HTML
