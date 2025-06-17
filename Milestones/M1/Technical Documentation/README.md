@@ -15,7 +15,7 @@ coverY: 0
 
 **Team Lead and Scrum Master:** Hamed Emari - [hemari@sfsu.edu](mailto:hemari@sfsu.edu)
 
-**Frontend Lead:** Jacob Vuong - [jvuong@sfsu.edu](https://outlook.office365.com/mail/inbox/id/AAQkAGM5YmE0ZjFmLWU0NGMtNDYxNS1hYTVjLTg4N2UzNzZlOThlMwAQAF4%2F48nXTrtLuBFXONl%2FRYs%3D)
+**Frontend Lead:** Jacob Vuong&#x20;
 
 **Backend lead:** Shivani Bokka
 
@@ -33,21 +33,21 @@ coverY: 0
 
 ## <mark style="color:blue;">Table of Contents:</mark>
 
-<table><thead><tr><th width="638">Content</th><th>Page</th></tr></thead><tbody><tr><td>Executive Summary</td><td></td></tr><tr><td>Use Cases</td><td></td></tr><tr><td>         Actors</td><td></td></tr><tr><td>         Cases</td><td></td></tr><tr><td>Main Data Items and Entities</td><td></td></tr><tr><td>Functional Requirements</td><td></td></tr><tr><td>None-functional Requirements</td><td></td></tr><tr><td>Competitive Analysis</td><td></td></tr><tr><td>Technology Specifications</td><td></td></tr><tr><td>Checklist</td><td></td></tr><tr><td>List of Team Contributions</td><td></td></tr></tbody></table>
+<table><thead><tr><th width="638">Content</th></tr></thead><tbody><tr><td><a href="./#executive-summary">Executive Summary</a></td></tr><tr><td><a href="./#use-cases">Use Cases</a></td></tr><tr><td>         <a href="./#actors">Actors</a></td></tr><tr><td>         <a href="./#use-cases-1">Cases</a></td></tr><tr><td><a href="./#main-data-items-and-entities">Main Data Items and Entities</a></td></tr><tr><td><a href="./#non-functional-requirements">Functional Requirements</a></td></tr><tr><td><a href="./#non-functional-requirements">Non-functional Requirements</a></td></tr><tr><td><a href="./#competitive-analysis">Competitive Analysis</a></td></tr><tr><td><a href="./#technology-specifications">Technology Specifications</a></td></tr><tr><td><a href="./#checklist">Checklist</a></td></tr><tr><td><a href="./#list-of-team-contributions">List of Team Contributions</a></td></tr></tbody></table>
 
 ## <mark style="color:blue;">Executive Summary</mark>
 
-In a world where physical and mental well-being are increasingly compromised by sedentary lifestyles, inconsistent routines, and digital overwhelm, there is a growing need for wellness solutions that are both practical and empowering. As a team of software engineering students, we are building Wellnest — a holistic and socially driven mobile application that helps users cultivate healthier habits, set and achieve personal wellness goals, and live more balanced lives.
+In today's society, where sedentary lifestyles and inconsistent routines increasingly compromise every individual’s physical and mental health, there’s a need for a solution to combat this. This is where our product would come into play: Wellnest, a socially driven mobile application that assists users in monitoring healthy habits and setting and achieving personal wellness goals, resulting in a more balanced life.
 
-Wellnest offers a complete ecosystem for health habit tracking. Unlike apps that focus on narrow metrics like steps or calories, Wellnest allows users to log and manage a wide range of wellness indicators — including food and water intake, sleep patterns, physical activity, and smoking and drinking habits. The app generates personalized dashboards to help users monitor trends and track their progress over time.
+Our product, Wellnest, offers a complete hub in which users can track their healthy habits. Unlike other apps in the market that mainly focus on more narrow metrics like steps and calories, Wellnest enables users to log and manage a wide range of their habits. Some examples of the features would be to track food and water intake, weekly sleep patterns, physical activity, and more specific habits like smoking and alcohol intake. The app will essentially take all this data and generate a personalized dashboard catering to the individual user to monitor the trends and track their progress over time.
 
-A key feature of Wellnest is its “Wellness Circle”, which enables users to connect with friends and family for collaborative or competitive health challenges. Whether it's a hydration goal or a daily step count race, this social component transforms health tracking into a shared and motivating experience.
+A key feature that Wellnest offers is its “Wellness Circle”, enabling users to connect with friends and family within a competitive environment to the health challenges. These challenges would consist of hydration goals, daily steps, sleeping habits, etc. This social component will transform health tracking into a more engaging environment shared with other users, creating an incentive to stick to a routine to stay ahead.
 
-In addition to manual tracking, Wellnest leverages AI-powered insights and behavioral nudges to help users stay on track. Smart reminders, adaptive suggestions, and milestone celebrations make the app feel less like a tracker and more like a supportive digital coach. These features are designed to sustain engagement and encourage long-term behavioral change.
+On top of the manual tracking feature available, Wellnest will utilize AI-powered insights and behavioral nudges to remind users to stay on track. Essentially, Wellnest will include smart reminders, adaptive suggestions, and milestone celebrations to make the app feel less like a tracker, but a personal digital trainer. This is designed to maintain engagement and to consistently encourage long-term behavioral change.
 
-Built with scalability and user experience in mind, Wellnest features a modular architecture that supports future expansion — such as integration with wearable devices, mood tracking, and mindfulness modules. The app also prioritizes data privacy, using secure protocols to protect user information while maintaining a sleek, gamified interface for enjoyable daily use.
+With the user’s personal experience in mind, we aim to build this with scalability to support future architecture and expansions of Wellnest. From integration with wearable devices, mood tracking, to mindfulness modules, this would allow us as the developers of the app to understand our users’ experience to decide what features are working and which are not. The app itself also prioritizes data privacy, utilizing secure protocols to ensure the protection of user information not being compromised.
 
-From a technical and social standpoint, our goal is to develop a platform that is not only robust and secure, but also genuinely impactful. We believe that Wellnest fills a critical gap in today’s wellness market: it is an all-in-one habit companion that promotes consistency, self-awareness, and community — key pillars of sustainable lifestyle change. By combining thoughtful design, smart technology, and a deep understanding of user motivation, Wellnest aims to become more than just an app — it aspires to be a wellness movement.
+When taking a look from a technical standpoint, our goal is to develop a platform that is not just robust and secure, but rather impactful to each user. We believe that Wellnest fills a critical gap in today’s market by encompassing the idea of an all-in-one health companion. This promotes consistency, self-awareness, and community, which are essentially the key pillars of an ideal healthy lifestyle to incorporate in a user’s day-to-day. By combining aspects of a thoughtful design, smart technology, and a deep understanding of user motivation, Wellnest aims to become more than just an app lost in your app library, but a companion for self-growth.
 
 ## <mark style="color:blue;">Use Cases</mark>
 
@@ -394,3 +394,49 @@ With the above table, it becomes evident that while most competing health apps o
 * **IDE:** Visual Studio Code, MySQL Workbench
 * **SSL Cert**: Lets Encrypt (Cert Bot)
 * **Docker:** Docker 28.2.2
+
+## <mark style="color:blue;">List of Team Contributions</mark>
+
+<mark style="color:blue;">Hame Emari (Team Lead, Scrum Master)</mark>
+
+* Worked on Functional Requirements
+* Worked on the List of Main Data
+* Worked on List Non-functional Requirements
+* Worked on the website HTML&#x20;
+* GitHub, and Gitbook editor
+
+<mark style="color:blue;">Jacob Cordano (Technical Writer)</mark>
+
+* Worked on AWS Cloud Server
+* Configured ssh key
+* Installed the MySQL Database
+* Worked on website HTML and GitHub
+* Worked on Functional Requirements
+* Worked on High-level System Architecture and tech
+
+<mark style="color:blue;">Jacob Vuong (Front-end Lead)</mark>
+
+* Worked on AWS Cloud Server
+* Worked as the Front-end webmaster
+* Worked on website HTML and GitHub
+* Worked on Functional Requirements
+* Worked on High-level System Architecture and tech
+
+<mark style="color:blue;">Shivani Bokka (Back-end Lead)</mark>
+
+* Worked on the Executive Summary
+* Worked on Use Cases
+* Worked on Actors
+* Worked on Competitive Analysis
+* Worked on website HTML
+
+<mark style="color:blue;">Diego Antunez</mark> <mark style="color:blue;">(Software Architect)</mark>
+
+* Worked on Competitive Analysis
+* Worked on Use Cases and Actors
+* Worked on website HTML
+
+<mark style="color:blue;">Kevin Hu (Database Lead)</mark>
+
+* Worked on Functional Requirements
+* Worked on website HTML
