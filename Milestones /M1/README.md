@@ -416,6 +416,7 @@ With the above table, it becomes evident that while most competing health apps o
 
 * Worked on AWS Cloud Server
 * Worked as the Front-end webmaster
+* Worked on website HTML and GitHub
 * Worked on Functional Requirements
 * Worked on High-level System Architecture and tech
 
