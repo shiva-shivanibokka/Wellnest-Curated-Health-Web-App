@@ -116,7 +116,7 @@ below. Each section of this document should start on a new page within the same 
    
 
 
-3. **Prioritized High-Level Functional Requirements:** 
+4. **Prioritized High-Level Functional Requirements:** 
    - Expand the functional requirements from Milestone 1 into Milestone 2, providing additional details as necessary. 
      Maintain the same reference numbers used in Milestone 1 (e.g., if a requirement was numbered 3 in Milestone 1, 
      then the more detailed requirements of requirement 3 in Milestone 2 should be labeled as 3.1, 3.2, etc.). 
@@ -135,7 +135,7 @@ below. Each section of this document should start on a new page within the same 
       followed by Priority 2, and so on). Within each priority section, group the requirements by entities (e.g., users, admin).
    
 
-4. **Mockups/Storyboards:**
+5. **Mockups/Storyboards:**
 
    **I recommend assigning this task to the frontend team.** 
 
@@ -148,13 +148,13 @@ below. Each section of this document should start on a new page within the same 
    - Ensure mockups in the Milestone 2 document are easy to read.
    
 
-5. **High-Level System Design**
+6. **High-Level System Design**
    
    **I recommend assigning this task to the backend team.**
    
    This section is divided into several subsections as follows:
 
-   5.1 **High Level Database Architecture**
+   6.1 **High Level Database Architecture**
       - **Initial Database Requirements:** Create the first iteration based on P1 functional and non-functional requirements. Refer to lectures for format guidance.
       - **DBMS Selection:** In 1-2 sentences, define the DBMS (or SQL frameworks) you’ll use and justify why they’re best for this project.
       - **Database Organization:** 
@@ -162,7 +162,7 @@ below. Each section of this document should start on a new page within the same 
           2. Create an Entity Relationship Diagram (ERD) using a tool like [draw.io](https://www.drawio.com/), focusing on key database functionalities.
       - **Media Storage:** Decide by the end of M2 whether to store images/video/audio in file systems or DB BLOBs. Describe any special data format needs (e.g., video/audio/GPS).
   
-   5.2 **Backend Architecture**
+   6.2 **Backend Architecture**
       - **Scalability Diagrams:** 
            - Create diagrams using microservices architecture, load balancing and replication components to illustrate the scalability of your system.
            - Focus on solutions for future scalability, beyond what a monolithic architecture can handle. Use [draw.io](https://www.drawio.com/) for diagram creation.
@@ -186,7 +186,7 @@ below. Each section of this document should start on a new page within the same 
      - **Consistency:** 
            - Ensure all data terms and names are consistent with the Data Definition Section.
    
-   5.3 **High Level Application Network Protocols and Deployment Design**
+   6.3 **High Level Application Network Protocols and Deployment Design**
    
       - **Network and Deployment Diagrams:**
            - Create a high-level diagram that combines both application network and deployment components.
@@ -203,13 +203,13 @@ below. Each section of this document should start on a new page within the same 
            - If your application uses external libraries, research their network protocols and deployment architecture, and include them in your diagrams.
   
    
-   5.4 **High Level APIs and Main Algorithms**
+   6.4 **High Level APIs and Main Algorithms**
       - Provide a high-level description of any major APIs you will create, focusing on key features (not basic methods like POST, GET, etc.).
       - Describe any significant non-trivial algorithms or processes (e.g., rating, advanced search, ranking).
       - If you've changed or added any software tools or frameworks, describe them here. Ensure any new tools are approved by the CTO (instructor) in writing by this time.
 
 
-6. **Key Project Risks**
+7. **Key Project Risks**
    - List actual, specific risks in your current work, such as:
       - Skills risks (Do you have the right skills?)
       - Schedule risks (Can you meet deadlines with available resources?)
@@ -220,13 +220,13 @@ below. Each section of this document should start on a new page within the same 
         Categorize risks as above for effective management.
 
 
-7. **Project Management**
+8. **Project Management**
    - In half a page or less, describe how you managed M2 tasks and plan to manage future tasks. Use [Notion](https://www.notion.so/)
      for task management and invite the instructor to your workspace.
 
 
 
-8. **List of Team Contributions:**
+9. **List of Team Contributions:**
     - **Part #1 (Must be completed by team lead Only):**
       - Provide a detailed list of contributions made by each team member for both Checkpoint #1 and Checkpoint #2 of this milestone
       - Assign a contribution score to each member, using a scale from 1 to 10 (1 = no contribution, 10 = maximum contribution). 
