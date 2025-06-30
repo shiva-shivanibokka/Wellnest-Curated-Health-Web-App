@@ -1,0 +1,22 @@
+#wnLogo{
+    height: 60px;
+    margin-left: 10px;
+    margin-top: 5px;
+
+}
+#pfLogo{
+    height: 50px;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+   
+}
+
+#header{
+   
+   background: linear-gradient(90deg, black, green)
+}
+
+body {
+    margin: 0;
+}

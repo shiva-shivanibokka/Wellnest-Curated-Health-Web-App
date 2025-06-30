@@ -116,85 +116,97 @@ below. Each section of this document should start on a new page within the same 
      usability, marketing, and business perspectives. Additionally, base your decisions on your team’s skills,\
      resources, and schedule. The instructor will review and validate the final priorities.\
      Note that the priorities you set later in Milestone 3 and 4 will reflect your commitment, especially for priority 1 items.
-   * For ease of review, please group all requirements by priority first (e.g., list all Priority 1 requirements,\
-     followed by Priority 2, and so on). Within each priority section, group the requirements by entities (e.g., users, admin).
-5.  **Mockups/Storyboards:**
+   - For ease of review, please group all requirements by priority first (e.g., list all Priority 1 requirements, 
+      followed by Priority 2, and so on). Within each priority section, group the requirements by entities (e.g., users, admin).
+   
 
-    **I recommend assigning this task to the frontend team.**
+5. **Mockups/Storyboards:**
 
-    * Create mockups/storyboards for all use cases, limiting to one or two mockups per page for easy readability and feedback.
-    * Start with black-and-white wire diagrams focusing on layout and function descriptions in each main GUI area.
-    * Organize simple storyboards (mockup sequences) by use cases to test navigation and flow, including a brief use case summary with each storyboard.
-    * Mockups should be hand-drawn, avoiding graphics or colors unless necessary to emphasize basic UI concepts. In Milestone 3, these will become wireframes in Figma.
-    * "Test" mockups by walking through them as if they were live, ensuring ease of use and alignment with use cases.
-    * Consistently use data terms and names from the Data Definitions section.
-    * Ensure mockups in the Milestone 2 document are easy to read.
-6.  **High-Level System Design**
+   **I recommend assigning this task to the frontend team.** 
 
-    **I recommend assigning this task to the backend team.**
+   - Create mockups/storyboards for all use cases, limiting to one or two mockups per page for easy readability and feedback.
+   - Start with black-and-white wire diagrams focusing on layout and function descriptions in each main GUI area.
+   - Organize simple storyboards (mockup sequences) by use cases to test navigation and flow, including a brief use case summary with each storyboard.
+   - Mockups should be hand-drawn, avoiding graphics or colors unless necessary to emphasize basic UI concepts. In Milestone 3, these will become wireframes in Figma.
+   - "Test" mockups by walking through them as if they were live, ensuring ease of use and alignment with use cases.
+   - Consistently use data terms and names from the Data Definitions section.
+   - Ensure mockups in the Milestone 2 document are easy to read.
+   
 
-    This section is divided into several subsections as follows:
+6. **High-Level System Design**
+   
+   **I recommend assigning this task to the backend team.**
+   
+   This section is divided into several subsections as follows:
 
-    5.1 **High Level Database Architecture**
+   6.1 **High Level Database Architecture**
+      - **Initial Database Requirements:** Create the first iteration based on P1 functional and non-functional requirements. Refer to lectures for format guidance.
+      - **DBMS Selection:** In 1-2 sentences, define the DBMS (or SQL frameworks) you’ll use and justify why they’re best for this project.
+      - **Database Organization:** 
+          1. Describe entities, attributes, relationships, and domains at a high level, focused on database organization.
+          2. Create an Entity Relationship Diagram (ERD) using a tool like [draw.io](https://www.drawio.com/), focusing on key database functionalities.
+      - **Media Storage:** Decide by the end of M2 whether to store images/video/audio in file systems or DB BLOBs. Describe any special data format needs (e.g., video/audio/GPS).
+  
+   6.2 **Backend Architecture**
+      - **Scalability Diagrams:** 
+           - Create diagrams using microservices architecture, load balancing and replication components to illustrate the scalability of your system.
+           - Focus on solutions for future scalability, beyond what a monolithic architecture can handle. Use [draw.io](https://www.drawio.com/) for diagram creation.
 
-    * **Initial Database Requirements:** Create the first iteration based on P1 functional and non-functional requirements. Refer to lectures for format guidance.
-    * **DBMS Selection:** In 1-2 sentences, define the DBMS (or SQL frameworks) you’ll use and justify why they’re best for this project.
-    * **Database Organization:**
-      1. Describe entities, attributes, relationships, and domains at a high level, focused on database organization.
-      2. Create an Entity Relationship Diagram (ERD) using a tool like [draw.io](https://www.drawio.com/), focusing on key database functionalities.
-    * **Media Storage:** Decide by the end of M2 whether to store images/video/audio in file systems or DB BLOBs. Describe any special data format needs (e.g., video/audio/GPS).
+      - **Architecture Summary:**
+           - Summarize the key components of your system architecture in plain English, including:
+           - Microservices architecture
+           - Load balancers
+           - Caching strategies
+           - Reliability and fault tolerance
+           - Containers
+           - Data replication and consistency
+           - Security considerations
+        
+     - **UML Class Diagrams:**
+           - Create UML Class diagrams to represent your main classes and APIs, showing their interactions.
+           - Incorporate relevant design patterns covered in class that align with your system architecture.
+           - Justify the design patterns used in your UML diagrams, explaining in a short summary, how they benefit your system’s architecture and design.
+           - Be detailed, focusing on the scope and needs of your application.
 
-    5.2 **Backend Architecture**
+     - **Consistency:** 
+           - Ensure all data terms and names are consistent with the Data Definition Section.
+   
+   6.3 **High Level Application Network Protocols and Deployment Design**
+   
+      - **Network and Deployment Diagrams:**
+           - Create a high-level diagram that combines both application network and deployment components.
+  
+      - **Application Networks Diagram:** 
+           - Illustrate the logical and physical networks used by your product from host to end-systems.
+           - Include protocols for each service, network configuration, security measures, gateways, firewalls, and proxies.
 
-    * **Scalability Diagrams:**
-      * Create diagrams using microservices architecture, load balancing and replication components to illustrate the scalability of your system.
-      * Focus on solutions for future scalability, beyond what a monolithic architecture can handle. Use [draw.io](https://www.drawio.com/) for diagram creation.
-    * **Architecture Summary:**
-      * Summarize the key components of your system architecture in plain English, including:
-      * Microservices architecture
-      * Load balancers
-      * Caching strategies
-      * Reliability and fault tolerance
-      * Containers
-      * Data replication and consistency
-      * Security considerations
-    * **UML Class Diagrams:**\
-      \- Create UML Class diagrams to represent your main classes and APIs, showing their interactions.\
-      \- Incorporate relevant design patterns covered in class that align with your system architecture.\
-      \- Justify the design patterns used in your UML diagrams, explaining in a short summary, how they benefit your system’s architecture and design.\
-      \- Be detailed, focusing on the scope and needs of your application.
-    * **Consistency:**\
-      \- Ensure all data terms and names are consistent with the Data Definition Section.
+      - **Deployment Diagram:**
+           - Show the architecture of the system as the deployment (distribution) of software artifacts or modules to deployment targets.
 
-    5.3 **High Level Application Network Protocols and Deployment Design**
+      - **Integration with External Components:**
+           - Base the network and deployment diagram on how your application interacts with internal and external components at runtime.
+           - If your application uses external libraries, research their network protocols and deployment architecture, and include them in your diagrams.
+  
+   
+   6.4 **High Level APIs and Main Algorithms**
+      - Provide a high-level description of any major APIs you will create, focusing on key features (not basic methods like POST, GET, etc.).
+      - Describe any significant non-trivial algorithms or processes (e.g., rating, advanced search, ranking).
+      - If you've changed or added any software tools or frameworks, describe them here. Ensure any new tools are approved by the CTO (instructor) in writing by this time.
 
-    * **Network and Deployment Diagrams:**
-      * Create a high-level diagram that combines both application network and deployment components.
-    * **Application Networks Diagram:**
-      * Illustrate the logical and physical networks used by your product from host to end-systems.
-      * Include protocols for each service, network configuration, security measures, gateways, firewalls, and proxies.
-    * **Deployment Diagram:**
-      * Show the architecture of the system as the deployment (distribution) of software artifacts or modules to deployment targets.
-    * **Integration with External Components:**
-      * Base the network and deployment diagram on how your application interacts with internal and external components at runtime.
-      * If your application uses external libraries, research their network protocols and deployment architecture, and include them in your diagrams.
 
-    5.4 **High Level APIs and Main Algorithms**
-
-    * Provide a high-level description of any major APIs you will create, focusing on key features (not basic methods like POST, GET, etc.).
-    * Describe any significant non-trivial algorithms or processes (e.g., rating, advanced search, ranking).
-    * If you've changed or added any software tools or frameworks, describe them here. Ensure any new tools are approved by the CTO (instructor) in writing by this time.
 7. **Key Project Risks**
-   * List actual, specific risks in your current work, such as:
-     * Skills risks (Do you have the right skills?)
-     * Schedule risks (Can you meet deadlines with available resources?)
-     * Technical risks (Any technical unknowns?)
-     * Teamwork risks (Any team-related issues?)
-     * Legal/content risks (Can you legally obtain the content/software you need?)
-     * Briefly explain how you will address each risk (2-3 lines each). Focus on resolving risks quickly.\
-       Categorize risks as above for effective management.
+   - List actual, specific risks in your current work, such as:
+      - Skills risks (Do you have the right skills?)
+      - Schedule risks (Can you meet deadlines with available resources?)
+      - Technical risks (Any technical unknowns?)
+      - Teamwork risks (Any team-related issues?)
+      - Legal/content risks (Can you legally obtain the content/software you need?)
+      - Briefly explain how you will address each risk (2-3 lines each). Focus on resolving risks quickly. 
+        Categorize risks as above for effective management.
+
+
 8. **Project Management**
-   * In half a page or less, describe how you managed M2 tasks and plan to manage future tasks. Use [Notion](https://www.notion.so/)\
+   - In half a page or less, describe how you managed M2 tasks and plan to manage future tasks. Use [Notion](https://www.notion.so/)
      for task management and invite the instructor to your workspace.
 9. **List of Team Contributions:**
    * **Part #1 (Must be completed by team lead Only):**

@@ -1,0 +1,23 @@
+
+#circles-container{
+    display: flex;
+    justify-content: center;
+
+}
+.circles{
+    height: 200px;
+    width: 300px;
+    margin: 20px;
+    border: 1px solid;
+    border-radius: 15px;
+    
+}
+
+.fList{
+    height: 110px;
+    overflow-y: auto; /*scrollability*/
+}
+
+.circles h3{
+    margin-left: 20px;
+}
