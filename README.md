@@ -41,7 +41,7 @@ The following step should be performed by every student in the team, including t
    |    #4    |        Shivani Bokka              |           sbokka@sfsu.edu            |          shivani-shivanibokka            |            shivanibokka_76817           |       Bank-end Lead    |             Yes              |
    |    #5    |        Kevin Hu              |        zhu6@sfsu.edu               |          kevinhu03             |           kevinhu03             |   Github master/ Database Lead        |             Yes              |
    |    #6    |      Diego Antunez                |        dantunez1@sfsu.edu               |          diegoantunez03            |    101blue                   |        Software Architect   |             Yes              |
-   |    #7    |                      |                       |                      |                       |           |             No              |
+   
 
    - A role, in this course, indicates the main responsibility each student will handle, but **EVERY STUDENT** must 
      contribute to **ALL** aspects of the project and documentation for this course.
