@@ -4,26 +4,28 @@ html, body {
     box-sizing: border-box;
 }
 
-#header {
-    width: 100%;
-    box-sizing: border-box;
-}
+
 
 #header {
     display: flex;
     align-items: center;
-    padding: 20px 60px;
+    justify-content: space-between;
+    padding: 20px 30px;
     background: linear-gradient(90deg, black, green);
-    gap: 90px; 
-    width: flex;
 }
 
+#header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
 #wnLogo {
-    height: 60px;
+    height: 90px;
     margin-left: 10px;
     margin-top: 5px;
 }
-
 .header-button {
     padding: 10px 20px;
     background-color: #4CAF50;
@@ -39,14 +41,14 @@ html, body {
 }
 
 .header-button:hover {
-    background-color: #388E3C;
+    background-color: darkgreen;
 }
 
 #searchBar {
     display: flex;
     align-items: center;
     /* Remove margins that push it */
-    margin-left: 60px;
+    margin-left: 300px;
     margin-right: 5px;
     flex-grow: 1; /* make search bar take available space */
     max-width: 400px; /* optional max width */
@@ -73,10 +75,11 @@ html, body {
 #searchButton img {
     width: 16px;
     height: 16px;
+    
 }
 
 #pfLogo {
-    height: 80px;
+    height: 70px;
     /* Remove absolute positioning */
     margin-left: 5px;
     cursor: pointer;

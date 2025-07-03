@@ -3,38 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
+    <title>Diego's Page</title>
+    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="home.css">
+
     <style>
-	body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-	header {
-            font-size: 2em;
-            margin-top: 20px;
-        }
-	img {
+        img {
             max-width: 300px;
             border-radius: 10px;
             margin-bottom: 20px;
         }
-	p {
+        p {
             max-width: 600px;
             text-align: center;
             font-size: 1.2em;
+            margin: 0 auto;
         }
     </style>
+    <div id="header">
+        <a href="home.html">
+            <img id="wnLogo" src="img/wn.png" alt="WN logo">
+        </a>
+
+        <div id="searchBar">
+            <input type="text" placeholder="Search..." id="searchInput">
+            <!--  <button id="searchButton">
+            <img src="img/search.png" alt="Search">
+        </button>-->
+        </div>
+        <div id="header-right">
+            <a href="about.html" class="header-button">About</a>
+            <a href="social.html" class="header-button">Socials</a>
+            <a href="review.html" class="header-button">Review</a>
+            <a href="pfpage.html">
+                <img id="pfLogo" src="img/pf.png" alt="pfp-icon" />
+            </a>
+        </div>
+    </div>
 </head>
 <body>
-    <header>Hamed Emari</header>
-    <img src="profilepics/hamed.jpeg" alt="Hamed Emari's Photo">
+    <header style="text-align: center;">About Hamed Emari</header>
+    <img style="display: block; margin: 0 auto;" src="/csc648-848-01-su25-T03/application/WellNest/Front-end/img/hamed.jpeg" alt="Hamed Emari's Photo">
     <p>
-       Hamed Emari is a CS student at San Francisco State, and in this project, is the Scrum Master. He enjoys practicing Kendo and video game development.
-    </p>
+        Hamed Emari is a CS student at San Francisco State, and in this project, is the Scrum Master. He enjoys practicing Kendo and video game development.    </p>
 </body>
 </html>
