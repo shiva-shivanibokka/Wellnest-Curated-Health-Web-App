@@ -6,50 +6,60 @@
     <title>Home Page</title>
     <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="home.css">
-
-    <!--Header should prob be in all pages-->
-    <div id="header">
-
-        <img id="wnLogo" src="img/wn.png" alt="WN logo">
-        <img id="pfLogo" src="img/pf.png" alt="pfp-icon">
-        <nav>
-            
-        </nav>
-    </div>
-
 </head>
 
-
 <body>
-    <!--nBody will be our new body, legacy code lol. The purpose is to not have margins in the actual body of website-->
+    <!-- Header placed inside body where it belongs -->
+    <div id="header">
+    <a href="home.html">
+        <img id="wnLogo" src="img/wn.png" alt="WN logo">
+    </a>
+
+    <a href="social.html" class="header-button">Socials</a>
+
+    <div id="searchBar">
+        <input type="text" placeholder="Search..." id="searchInput">
+        <button id="searchButton">
+            <img src="img/search.png" alt="Search">
+        </button>
+    </div>
+
+    <a href="pfpage.html">
+        <img id="pfLogo" src="img/pf.png" alt="pfp-icon">
+    </a>
+</div>
+
+
+    <nav>
+        <!-- Nav links here if needed -->
+    </nav>
+</div>
+
+
+
     <div id="nBody">
+        <!--Hello container: Date Calendar Quote-->
+        <div id="hello">
+            <h1 style="margin-bottom: 4px;">Today</h1>
+            June 25, 2025
 
-    <!--Hello container: Date Calendar Quote-->
-    <div id="hello">
-        <h1 style="margin-bottom: 4px;">Today</h1>
-        June 25, 2025
+            <h3>Calendar</h3>
+            <div class="calendar">
+                <div class="day" id="1">S</div>
+                <div class="day" id="2">M</div>
+                <div class="day" id="3">T</div>
+                <div class="day" id="4">W</div>
+                <div class="day" id="5">Th</div>
+                <div class="day" id="6">F</div>
+                <div class="day" id="7">S</div>
+            </div>
+        </div>
 
-        <h3>Calendar</h3>
-        <div class="calendar">
-            <div class="day" #id="1">S</div>
-            <div class="day" #id="2">M</div>
-            <div class="day" #id="3">T</div>
-            <div class="day" #id="4">W</div>
-            <div class="day" #id="5">Th</div>
-            <div class="day" #id="6">F</div>
-            <div class="day" #id="7">S</div>
+        <div>
+            <h2>To Do</h2>
+            <h2>Done</h2>
+            <h2>In Progress</h2>
         </div>
     </div>
-
-    <div>
-        <h2>To Do</h2>
-        <h2>Done</h2>
-        <h2>In Progress</h2>
-    </div>
-
-
-    </div>
- 
-    
 </body>
 </html>
