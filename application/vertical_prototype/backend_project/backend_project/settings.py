@@ -15,7 +15,7 @@ SECRET_KEY = "django-insecure-ro!^hfp_2*x_dshsku%!q3!)3wj9e0i&+_^enrj685p_x*pm02
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]  # You can restrict this later
 
 # Application definition
 INSTALLED_APPS = [
@@ -62,12 +62,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "backend_project.wsgi.application"
 
-# Database
-# Default: SQLite (change later to MySQL for AWS)
+# ✅ Updated Database Configuration for AWS MySQL
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "CodingGators",
+        "USER": "cgMysql",
+        "PASSWORD": "cgMysql!25",
+        "HOST": "3.147.96.129",
+        "PORT": "3306",
+        "OPTIONS": {
+            "init_command": "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
@@ -109,3 +115,5 @@ REST_FRAMEWORK = {
         "rest_framework.parsers.JSONParser",
     ]
 }
+
+
