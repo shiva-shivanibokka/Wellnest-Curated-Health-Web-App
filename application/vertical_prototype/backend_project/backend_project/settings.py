@@ -69,7 +69,7 @@ WSGI_APPLICATION = "backend_project.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "CodingGators",
+        "NAME": "Test",
         "USER": "cgMysql",
         "PASSWORD": "cgMysql!25",
         "HOST": "3.147.96.129",
