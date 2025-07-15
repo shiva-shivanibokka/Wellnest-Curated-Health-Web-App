@@ -19,10 +19,10 @@
         </div>
 
         <div id="header-right">
-            <a href="about.html" class="header-button">About</a>
-            <a href="social.html" class="header-button">Socials</a>
-            <a href="review.html" class="header-button">Review</a>
-            <a href="pfpage.html">
+            <a href="{% url 'about' %}" class="header-button">About</a>
+            <a href="{% url 'socials' %}" class="header-button">Socials</a>
+            <a href="{% url 'review' %}" class="header-button">Review</a>
+            <a href="{% url 'signup' %}">
                 <img id="pfLogo" src="{% static 'img/pf.png' %}" alt="pfp-icon" />
             </a>
         </div>
