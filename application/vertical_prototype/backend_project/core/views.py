@@ -15,3 +15,18 @@ class UserListView(generics.ListAPIView):
 
 def index(request):
     return render(request, 'home.html')
+
+def signup(request):
+    return render(request, 'signup.html')
+
+def login(request):
+    return render(request, 'login.html')
+
+def about(request):
+    return render(request, 'about.html')
+
+def socials(request):
+    return render(request, 'socials.html')
+
+def review(request):
+    return render(request, 'review.html')
