@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
+
 <body>
     <div id="header">
         <a href="{% url 'home' %}">
@@ -15,8 +17,8 @@
         </a>
 
         <div id="searchBar">
-            <input type="text" placeholder="Search..." id="searchInput" >
-
+            <input type="text" placeholder="Search..." id="searchInput">
+            <button id="searchButton">Search</button>
         </div>
 
         <div id="header-right">
@@ -55,8 +57,70 @@
             <h2>Done</h2>
             <h2>In Progress</h2>
         </div>
+        <div class="userProfile">
+            <span class="username">kevinhu03</span>
+            <span class="firstName">Kevin</span>
+            <span class="lastName">Hu</span>
+        </div>
     </div>
-</body>
 
+    <script>
+        document.getElementById('searchButton').addEventListener('click', async function (e) {
+            e.preventDefault();
+
+            const searchInput = document.getElementById('searchInput').value;
+
+            try {
+                const response = await fetch('/api/users/search/?search=' + searchInput, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const result = await response.json();
+
+                document.querySelector('#nBody').innerHTML = '';
+
+                profiles = '';
+                result.forEach(user => {
+                    profiles += `        <div class="userProfile">
+            <span class="username">${user.username}</span>
+            <span class="firstName">${user.first_name}</span>
+            <span class="lastName">${user.last_name}</span>
+        </div>`
+                })
+
+                document.querySelector('#nBody').innerHTML = profiles;
+
+
+                // if (response.ok) {
+                //     window.location.href = '/';
+                // } else {
+                //     messageDiv.style.display = 'block';
+                //     messageDiv.style.color = 'red';
+
+                //     if (result.username) {
+                //         messageDiv.textContent = `Username error: ${result.username[0]}`;
+                //     } else if (result.email) {
+                //         messageDiv.textContent = `Email error: ${result.email[0]}`;
+                //     } else if (result.password) {
+                //         messageDiv.textContent = `Password error: ${result.password[0]}`;
+                //     } else {
+                //         messageDiv.textContent = 'Error creating account. Please try again.';
+                //     }
+                // }
+            } catch (error) {
+                messageDiv.style.display = 'block';
+                messageDiv.style.color = 'red';
+                messageDiv.textContent = 'Network error. Please try again.';
+                console.error('Error:', error);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Sign Up';
+            }
+        });
+    </script>
+</body>
 
 </html>
