@@ -8,7 +8,8 @@ urlpatterns = [
     # API Routes
     path('api/users/', views.UserListView.as_view(), name='user-list'),
     path('api/users/create/', views.UserCreateView.as_view(), name='user-create'),
-
+    path('api/users/search/', views.UserSearchView.as_view(), name='user-search'),
+    
     # Page Routes
     path('', views.index, name='home'),
     path('signup', views.signup, name='signup'),
