@@ -14,6 +14,11 @@ and input the following in your .gitignor:
 
 save the gitignore, this will keep the python enviornment from getting pushed to our online repo,
 
+
+then go to:
+
+     ~/projects/csc648-848-01-su25-T03/application/vertical_prototype/backend_project$
+
 assuming you already have installed python run the following command:
     
     python3 -m venv venv
