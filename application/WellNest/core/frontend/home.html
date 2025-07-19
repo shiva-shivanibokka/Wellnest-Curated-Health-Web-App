@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+
+<body>
+    <div id="header">
+        <a href="{% url 'home' %}">
+            <img id="wnLogo" src="{% static 'img/wn.png' %}" alt="WN logo">
+        </a>
+
+        <div id="searchBar">
+            <input type="text" placeholder="Search..." id="searchInput">
+            <button id="searchButton">Search</button>
+        </div>
+
+        <div id="header-right">
+            <a href="{% url 'about' %}" class="header-button">About</a>
+            <a href="{% url 'socials' %}" class="header-button">Socials</a>
+            <a href="{% url 'review' %}" class="header-button">Review</a>
+            <a href="{% url 'signup' %}">
+                <img id="pfLogo" src="{% static 'img/pf.png' %}" alt="pfp-icon" />
+            </a>
+        </div>
+    </div>
+
+    <div id="nBody">
+        <!--Hello container: Date Calendar Quote-->
+        <div id="hello">
+            <h1 style="margin-bottom: 4px;">Today</h1>
+            June 25, 2025
+
+            <h3>Calendar</h3>
+            <div class="calendar">
+                <div class="day" id="1">S</div>
+                <div class="day" id="2">M</div>
+                <div class="day" id="3">T</div>
+                <div class="day" id="4">W</div>
+                <div class="day" id="5">Th</div>
+                <div class="day" id="6">F</div>
+                <div class="day" id="7">S</div>
+            </div>
+        </div>
+
+           
+
+
+        <div>
+            <h2>To Do</h2>
+            <h2>Done</h2>
+            <h2>In Progress</h2>
+        </div>
+        <div class="userProfile">
+            <span class="username">kevinhu03</span>
+            <span class="firstName">Kevin</span>
+            <span class="lastName">Hu</span>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('searchButton').addEventListener('click', async function (e) {
+            e.preventDefault();
+
+            const searchInput = document.getElementById('searchInput').value;
+
+            try {
+                const response = await fetch('/api/users/search/?search=' + searchInput, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const result = await response.json();
+
+                document.querySelector('#nBody').innerHTML = '';
+
+                profiles = '';
+                result.forEach(user => {
+                    profiles += `        <div class="userProfile">
+            <span class="username">${user.username}</span>
+            <span class="firstName">${user.first_name}</span>
+            <span class="lastName">${user.last_name}</span>
+        </div>`
+                })
+
+                document.querySelector('#nBody').innerHTML = profiles;
+
+
+                // if (response.ok) {
+                //     window.location.href = '/';
+                // } else {
+                //     messageDiv.style.display = 'block';
+                //     messageDiv.style.color = 'red';
+
+                //     if (result.username) {
+                //         messageDiv.textContent = `Username error: ${result.username[0]}`;
+                //     } else if (result.email) {
+                //         messageDiv.textContent = `Email error: ${result.email[0]}`;
+                //     } else if (result.password) {
+                //         messageDiv.textContent = `Password error: ${result.password[0]}`;
+                //     } else {
+                //         messageDiv.textContent = 'Error creating account. Please try again.';
+                //     }
+                // }
+            } catch (error) {
+                messageDiv.style.display = 'block';
+                messageDiv.style.color = 'red';
+                messageDiv.textContent = 'Network error. Please try again.';
+                console.error('Error:', error);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Sign Up';
+            }
+        });
+    </script>
+</body>
+
+</html>

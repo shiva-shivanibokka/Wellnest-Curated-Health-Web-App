@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social</title>
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/socials.css' %}">
+</head>
+
+<body>
+
+   
+    <div id="header">
+        <a href="{% url 'home' %}">
+            <img id="wnLogo" src="{% static 'img/wn.png' %}" alt="WN logo">
+        </a>
+
+        <div id="searchBar">
+            <input type="text" placeholder="Search..." id="searchInput">
+        </div>
+
+        <div id="header-right">
+            <a href="{% url 'about' %}" class="header-button">About</a>
+            <a href="{% url 'socials' %}" class="header-button">Socials</a>
+            <a href="{% url 'review' %}" class="header-button">Review</a>
+            <a href="{% url 'signup' %}">
+                <img id="pfLogo" src="{% static 'img/pf.png' %}" alt="pfp-icon" />
+            </a>
+        </div>
+    </div>
+
+<!--Family and Friends -->
+<div id="circles-container">
+<div class="circles" id="family">
+    <h3>Family</h3>
+    <div class="fList">
+        <ul>
+            <li>Member 1</li>
+            <li>Member 2</li>
+            
+        </ul>
+    </div>
+</div>
+
+<div class="circles" id="friends">
+    <h3>Friends</h3>
+    <div class="fList">
+        <ul>
+            <li>Member 1</li>
+            <li>Member 2</li>
+            
+        </ul>
+    </div>
+</div>
+</div>
+
+<p id="searchResults" style="white-space: pre-wrap; margin-top: 10px; color: #333;"></p>
+
+<script>
+    document.getElementById('searchInput').addEventListener('input', function () {
+        const query = this.value;
+
+        if (query.length === 0) {
+            document.getElementById('searchResults').textContent = '';
+            return;
+        }
+
+        fetch(`/api/users/search/?search=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                const resultElement = document.getElementById('searchResults');
+
+                if (data.length === 0) {
+                    resultElement.textContent = 'No matching users found.';
+                } else {
+                    resultElement.textContent = JSON.stringify(data, null, 2);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching search results:', error);
+            });
+    });
+</script>
+
+</body>
+</html>
