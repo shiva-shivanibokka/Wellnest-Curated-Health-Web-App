@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/calendar.css">
+
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <nav id="sidebar">
+        <img id="sidebarLogo" src="img/WellNest.png" alt="">
+        <button id="toggleSideBar">☰</button>
+        <div id="pages">
+            <ul>About</ul>
+            <ul>Profile</ul>
+            <ul>Settings</ul>
+            <ul>Settings</ul>
+            <ul>Settings</ul>
+            <ul>Settings</ul>
+            <ul>Settings</ul>
+            <ul>Settings</ul>
+        </div>
+    </nav>
+    <div id="calendarPage">
+        <div id="header">
+            <div id="date">
+                <span>Today</span>
+                <span>July 20th</span>
+            </div>
+        </div>
+        <div id="calendar">
+            <button id="calendarButton"><i class="fa fa-calendar" style="font-size:24px"></i></button>
+            <div id="calendarItems">
+                <ul>July 20th</ul>
+                <ul>July 21th</ul>
+                <ul>July 22th</ul>
+                <ul>July 23th</ul>
+                <ul>July 24th</ul>
+                <ul>July 25th</ul>
+                <ul>July 26th</ul>
+            </div>
+        </div>
+        <div id="quote">
+            <span class="mainText">Quote of the day</span>
+            <span class="subText">"Always do your best."</span>
+        </div>
+        <div id="todo">
+            <div class="headers">
+                <span>To Do</span>
+                <button class="addHabitButton">Add Habit</button>
+            </div>
+            <div class="habits">
+                <ul>Habit</ul>
+                <ul>Habit</ul>
+            </div>
+        </div>
+        <div id="done">
+            <div class="headers">
+                <span>Done</span>
+                <button class="addHabitButton">Add Habit</button>
+            </div>
+            <div class="habits">
+                <ul>Habit</ul>
+                <ul>Habit</ul>
+            </div>
+        </div>
+        <div id="inProgress">
+            <div class="headers">
+                <span>In Progress</span>
+                <button class="addHabitButton">Add Habit</button>
+            </div>
+            <div class="habits">
+                <ul>Habit</ul>
+                <ul>Habit</ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -6,121 +6,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
-    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
 
 <body>
-    <div id="header">
-        <a href="{% url 'home' %}">
-            <img id="wnLogo" src="{% static 'img/wn.png' %}" alt="WN logo">
-        </a>
+    <div id="home">
+        <span class="mainText">Better habits. Better development. Bigger Goals</span>
+        <span class="subText">A Habit Tracker For Gators</span>
 
-        <div id="searchBar">
-            <input type="text" placeholder="Search..." id="searchInput">
-            <button id="searchButton">Search</button>
-        </div>
-
-        <div id="header-right">
-            <a href="{% url 'about' %}" class="header-button">About</a>
-            <a href="{% url 'socials' %}" class="header-button">Socials</a>
-            <a href="{% url 'review' %}" class="header-button">Review</a>
-            <a href="{% url 'signup' %}">
-                <img id="pfLogo" src="{% static 'img/pf.png' %}" alt="pfp-icon" />
-            </a>
+        <div id="buttons">
+            <button id="getStartedButton">Get Started</button>
+            <button id="haveAccountButton">Have an Account?</button>
         </div>
     </div>
-
-    <div id="nBody">
-        <!--Hello container: Date Calendar Quote-->
-        <div id="hello">
-            <h1 style="margin-bottom: 4px;">Today</h1>
-            June 25, 2025
-
-            <h3>Calendar</h3>
-            <div class="calendar">
-                <div class="day" id="1">S</div>
-                <div class="day" id="2">M</div>
-                <div class="day" id="3">T</div>
-                <div class="day" id="4">W</div>
-                <div class="day" id="5">Th</div>
-                <div class="day" id="6">F</div>
-                <div class="day" id="7">S</div>
-            </div>
-        </div>
-
-           
-
-
-        <div>
-            <h2>To Do</h2>
-            <h2>Done</h2>
-            <h2>In Progress</h2>
-        </div>
-        <div class="userProfile">
-            <span class="username">kevinhu03</span>
-            <span class="firstName">Kevin</span>
-            <span class="lastName">Hu</span>
-        </div>
-    </div>
-
-    <script>
-        document.getElementById('searchButton').addEventListener('click', async function (e) {
-            e.preventDefault();
-
-            const searchInput = document.getElementById('searchInput').value;
-
-            try {
-                const response = await fetch('/api/users/search/?search=' + searchInput, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-
-                const result = await response.json();
-
-                document.querySelector('#nBody').innerHTML = '';
-
-                profiles = '';
-                result.forEach(user => {
-                    profiles += `        <div class="userProfile">
-            <span class="username">${user.username}</span>
-            <span class="firstName">${user.first_name}</span>
-            <span class="lastName">${user.last_name}</span>
-        </div>`
-                })
-
-                document.querySelector('#nBody').innerHTML = profiles;
-
-
-                // if (response.ok) {
-                //     window.location.href = '/';
-                // } else {
-                //     messageDiv.style.display = 'block';
-                //     messageDiv.style.color = 'red';
-
-                //     if (result.username) {
-                //         messageDiv.textContent = `Username error: ${result.username[0]}`;
-                //     } else if (result.email) {
-                //         messageDiv.textContent = `Email error: ${result.email[0]}`;
-                //     } else if (result.password) {
-                //         messageDiv.textContent = `Password error: ${result.password[0]}`;
-                //     } else {
-                //         messageDiv.textContent = 'Error creating account. Please try again.';
-                //     }
-                // }
-            } catch (error) {
-                messageDiv.style.display = 'block';
-                messageDiv.style.color = 'red';
-                messageDiv.textContent = 'Network error. Please try again.';
-                console.error('Error:', error);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Sign Up';
-            }
-        });
-    </script>
 </body>
+
+<script>
+    document.querySelector('#getStartedButton').addEventListener('click', () => {
+        document.querySelector('.mainText').innerHTML = `Let's get to know you!`;
+        document.querySelector('.subText').innerHTML = 'How did you hear about us?';
+
+        const homeDiv = document.querySelector('#home');
+
+        const surveyOptions = document.createElement('div');
+        surveyOptions.id = 'surveyOptions';
+        surveyOptions.innerHTML = `
+        <div class="survey-option">
+            <input type="checkbox" id="school" name="hearAbout" value="school">
+            <label for="school">School</label>
+        </div>
+        <div class="survey-option">
+            <input type="checkbox" id="friends" name="hearAbout" value="friends">
+            <label for="friends">Friends</label>
+        </div>
+        <div class="survey-option">
+            <input type="checkbox" id="socialMedia" name="hearAbout" value="socialMedia">
+            <label for="socialMedia">Social Media</label>
+        </div>
+        <div class="survey-option">
+            <input type="checkbox" id="other" name="hearAbout" value="other">
+            <label for="other">Other</label>
+        </div>
+    `;
+
+        const buttonsDiv = document.querySelector('#buttons');
+        homeDiv.insertBefore(surveyOptions, buttonsDiv);
+
+        buttonsDiv.classList.add('survey-buttons');
+        buttonsDiv.innerHTML = `
+        <button id="skipSurveyButton">Skip Survey</button>
+        <button id="nextButton">Next</button>`;
+
+        document.querySelector('#nextButton').addEventListener('click', () => {
+            document.querySelector('.mainText').innerHTML = `Let's get to know you!`;
+            document.querySelector('.subText').innerHTML = 'What are you hoping to achieve?';
+
+            document.querySelector('#surveyOptions').innerHTML = `
+            <div class="survey-option">
+                <input type="checkbox" id="creatingHabits" name="goals" value="creatingHabits">
+                <label for="creatingHabits">Creating new habits</label>
+            </div>
+            <div class="survey-option">
+                <input type="checkbox" id="trackingHabits" name="goals" value="trackingHabits">
+                <label for="trackingHabits">Tracking my habits</label>
+            </div>
+            <div class="survey-option">
+                <input type="checkbox" id="personalGoals" name="goals" value="personalGoals">
+                <label for="personalGoals">Achieve personal goals</label>
+            </div>
+            <div class="survey-option">
+                <input type="checkbox" id="betterHealth" name="goals" value="betterHealth">
+                <label for="betterHealth">Better personal health</label>
+            </div>
+            <div class="survey-option">
+                <input type="checkbox" id="otherGoals" name="goals" value="otherGoals">
+                <label for="otherGoals">Other</label>
+            </div>
+        `;
+
+            document.querySelector('#buttons').innerHTML = `
+            <button id="nextButton">Next</button>`;
+
+            document.querySelector('#nextButton').addEventListener('click', () => {
+                document.querySelector('.mainText').innerHTML = `Let's get to know you!`;
+                document.querySelector('.subText').innerHTML = 'How often do you record your habits per week?';
+
+                document.querySelector('#surveyOptions').innerHTML = `
+                    <div class="survey-option">
+                        <input type="checkbox" id="onceWeek" name="frequency" value="onceWeek">
+                        <label for="onceWeek">Once a week</label>
+                    </div>
+                    <div class="survey-option">
+                        <input type="checkbox" id="twiceThreeWeek" name="frequency" value="twiceThreeWeek">
+                        <label for="twiceThreeWeek">Twice or three times a week</label>
+                    </div>
+                    <div class="survey-option">
+                        <input type="checkbox" id="fourSixWeek" name="frequency" value="fourSixWeek">
+                        <label for="fourSixWeek">Four to six times a week</label>
+                    </div>
+                    <div class="survey-option">
+                        <input type="checkbox" id="never" name="frequency" value="never">
+                        <label for="never">Never</label>
+                    </div>
+                `;
+
+                document.querySelector('#buttons').innerHTML = `
+                    <button id="finishButton">Finish</button>`;
+
+                document.querySelector('#finishButton').addEventListener('click', () => {
+                    window.location.href = '/signup';
+                })
+            });
+        });
+    })
+
+    document.querySelector('#haveAccountButton').addEventListener('click', () => {
+        window.location.href = '/login';
+    })
+</script>
 
 </html>

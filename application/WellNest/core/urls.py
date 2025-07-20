@@ -13,8 +13,9 @@ urlpatterns = [
     # Page Routes
     path('', views.index, name='home'),
     path('signup', views.signup, name='signup'),
-    path('login', views.login, name='login'),
+    path('signin', views.login, name='signin'),
     path('about', views.about, name='about'),
     path('socials', views.socials, name='socials'),
     path('review', views.review, name='review'),
+    path('calendar', views.calendar, name='calendar'),
 ]

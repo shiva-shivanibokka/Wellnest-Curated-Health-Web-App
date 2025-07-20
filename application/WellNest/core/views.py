@@ -37,7 +37,7 @@ def signup(request):
     return render(request, 'signup.html')
 
 def login(request):
-    return render(request, 'login.html')
+    return render(request, 'signin.html')
 
 def about(request):
     return render(request, 'about.html')
@@ -47,3 +47,6 @@ def socials(request):
 
 def review(request):
     return render(request, 'review.html')
+
+def calendar(request):
+    return render(request, 'calendar.html')
