@@ -5,33 +5,230 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social</title>
-    <link rel="stylesheet" href="{% static 'css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'css/socials.css' %}">
+    <link rel="stylesheet" href="{% static 'header.css' %}">
+    <link rel="stylesheet" href="{% static 'socials.css' %}">
+    <link rel="stylesheet" href="{% static 'sideNav.css' %}">
 </head>
 
 <body>
 
+    <style>
+  
+        
+
+              div{
+            border: 1px solid black;
+        }
+
+
+    </style>
    
-    <div id="header">
-        <a href="{% url 'home' %}">
-            <img id="wnLogo" src="{% static 'img/wn.png' %}" alt="WN logo">
-        </a>
-
-        <div id="searchBar">
-            <input type="text" placeholder="Search..." id="searchInput">
-        </div>
-
-        <div id="header-right">
-            <a href="{% url 'about' %}" class="header-button">About</a>
-            <a href="{% url 'socials' %}" class="header-button">Socials</a>
-            <a href="{% url 'review' %}" class="header-button">Review</a>
-            <a href="{% url 'signup' %}">
-                <img id="pfLogo" src="{% static 'img/pf.png' %}" alt="pfp-icon" />
-            </a>
-        </div>
+<div id="header">
+    <div class="box" id="profile-div"> 
+        <input type="text" id="search-box" placeholder="Search..." />
+        <img src="{% static 'search.png' %}" alt="search-icon" id="search-icon">
+        <img src="{% static 'streak-hot.png' %}" alt="streak-hot" id="streak-hot">
+        <img src="{% static 'pf.png' %}" alt="pf icon" id="pf-icon">
     </div>
 
-<!--Family and Friends -->
+    <div class="box" id="search-div"></div>
+    <div class="box" id="menu-div">
+        <img src="{% static 'menu.png' %}" alt="hamburger-menu" id="hamburger-menu">
+    </div>
+</div>
+
+<div id="sideNav">
+    <div class="nav-top">
+        <div id="icons" style="display: flex; justify-content: space-between; margin-top: -15px;">
+            <div id="icons-left">
+                <img src="{% static 'wn.png' %}" alt="WN Logo" id="navLogo" style="margin-left: -20px;">
+            </div>
+            <div id="icons-right">
+                <img src="{% static 'menu.png' %}" alt="close-nav" style="width: 40px;" id="close-nav">
+            </div>
+        </div>
+
+        <a href="{% url 'calendar' %}" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Progress</a>
+        <a href="{% url 'socials' %}" class="nav-link">Socials</a>
+    </div>
+
+    <div class="nav-bottom">
+        <a href="{% url 'review' %}" class="nav-link">Review</a>
+        <a href="{% url 'about' %}" class="nav-link">About</a>
+    </div>
+</div>
+
+<div id="searchResult-container" style="min-height: 100px;">
+
+    <div id="peopleResult-list">
+        <p id="searchResults" style="white-space: pre-wrap; margin-top: 10px; color: #333;"></p>
+    </div>
+
+    <div id="circlesResult-list"></div>
+
+</div>
+
+<style>
+    #searchResult-container{
+        display: flex;
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+    #peopleResult-list{
+        flex-grow: 1;
+
+    }
+
+    #circlesResult-list{
+
+        flex-grow: 1;
+
+    }
+</style>
+
+<div class="wellNestCircles-text">
+
+    <h2>Your WellNest Circles</h2>
+    <button class="main-button">add circle <img src="{% static 'plus.png' %}" style="height: 10px;" alt="add circle" id="addCircle"> </button>
+
+
+</div>
+
+<div style="display: flex; flex-direction: row;">
+
+
+    
+
+    <div id="wellNestCircles-container" style="flex-grow: 1;">
+
+    <div class="circle" style="background-color: #588157 ;">
+        <div>
+            <h3>SFSU Jogging Club</h3>
+        </div>
+     
+        <div class="info">
+            <div>
+                30 day challenge 
+            </div>
+            <div>
+                10 members
+            </div>
+        </div>
+       
+    </div>
+
+    <div class="circle" style="background-color: #4e148c ;">
+        <div>
+            <h3>Dorm 26 Foodies</h3>
+        </div>
+
+
+        <div class="info">
+            <div>
+                Daily Task
+            </div>
+            <div>
+                4 members
+            </div>
+        </div>
+       
+        
+        
+
+    </div>
+
+    <div class="circle" style="background-color: #dba159 ;">
+        <div>
+             <h3>Intro to python gang</h3>
+        </div>
+
+        <div class="info">
+            <div>
+                Daily Task 10 mins per day
+            </div>
+            <div>
+                7 members
+            </div>
+        </div>
+       
+
+    </div>
+
+
+    </div>
+
+    
+    <div id="circle-info" style="flex-grow: 2; "></div>
+
+</div>
+
+<div class="wellNestCircles-text"   style="height: 100px;">
+
+    <h2>Your Friends</h2>
+    <button class="main-button">add friends <img src="{% static 'plus.png' %}" style="height: 10px;" alt="add friends" id="addFriends"> </button>
+
+
+</div>
+
+<div>
+    <img src="{% static 'friends.png' %}" alt="friends" style="height: 100px;">
+</div>
+
+
+<style>
+    .wellNestCircles-text{
+        height: 100px; 
+        display: flex; 
+        align-items: center; 
+        gap: 20px;
+    }
+    #wellNestCircles-container{
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 20px;
+
+    }
+
+    .circle{
+        height: 100px;
+        max-width: 400px;
+        border-radius: 30px;
+        display: flex;
+        color: white;
+        flex-direction: column;
+        padding: 3px;
+
+    }
+
+    .info{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin: 3px;
+    }
+    .main-button{
+
+    border-radius: 40px;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgb(51, 141, 56);
+    border-color: transparent;
+    align-items: center;
+    display: flex;
+    gap: 5px;
+}
+
+
+
+
+</style>
+
+<!--Family and 
 <div id="circles-container">
 <div class="circles" id="family">
     <h3>Family</h3>
@@ -55,11 +252,13 @@
     </div>
 </div>
 </div>
+Friends -->
 
-<p id="searchResults" style="white-space: pre-wrap; margin-top: 10px; color: #333;"></p>
+
+
 
 <script>
-    document.getElementById('searchInput').addEventListener('input', function () {
+    document.getElementById('search-box').addEventListener('input', function () {
         const query = this.value;
 
         if (query.length === 0) {
@@ -67,7 +266,7 @@
             return;
         }
 
-        fetch(`/api/users/search/?search=${query}`)
+        fetch(`/api/users/search/?search=${encodeURIComponent(query)}`)
             .then(response => response.json())
             .then(data => {
                 const resultElement = document.getElementById('searchResults');
@@ -80,9 +279,12 @@
             })
             .catch(error => {
                 console.error('Error fetching search results:', error);
+                document.getElementById('searchResults').textContent = 'An error occurred.';
             });
     });
 </script>
 
+    <script src="{% static 'sideNav.js' %}"></script>
+    <script src="{% static 'header.js' %}"></script>
 </body>
 </html>

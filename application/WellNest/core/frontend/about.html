@@ -1,58 +1,164 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link rel="stylesheet" href="{% static 'css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <div id="header">
-        <!-- Left: Logo -->
-        <a href="home.html">
-            <img id="wnLogo" src="img/wn.png" alt="WN logo">
-        </a>
-
-        <!-- Center: Search bar -->
-        <div id="searchBar">
-            <input type="text" placeholder="Search..." id="searchInput">
-            <!--  <button id="searchButton">
-            <img src="img/search.png" alt="Search">
-        </button>-->
-        </div>
-
-        <!-- Right: Home + Socials + Profile -->
-        <!-- Right: About + Socials + Review + Profile -->
-        <div id="header-right">
-            <a href="{% url 'about' %}" class="header-button">About</a>
-            <a href="{% url 'socials' %}" class="header-button">Socials</a>
-            <a href="{% url 'review' %}" class="header-button">Review</a>
-            <a href="{% url 'signup' %}">
-                <img id="pfLogo" src="{% static 'img/pf.png' %}" alt="pfp-icon" />
-            </a>
-        </div>
-    </div>
-    </div>
+    <title>Social</title>
+    <link rel="stylesheet" href="{% static 'header.css' %}">
+    <link rel="stylesheet" href="{% static 'sideNav.css' %}">
 </head>
+
 
 <body>
 
-    <div class="about-container">
-        <img src="img/WellNest.png" class="small-img" alt="Website Photo">
-        <h1>Team's About Page</h1>
 
-        <div class="team-buttons">
-            <a href="jacobcordano.html">Team Lead & Technical Writer: Jacob Cordano</a>
-            <a href="hamedemari.html">Scrum Master & Front-End Developer: Hamed Emari</a>
-            <a href="jacobvuong.html">Front-End Lead: Jacob Vuong</a>
-            <a href="shivanibokka.html">Back-End Lead: Shivani Bokka</a>
-            <a href="kevinhu.html">Github Master & Database Lead: Kevin Hu</a>
-            <a href="diegoantunez.html">Software Architect: Diego Antunez</a>
-        </div>
+<div id="header">
+    <div class="box" id="profile-div"> 
+        <input type="text" id="search-box" placeholder="Search habits or people..." />
+    
+
+        <img src="{% static 'pf.png' %}" alt="pf icon" id="pf-icon">
     </div>
+
+    <div class="box" id="search-div"></div>
+    <div class="box" id="menu-div">
+        <img src="{% static 'menu.png' %}" alt="hamburger-menu" id="hamburger-menu">
+    </div>
+</div>
+
+<div id="sideNav">
+    <div class="nav-top">
+        <div id="icons" style="display: flex; justify-content: space-between; margin-top: -15px;">
+            <div id="icons-left">
+                <img src="{% static 'wn.png' %}" alt="WN Logo" id="navLogo" style="margin-left: -20px;">
+            </div>
+            <div id="icons-right">
+                <img src="{% static 'menu.png' %}" alt="close-nav" style="width: 40px;" id="close-nav">
+            </div>
+        </div>
+
+        <a href="{% url 'calendar' %}" class="nav-link">Home</a>
+        <a href="{% url 'progress' %}" class="nav-link">Progress</a>
+        <a href="{% url 'socials' %}" class="nav-link">Socials</a>
+    </div>
+
+    <div class="nav-bottom">
+        <a href="{% url 'review' %}" class="nav-link">Review</a>
+        <a href="{% url 'about' %}" class="nav-link">About</a>
+    </div>
+</div>
+
+
+
+    <div class="about-container" style="display: flex; flex-direction: column ; justify-content: center; align-content: center;">
+        <div style="display: flex; justify-content: center;">
+             <img src="{% static 'WellNest.png' %}" class="small-img" alt="Website Photo" style="max-height: 300px;">
+        </div>
+
+        <div style="text-align: center;">
+            <h1>Team's About Page</h1>
+        <!--
+
+            
+        <div class="team-buttons" style=" text-align: center; justify-content: center;">
+
+            <a href="jacobcordano.html">Team Lead & Technical Writer: Jacob Cordano</a> <br>
+            <a href="hamedemari.html">Scrum Master & Front-End Developer: Hamed Emari</a> <br>
+            <a href="jacobvuong.html">Front-End Lead: Jacob Vuong</a> <br>
+            <a href="shivanibokka.html">Back-End Lead: Shivani Bokka</a> <br>
+            <a href="kevinhu.html">Github Master & Database Lead: Kevin Hu</a> <br>
+            <a href="diegoantunez.html">Software Architect: Diego Antunez</a> <br>
+
+        </div>
+
+        -->
+
+        </div>
+
+
+        <div style="display: flex; justify-content: space-evenly; font-size: large; text-align: center;">
+            <div class="card">
+                <h3>Jacob Cordano</h3> 
+                <br>
+                Team Lead <br> & Technical Writer
+                <div> <img src="{% static 'jacobc.jpg' %}" alt="" style="width: 150px;"></div>
+            </div>
+
+            <div class="card">
+                <h3> Hamed Emari</h3>
+                <br>
+                Scrum Master <br> & Full-Stack Developer
+                <div> <img src="{% static 'hamed.jpeg' %}" alt="" style="width: 150px;"></div>
+            </div>
+
+            <div class="card">
+                <h3> Jacob Voung </h3>
+             
+                <br>
+                Front-End Lead
+                <div> <img src="{% static 'jacobv.jpg' %}" alt="" style="width: 150px;"></div>
+            </div>
+
+            <div class="card">
+                <h3> Shivani Bokka </h3>
+                
+                <br>
+                Back-End Lead
+                <div> <img src="{% static 'shivanibokka.jpg' %}" alt="" style="width: 150px;"></div>
+            </div>
+
+            <div class="card">
+                <h3>    Kevin Hu  </h3>
+             
+                <br>
+                Database Lead <br> & Full-Stack Developer
+                <div> <img src="{% static 'kevinhu.png' %}" alt="" style="width: 150px;"></div>
+            </div>
+
+            <div class="card">
+                <h3>   Diego Antunez </h3>
+              
+                <br>
+                Software Architect <br> & Github Master
+                <div> <img src="{% static 'diegoa.jpg' %}" alt="" style="width: 150px;"></div>
+                
+            </div>
+
+            <style>
+                h3{ margin-bottom: -20px;}
+                .card{
+                    width: 200px;
+                    border: 1 solid transparent;
+                    border-radius: 15px;
+                    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.25);
+                }
+                .card img{
+                    height: 150px;
+                }
+            </style>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="{% static 'sideNav.js' %}"></script>
+<script src="{% static 'header.js' %}"></script>
+
+
 </body>
 
 </html>

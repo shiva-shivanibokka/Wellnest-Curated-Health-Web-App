@@ -50,3 +50,7 @@ def review(request):
 
 def calendar(request):
     return render(request, 'calendar.html')
+
+
+def progress_view(request):
+    return render(request, 'progress.html')

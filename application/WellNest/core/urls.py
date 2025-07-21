@@ -18,4 +18,5 @@ urlpatterns = [
     path('socials', views.socials, name='socials'),
     path('review', views.review, name='review'),
     path('calendar', views.calendar, name='calendar'),
+    path('progress', views.progress_view, name='progress'),
 ]
