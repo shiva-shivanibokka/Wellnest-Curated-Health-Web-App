@@ -133,7 +133,7 @@
             habit.className = "habit";
 
             const check = document.createElement("img");
-            check.src = "{% static 'check-empty.png' %}";
+            check.src = "{% static 'img/check-empty.png' %}";
             check.alt = "check-empty";
             check.className = "check-empty";
 
@@ -142,11 +142,11 @@
 
                 if (isInToDo) {
                     doneContainer.appendChild(wrapper);
-                    check.src = "{% static 'check.png' %}";
+                    check.src = "{% static 'img/check.png' %}";
                     check.alt = "check";
                 } else {
                     habitContainer.appendChild(wrapper);
-                    check.src = "{% static 'check-empty.png' %}";
+                    check.src = "{% static 'img/check-empty.png' %}";
                     check.alt = "check-empty";
                 }
             });
@@ -169,11 +169,11 @@
 
                 if (isInToDo) {
                     doneContainer.appendChild(wrapper);
-                    check.src = "{% static 'check.png' %}";
+                    check.src = "{% static 'img/check.png' %}";
                     check.alt = "check";
                 } else {
                     habitContainer.appendChild(wrapper);
-                    check.src = "{% static 'check-empty.png' %}";
+                    check.src = "{% static 'img/check-empty.png' %}";
                     check.alt = "check-empty";
                 }
             });
