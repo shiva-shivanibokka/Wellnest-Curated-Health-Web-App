@@ -16,19 +16,16 @@
             <form id="signup-form">
                 <h2 style="text-align: center;">Sign Up</h2>
 
-                <input type="text" id="username" name="username" placeholder="Username" value="ProfessorOrtiz123"
-                    required> <br>
+                <input type="text" id="username" name="username" placeholder="Username" required> <br>
 
-                <input type="email" id="email" name="email" placeholder="Email" value="ProfessorOrtiz456@example.com"
-                    required> <br>
+                <input type="email" id="email" name="email" placeholder="Email" required> <br>
 
-                <input type="password" id="password" name="password" placeholder="Password" value="password123"
-                    required> <br>
+                <input type="password" id="password" name="password" placeholder="Password" required> <br>
 
-                <input type="text" id="first_name" name="first_name" placeholder="First Name" value="Jose" required>
+                <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
                 <br>
 
-                <input type="text" id="last_name" name="last_name" placeholder="Last Name" value="Ortiz" required> <br>
+                <input type="text" id="last_name" name="last_name" placeholder="Last Name" required> <br>
 
                 <select id="gender" name="gender" required>
                     <option value="">Select Gender</option>
@@ -37,8 +34,10 @@
                     <option value="O">Other</option>
                 </select> <br>
 
-                <button type="submit" id="signup-btn">Sign Up</button>
-                <button type="submit" id="signin-btn">Sign In</button>
+                <div id="buttons">
+                    <button type="submit" id="signup-btn">Sign Up</button>
+                    <button type="submit" id="signin-btn">Sign In</button>
+                </div>
             </form>
 
             <div id="message" style="margin-top: 10px; padding: 10px; display: none;"></div>
