@@ -91,3 +91,10 @@ input {
 h2 {
     font-size: 32px;
 }
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+    font-family: "Inter", sans-serif;
+}
