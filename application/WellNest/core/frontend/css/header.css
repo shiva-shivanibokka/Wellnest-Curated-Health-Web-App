@@ -1,87 +1,70 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-
-
-#header {
+#header{
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 30px;
-    background: linear-gradient(90deg, black, green);
+    flex: 1;
+    flex-direction: row-reverse;
+
 }
 
-#header-right {
+#profile-div{
     display: flex;
+    gap: 20px;
     align-items: center;
-    gap: 15px;
+    justify-content: flex-end;
+    flex-grow: 5;
+
 }
 
-
-#wnLogo {
-    height: 90px;
-    margin-left: 10px;
-    margin-top: 5px;
-}
-.header-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1em;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: inline-flex;
-    align-items: center;
+#pf-icon{
+    width: 50px;
+    margin-right: 20px;
 }
 
-.header-button:hover {
-    background-color: darkgreen;
+#streak-hot{
+    height: 35px;
 }
 
-#searchBar {
+#search-div{
     display: flex;
+    flex-grow: 5;
     align-items: center;
-    /* Remove margins that push it */
-    margin-left: 300px;
-    margin-right: 5px;
-    flex-grow: 1; /* make search bar take available space */
-    max-width: 400px; /* optional max width */
+    justify-content: center;
+
 }
 
-#searchInput {
+#search-icon{
+    width: 30px;
+    opacity: 50%;
+}
+
+#search-icon:hover{
+    opacity: 100%;
+}
+
+#menu-div{
+    display: flex;
     flex-grow: 1;
-    padding: 6px 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px 0 0 4px;
-    outline: none;
+    align-items: center;
+  
 }
 
-#searchButton {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-left: none;
-    border-radius: 0 4px 4px 0;
-    cursor: pointer;
-    padding: 6px;
+#hamburger-menu{
+    width: 40px;
 }
 
-#searchButton img {
-    width: 16px;
-    height: 16px;
-    
+#search-box {
+    width: 0;
+    opacity: 0;
+    padding: 8px;
+    margin-right: -20px;
+    font-size: 14px;
+    border: 1px solid green;
+    border-radius: 8px;
+    transition: width 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
+     outline: none;
 }
 
-#pfLogo {
-    height: 70px;
-    /* Remove absolute positioning */
-    margin-left: 5px;
-    cursor: pointer;
+#search-box.active {
+    width: 200px;
+    opacity: 1;
 }
-

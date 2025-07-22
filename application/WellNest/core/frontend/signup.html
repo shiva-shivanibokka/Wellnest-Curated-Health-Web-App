@@ -6,7 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>signup</title>
-    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <!-- <link rel="stylesheet" href="css/signup.css"> -->
+    <link rel="stylesheet" href="{% static 'signup.css' %}">
 </head>
 
 <body>
@@ -37,13 +38,14 @@
                 </select> <br>
 
                 <button type="submit" id="signup-btn">Sign Up</button>
+                <button type="submit" id="signin-btn">Sign In</button>
             </form>
 
             <div id="message" style="margin-top: 10px; padding: 10px; display: none;"></div>
         </div>
 
         <div id="right">
-            <img style="max-width: 500px;" src="{% static 'img/WellNest.png' %}" alt="WellNest Logo">
+            <img style="max-width: 500px;" src="{% static 'WellNest.png' %}" alt="WellNest Logo">
         </div>
     </div>
 
@@ -102,6 +104,10 @@
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Sign Up';
             }
+        });
+
+        document.getElementById('signin-btn').addEventListener('click', () => {
+            window.location.href = '/signin';
         });
     </script>
 </body>

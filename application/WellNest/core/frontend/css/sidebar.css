@@ -1,0 +1,29 @@
+#sidebar {
+    position: relative;
+    background: linear-gradient(180deg, #4CAF50, #2E7D32);
+    color: white;
+    padding: 20px;
+    overflow: hidden;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebarLogo {
+    width: 60%;
+    aspect-ratio: 1 / 1;
+    display: block;
+    margin: 10px auto;
+    object-fit: contain;
+}
+
+#toggleSideBar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+}
