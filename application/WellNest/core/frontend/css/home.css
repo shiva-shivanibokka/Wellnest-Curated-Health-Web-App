@@ -93,6 +93,8 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     min-width: 150px;
+    padding-top: 16px;
+    padding-bottom: 16px;
 }
 
 #skipSurveyButton:hover {
@@ -110,6 +112,8 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     min-width: 150px;
+    padding-top: 16px;
+    padding-bottom: 16px;
 }
 
 #nextButton:hover {
@@ -127,14 +131,16 @@ body {
 #finishButton {
     background-color: #4B0082;
     color: gold;
-    padding: 24px;
+    padding: 36px;
     border: none;
     border-radius: 15px;
-    font-size: 16px;
+    font-size: 24px;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease;
     min-width: 150px;
+    padding-top: 16px;
+    padding-bottom: 16px;
 }
 
 #finishButton:hover {
@@ -145,9 +151,9 @@ body {
     font-size: 24px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 20px;
-    max-width: 800px;
+    max-width: 600px;
     margin: 20px auto;
 }
 
@@ -177,4 +183,11 @@ body {
     font-size: 18px;
     font-weight: 500;
     color: #333;
+}
+
+#logo img {
+    width: 200px;
+    height: 200px;
+    margin-left: 20%;
+    position: absolute;
 }
