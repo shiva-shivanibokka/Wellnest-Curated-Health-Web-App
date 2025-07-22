@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile Page</title>
+  <link rel="stylesheet" href="{% static 'profile.css' %}">
+</head>
+
+<body>
+  <div class="page-container">
+    <div class="header">
+      <div class="hamburger">&#9776;</div>
+      <div class="title">Profile Page</div>
+      <button class="search-btn">Search Bar</button>
+      <div class="user-icon">&#128100;</div>
+    </div>
+
+    <div class="card">
+      <div class="profile-icon">&#128100;</div>
+      <button class="edit-btn">Edit</button>
+
+      <form id="profile-form">
+        <label>First Name</label>
+        <input type="text" placeholder="Enter first name" name="firstName" required />
+
+        <label>Last Name</label>
+        <input type="text" placeholder="Enter last name" name="lastName" required />
+
+        <label>Email</label>
+        <input type="email" placeholder="Enter email" name="email" required />
+
+        <label>Gender</label>
+        <select name="gender" required>
+          <option value="">Select gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <button type="submit" class="save-btn">Save</button>
+      </form>
+    </div>
+
+    <div id="popup" class="popup hidden">
+      <div class="popup-content">
+        <strong>Information Saved!</strong>
+        <button id="close-popup">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    const form = document.getElementById("profile-form");
+    const popup = document.getElementById("popup");
+    const closePopup = document.getElementById("close-popup");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); // Prevents the page from refreshing
+
+      // Optionally you could add validation or logging here
+
+      // Show the popup
+      popup.classList.remove("hidden");
+    });
+
+    closePopup.addEventListener("click", function () {
+      popup.classList.add("hidden");
+
+      // Optional: Reset form after saving
+      form.reset();
+    });
+  </script>
+</body>
+
+</html>

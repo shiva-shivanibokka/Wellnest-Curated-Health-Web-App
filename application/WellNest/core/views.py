@@ -54,3 +54,6 @@ def calendar(request):
 
 def progress_view(request):
     return render(request, 'progress.html')
+
+def profile(request):
+    return render(request, 'profile.html')
