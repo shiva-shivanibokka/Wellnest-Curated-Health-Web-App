@@ -8,11 +8,19 @@
     <title>Welcome Page</title>
     <!-- <link rel="stylesheet" href="css/home.css"> -->
     <link rel="stylesheet" href="{% static 'home.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
+    <div id="logo">
+        <img src="{% static 'WellNest.png' %}" alt="">
+    </div>
     <div id="home">
-        <span class="mainText">Better habits. Better development. Bigger Goals</span>
+        <span class="mainText">Better habits. Better development.<br>Bigger Goals</span>
         <span class="subText">A Habit Tracker For Gators</span>
 
         <div id="buttons">
@@ -57,6 +65,11 @@
         buttonsDiv.innerHTML = `
         <button id="skipSurveyButton">Skip Survey</button>
         <button id="nextButton">Next</button>`;
+
+        document.querySelector('#skipSurveyButton').addEventListener('click', () => {
+            window.location.href = '/signup';
+            console.log('test')
+        })
 
         document.querySelector('#nextButton').addEventListener('click', () => {
             document.querySelector('.mainText').innerHTML = `Let's get to know you!`;
@@ -122,7 +135,7 @@
     })
 
     document.querySelector('#haveAccountButton').addEventListener('click', () => {
-        window.location.href = '/login';
+        window.location.href = '/signin';
     })
 </script>
 
