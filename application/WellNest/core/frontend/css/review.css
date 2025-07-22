@@ -32,3 +32,10 @@ button {
 button:hover {
   background-color: #388E3C;
 }
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+    font-family: "Inter", sans-serif;
+}

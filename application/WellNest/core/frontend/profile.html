@@ -7,15 +7,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profile Page</title>
   <link rel="stylesheet" href="{% static 'profile.css' %}">
+  <link rel="stylesheet" href="{% static 'header.css' %}">
+  <link rel="stylesheet" href="{% static 'sideNav.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
   <div class="page-container">
-    <div class="header">
-      <div class="hamburger">&#9776;</div>
-      <div class="title">Profile Page</div>
-      <button class="search-btn">Search Bar</button>
-      <div class="user-icon">&#128100;</div>
+    <div id="header">
+      <div class="box" id="profile-div">
+        <input type="text" id="search-box" placeholder="Search habits or people..." />
+        <img src="{% static 'search.png' %}" alt="search-icon" id="search-icon">
+        <img src="{% static 'streak-hot.png' %}" alt="streak-hot" id="streak-hot">
+            <a href="{% url 'profile' %}"><img src="{% static 'pf.png' %}" href="{% url 'profile' %}" alt="pf icon"id="pf-icon"></a>
+      </div>
+
+      <div class="box" id="search-div"></div>
+      <div class="box" id="menu-div">
+        <img src="{% static 'menu.png' %}" alt="hamburger-menu" id="hamburger-menu">
+      </div>
+    </div>
+
+    <div id="sideNav">
+      <div class="nav-top">
+        <div id="icons" style="display: flex; justify-content: space-between; margin-top: -15px;">
+          <div id="icons-left">
+            <img src="{% static 'wn.png' %}" alt="WN Logo" id="navLogo" style="margin-left: -20px;">
+          </div>
+          <div id="icons-right">
+            <img src="{% static 'menu.png' %}" alt="close-nav" style="width: 40px;" id="close-nav">
+          </div>
+        </div>
+
+        <a href="{% url 'calendar' %}" class="nav-link">Home</a>
+        <a href="{% url 'progress' %}" class="nav-link">Progress</a>
+        <a href="{% url 'socials' %}" class="nav-link">Socials</a>
+      </div>
+
+      <div class="nav-bottom">
+        <a href="{% url 'review' %}" class="nav-link">Review</a>
+        <a href="{% url 'about' %}" class="nav-link">About</a>
+      </div>
     </div>
 
     <div class="card">
@@ -75,6 +111,8 @@
       form.reset();
     });
   </script>
+  <script src="{% static 'sideNav.js' %}"></script>
+  <script src="{% static 'header.js' %}"></script>
 </body>
 
 </html>

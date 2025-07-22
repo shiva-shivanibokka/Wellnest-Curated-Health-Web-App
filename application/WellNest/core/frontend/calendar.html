@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,44 +9,52 @@
     <link rel="stylesheet" href="{% static 'main.css' %}">
     <link rel="stylesheet" href="{% static 'header.css' %}">
     <link rel="stylesheet" href="{% static 'sideNav.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
 
-<div id="header">
-    <div class="box" id="profile-div"> 
-        <input type="text" id="search-box" placeholder="Search habits or people..." />
-        <img src="{% static 'search.png' %}" alt="search-icon" id="search-icon">
-        <img src="{% static 'streak-hot.png' %}" alt="streak-hot" id="streak-hot">
-        <img src="{% static 'pf.png' %}" alt="pf icon" id="pf-icon">
-    </div>
 
-    <div class="box" id="search-div"></div>
-    <div class="box" id="menu-div">
-        <img src="{% static 'menu.png' %}" alt="hamburger-menu" id="hamburger-menu">
-    </div>
-</div>
 
-<div id="sideNav">
-    <div class="nav-top">
-        <div id="icons" style="display: flex; justify-content: space-between; margin-top: -15px;">
-            <div id="icons-left">
-                <img src="{% static 'wn.png' %}" alt="WN Logo" id="navLogo" style="margin-left: -20px;">
-            </div>
-            <div id="icons-right">
-                <img src="{% static 'menu.png' %}" alt="close-nav" style="width: 40px;" id="close-nav">
-            </div>
+    <div id="header">
+        <div class="box" id="profile-div">
+            <input type="text" id="search-box" placeholder="Search habits or people..." />
+            <img src="{% static 'search.png' %}" alt="search-icon" id="search-icon">
+            <img src="{% static 'streak-hot.png' %}" alt="streak-hot" id="streak-hot">
+            <a href="{% url 'profile' %}"><img src="{% static 'pf.png' %}" href="{% url 'profile' %}" alt="pf icon"id="pf-icon"></a>
         </div>
 
-        <a href="{% url 'calendar' %}" class="nav-link">Home</a>
-        <a href="{% url 'progress' %}" class="nav-link">Progress</a>
-        <a href="{% url 'socials' %}" class="nav-link">Socials</a>
+        <div class="box" id="search-div"></div>
+        <div class="box" id="menu-div">
+            <img src="{% static 'menu.png' %}" alt="hamburger-menu" id="hamburger-menu">
+        </div>
     </div>
 
-    <div class="nav-bottom">
-        <a href="{% url 'review' %}" class="nav-link">Review</a>
-        <a href="{% url 'about' %}" class="nav-link">About</a>
+    <div id="sideNav">
+        <div class="nav-top">
+            <div id="icons" style="display: flex; justify-content: space-between; margin-top: -15px;">
+                <div id="icons-left">
+                    <img src="{% static 'wn.png' %}" alt="WN Logo" id="navLogo" style="margin-left: -20px;">
+                </div>
+                <div id="icons-right">
+                    <img src="{% static 'menu.png' %}" alt="close-nav" style="width: 40px;" id="close-nav">
+                </div>
+            </div>
+
+            <a href="{% url 'calendar' %}" class="nav-link">Home</a>
+            <a href="{% url 'progress' %}" class="nav-link">Progress</a>
+            <a href="{% url 'socials' %}" class="nav-link">Socials</a>
+        </div>
+
+        <div class="nav-bottom">
+            <a href="{% url 'review' %}" class="nav-link">Review</a>
+            <a href="{% url 'about' %}" class="nav-link">About</a>
+        </div>
     </div>
-</div>
 
     <div id="today">
         <div id="right"></div>
@@ -59,7 +68,8 @@
     <div id="calendarIcon-div" style="height: 50px;">
         <div id="l"></div>
         <div id="c" style="display: flex; text-align: center;">
-            <img src="{% static 'image 18.png' %}" alt="calendarIcon-home" style="height: 40px; margin-left: 50px; text-align: center;">
+            <img src="{% static 'image 18.png' %}" alt="calendarIcon-home"
+                style="height: 40px; margin-left: 50px; text-align: center;">
         </div>
         <div id="r"></div>
     </div>
@@ -90,13 +100,15 @@
     <div style="margin: 20px;">
         <div id="todo" style="display: flex;">
             <h2>To Do</h2>
-            <button class="main-button"> add habit 
-                <img src="{% static 'plus.png' %}" style="height: 10px;" alt=""> 
+            <button class="main-button"> add habit
+                <img src="{% static 'plus.png' %}" style="height: 10px;" alt="">
             </button>
         </div>
+        <div style="display: flex; gap: 20px; justify-content: space-between;">
 
-        <div id="habit-container">
-            <div class="habit-wrapper"> 
+
+        <div id="habit-container" style=" flex-grow:2;">
+            <div class="habit-wrapper">
                 <div class="habit">
                     <img src="{% static 'check-empty.png' %}" alt="check-empty" class="check-empty"> Walking
                 </div>
@@ -108,6 +120,95 @@
                 </div>
             </div>
         </div>
+       
+
+        <div id="habit-info" style="flex-grow: 2; border: 5px ; border-radius: 15px; box-shadow: 2px 2px 5px gray; justify-content: center; text-align: center;">
+
+            <div style="display: flex; flex-direction: column;"> <h3>Habit Name</h3> <p style="color: gray; margin-top: -20px;">Description</p></div>
+            <p style="text-align: left; margin-left: 40px;">repeat</p>
+            <div style="display: flex; flex-direction: row; justify-content: space-evenly; text-align: center;">
+               
+                <div class="day-box">S</div>
+                <div class="day-box">M</div>
+                <div class="day-box" style="background-color: rgba(173, 255, 47, .2);">T</div>
+                <div class="day-box">W</div>
+                <div class="day-box" style="background-color: rgba(173, 255, 47, .2);">Th</div>
+                <div class="day-box">F</div>
+                <div class="day-box" style="background-color: rgba(173, 255, 47, .2);">S</div>
+
+                
+
+            </div>
+
+            <style> .day-box{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 50px;
+                width: 50px;
+                border: 1px solid black;
+                border-radius: 10px;
+            }
+
+            #habit-info {
+            display: none; 
+            transition: all 0.3s ease;
+            }
+
+            </style>
+            <script>
+                const habitInfo = document.getElementById("habit-info");
+
+                document.getElementById("habit-container").addEventListener("mouseover", function (e) {
+                    const habit = e.target.closest(".habit");
+                    if (habit) {
+                        const habitName = habit.textContent.trim();
+                        habitInfo.querySelector("h3").textContent = habitName;
+                        habitInfo.querySelector("p").textContent = "description for " + habitName;
+                        habitInfo.style.display = "block";
+                    }
+                });
+
+                document.getElementById("habit-container").addEventListener("mouseout", function (e) {
+                    if (e.target.closest(".habit")) {
+                        habitInfo.style.display = "none";
+                    }
+                });
+            </script>
+
+
+        </div>
+         <div style="flex-grow: 1;"></div>
+
+        <div style="flex-grow: .5; margin-right: 40px; border: 5px solid black; border-radius: 15px;display: flex; align-items: center; justify-content: center; flex-direction: column; max-height: 200px; text-align: center;">
+            <button style="margin-top: 10px; margin-bottom: -40px" id="streak-progress" > Progress </button> <br>
+            <h2 style="font-size: 50px;">59 <img src="{% static 'streak-hot.png' %}" alt="" style="height: 40px;"></h2> <br> <b style="margin-top: -40px; padding-bottom: 10px;">Highest Streak</b>
+        </div>
+        <script>
+        document.getElementById('streak-progress').addEventListener('click', () => {
+        window.location.href = '/progress';
+        });
+        </script>
+        <style>
+            #streak-progress{
+                background-color: #4e148c;
+                color: gold;
+                padding: 36px;
+                border: none;
+                border-radius: 15px;
+                font-size: 20px;
+                font-weight: 500;
+                width: 250px ;
+                min-width: 150px;
+                padding-top: 16px;
+                padding-bottom: 16px;
+            }
+        </style>
+
+        </div>
+
+
+
     </div>
 
     <div style="margin: 20px;">
@@ -188,4 +289,5 @@
     <script src="{% static 'sideNav.js' %}"></script>
     <script src="{% static 'header.js' %}"></script>
 </body>
+
 </html>
