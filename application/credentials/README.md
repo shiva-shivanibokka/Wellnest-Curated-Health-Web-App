@@ -35,10 +35,11 @@ Save the `.pem` file (e.g., `CodingGators.pem`) in a secure and easily accessibl
 ### 3. Connect to the EC2 Instance:
 
 1.  Open your terminal.
-2.  Use the following SSH command:
+2.  Navigate to the directory where you saved the `.pem` file (e.g., `cd ~/.ssh/`).
+3.  Use the following SSH command:
 
     ```bash
-    ssh -i /path/to/your/CodingGators.pem ec2-3-147-96-129.us-east-2.compute.amazonaws.com
+    ssh -i "CodingGators.pem" ubuntu@ec2-3-147-96-129.us-east-2.compute.amazonaws.com
     ```
 
     * Replace `/path/to/your/CodingGators.pem` with the full path to your `.pem` file (e.g., `~/.ssh/CodingGators.pem`).
