@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>progress</title>
+    <link rel="stylesheet" href="{% static 'header.css' %}">
+    <link rel="stylesheet" href="{% static 'sideNav.css' %}">
+</head>
+<body>
+    <div id="header">
+    <div class="box" id="profile-div"> 
+        <input type="text" id="search-box" placeholder="Search..." />
+        <img src="{% static 'search.png' %}" alt="search-icon" id="search-icon">
+        <img src="{% static 'streak-hot.png' %}" alt="streak-hot" id="streak-hot">
+        <img src="{% static 'pf.png' %}" alt="pf icon" id="pf-icon">
+    </div>
+
+    <div class="box" id="search-div"></div>
+    <div class="box" id="menu-div">
+        <img src="{% static 'menu.png' %}" alt="hamburger-menu" id="hamburger-menu">
+    </div>
+</div>
+
+<div id="sideNav">
+    <div class="nav-top">
+        <div id="icons" style="display: flex; justify-content: space-between; margin-top: -15px;">
+            <div id="icons-left">
+                <img src="{% static 'wn.png' %}" alt="WN Logo" id="navLogo" style="margin-left: -20px;">
+            </div>
+            <div id="icons-right">
+                <img src="{% static 'menu.png' %}" alt="close-nav" style="width: 40px;" id="close-nav">
+            </div>
+        </div>
+
+        <a href="{% url 'calendar' %}" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Progress</a>
+        <a href="{% url 'socials' %}" class="nav-link">Socials</a>
+    </div>
+
+    <div class="nav-bottom">
+        <a href="{% url 'review' %}" class="nav-link">Review</a>
+        <a href="{% url 'about' %}" class="nav-link">About</a>
+    </div>
+</div>
+
+    <div style="text-align: center;">
+        <h2> < July > </h2>
+        2025
+    </div>
+
+    <div id="streak-calendar" style="display: flex; align-items: center; justify-content: center;">
+        <img src="{% static 'streak-calendar.png' %}" alt="" style="max-height: 300px;">
+    
+    </div>
+<div style="display: flex; justify-content: center;">
+
+        <div style="max-width: 400px; display: flex; justify-content: space-between; align-items: center; padding-left: 200px; text-align:center; padding-right: 200px; gap: 20px;">
+
+        <div style="display: flex; flex-direction: column;">
+            <div> <h1>56</h1> </div> <div> <b>Highest Streak</b> </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column;">
+            <div> <h1>125</h1></div> <div> <b>Challenges Completed </b></div>
+        </div>
+
+        <div style="display: flex; flex-direction: column;">
+            <div> <h1>78%</h1></div> <div> <b> All time Habit Completion </b></div>
+        </div>
+
+    </div>
+
+</div>
+
+<div style="height: 50px;"></div>
+
+<div style="display: flex; flex-direction: column;align-items: center; justify-content: center; text-align: center; margin-top: 20px;">
+    <h2> Completions by Days</h2>
+    <img src="{% static 'graph.png' %}" alt="" style="width: 400px;">
+</div>
+
+
+<div  style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+    <h2> Completions by Habits </h2>
+    <img src="{% static 'completions.png' %}" alt="" style="width: 400px;">
+</div>
+
+<div style="height: 50px;"></div>
+
+
+
+
+
+
+
+
+
+<script src="{% static 'sideNav.js' %}"></script>
+<script src="{% static 'header.js' %}"></script>
+
+</body>
+</html>

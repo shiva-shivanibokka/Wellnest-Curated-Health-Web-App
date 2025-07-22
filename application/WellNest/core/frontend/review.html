@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rate Us</title>
+  <link rel="stylesheet" href="{% static 'header.css' %}">
+  <link rel="stylesheet" href="{% static 'review.css' %}">
+  <link rel="stylesheet" href="{% static 'sideNav.css' %}">
+ 
+</head>
+
+<body>
+
+  <div id="header">
+    <div class="box" id="profile-div"> 
+        <input type="text" id="search-box" placeholder="Search..." />
+        <img src="{% static 'pf.png' %}" alt="pf icon" id="pf-icon">
+    </div>
+
+    <div class="box" id="search-div"></div>
+    <div class="box" id="menu-div">
+        <img src="{% static 'menu.png' %}" alt="hamburger-menu" id="hamburger-menu">
+    </div>
+</div>
+
+<div id="sideNav">
+    <div class="nav-top">
+        <div id="icons" style="display: flex; justify-content: space-between; margin-top: -15px;">
+            <div id="icons-left">
+                <img src="{% static 'wn.png' %}" alt="WN Logo" id="navLogo" style="margin-left: -20px;">
+            </div>
+            <div id="icons-right">
+                <img src="{% static 'menu.png' %}" alt="close-nav" style="width: 40px;" id="close-nav">
+            </div>
+        </div>
+
+        <a href="{% url 'calendar' %}" class="nav-link">Home</a>
+        <a href="{% url 'progress' %}" class="nav-link">Progress</a>
+        <a href="{% url 'socials' %}" class="nav-link">Socials</a>
+    </div>
+
+    <div class="nav-bottom">
+        <a href="{% url 'review' %}" class="nav-link">Review</a>
+        <a href="{% url 'about' %}" class="nav-link">About</a>
+    </div>
+</div>
+
+  <!-- Rating Content -->
+  <div class="rating-container">
+    <h1>Rate Our Website</h1>
+    <p>Slide to rate from 1 to 5:</p>
+    <input type="range" min="1" max="5" value="3" id="ratingSlider" />
+    <div id="ratingValue">Rating: 3</div>
+    <button onclick="submitRating()">Submit</button>
+  </div>
+
+  <script>
+    const slider = document.getElementById("ratingSlider");
+    const ratingValue = document.getElementById("ratingValue");
+
+    slider.oninput = function () {
+      ratingValue.textContent = "Rating: " + this.value;
+    };
+
+    function submitRating() {
+      alert("Thank you for rating us " + slider.value + " out of 5!");
+    }
+  </script>
+
+
+
+    <script src="{% static 'sideNav.js' %}"></script>
+    <script src="{% static 'header.js' %}"></script>
+</body>
+
+</html>
