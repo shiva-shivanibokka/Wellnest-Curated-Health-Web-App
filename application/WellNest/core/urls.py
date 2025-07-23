@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import UserLoginView
 
 urlpatterns = [
     # path('users/', views.UserListCreateView.as_view(), name='user-list-create'),
@@ -12,12 +13,13 @@ urlpatterns = [
     
     # Page Routes
     path('', views.index, name='home'),
-    path('signup', views.signup, name='signup'),
-    path('signin', views.login, name='signin'),
-    path('about', views.about, name='about'),
-    path('socials', views.socials, name='socials'),
-    path('review', views.review, name='review'),
-    path('calendar', views.calendar_view, name='calendar'),
-    path('progress', views.progress_view, name='progress'),
-    path('profile', views.profile, name='profile'),
+    path('signup/', views.signup, name='signup'),
+    path('signin/', views.login, name='signin'),
+    path('about/', views.about, name='about'),
+    path('socials/', views.socials, name='socials'),
+    path('review/', views.review, name='review'),
+    path('calendar/', views.calendar_view, name='calendar'),
+    path('progress/', views.progress_view, name='progress'),
+    path('profile/', views.profile, name='profile'),
+    path('api/users/login/', UserLoginView.as_view(), name='user-login'),
 ]
