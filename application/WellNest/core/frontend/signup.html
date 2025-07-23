@@ -18,7 +18,9 @@
 <body>
     <div id="container">
         <div id="left">
-            <form id="signup-form">
+            <form id="signup-form" method="post">
+               {% csrf_token %}
+
                 <h2 style="text-align: center;">Sign Up</h2>
 
                 <input type="text" id="username" name="username" placeholder="Username" required> <br>
@@ -41,7 +43,7 @@
 
                 <div id="buttons">
                     <button type="submit" id="signup-btn">Sign Up</button>
-                    <button type="submit" id="signin-btn">Sign In</button>
+                    <button type="button" id="signin-btn">Sign In</button>
                 </div>
             </form>
 
@@ -54,7 +56,7 @@
     </div>
 
     <script>
-        document.getElementById('signup-form').addEventListener('submit', async function (e) {
+        document.getElementById('signup-form').addEventListener('submit', async e => {
             e.preventDefault();
 
             const messageDiv = document.getElementById('message');
@@ -72,11 +74,17 @@
                 gender: document.getElementById('gender').value
             };
 
+           // Django CSRF token, similar to node.js token for authentication 
+
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
             try {
                 const response = await fetch('/api/users/create/', {
                     method: 'POST',
+                    credentials: 'same-origin',
                     headers: {
                         'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
                     },
                     body: JSON.stringify(formData)
                 });
@@ -84,7 +92,7 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    window.location.href = '/';
+                    window.location.href = '/calendar';
                 } else {
                     messageDiv.style.display = 'block';
                     messageDiv.style.color = 'red';

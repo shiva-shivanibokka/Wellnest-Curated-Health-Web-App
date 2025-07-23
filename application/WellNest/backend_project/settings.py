@@ -96,6 +96,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_URL = '/signin/'
+LOGIN_REDIRECT_URL = '/calendar/'
+AUTH_USER_MODEL = 'core.User'
 # Internationalization
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
