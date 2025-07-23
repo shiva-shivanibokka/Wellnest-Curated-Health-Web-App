@@ -5,6 +5,10 @@ from django.shortcuts import render
 from django.conf import settings
 import os
 from django.db.models import Q
+import calendar
+from datetime import date
+from datetime import date, timedelta
+from django.shortcuts import render
 
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -30,6 +34,20 @@ class UserSearchView(generics.ListAPIView):
         
         return User.objects.none()
 
+#simple calendar view python rather than google calendar
+
+def calendar_view(request):
+    today = date.today()
+
+    ## place today in the middle box 
+    week_days = [ today + timedelta(days=offset) for offset in range(-3, 4) ]
+    return render(request, 'calendar.html', {
+        'today':     today,
+        'week_days': week_days,
+        'year': today.year,
+
+    })
+
 def index(request):
     return render(request, 'home.html')
 
@@ -48,12 +66,10 @@ def socials(request):
 def review(request):
     return render(request, 'review.html')
 
-def calendar(request):
-    return render(request, 'calendar.html')
-
-
 def progress_view(request):
     return render(request, 'progress.html')
 
 def profile(request):
     return render(request, 'profile.html')
+
+

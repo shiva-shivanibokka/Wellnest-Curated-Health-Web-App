@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'main.css' %}">
     <link rel="stylesheet" href="{% static 'header.css' %}">
     <link rel="stylesheet" href="{% static 'sideNav.css' %}">
+    <link rel="stylesheet" href="{% static 'glass.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -59,7 +60,7 @@
         <div id="right"></div>
         <div id="center">
             <h1>Today</h1>
-            <h3>July 10th</h3>
+            <h3>{{ today|date:"F jS" }}</h3>
         </div>
         <div id="left"></div>
     </div>
@@ -73,19 +74,17 @@
         <div id="r"></div>
     </div>
 
-    <div id="calendar-home">
-        <div id="wrapper-left"></div>
-        <div id="wrapper">
-            <div class="days"> July <br>7th </div>
-            <div class="days"> July <br>8th </div>
-            <div class="days"> July <br>9th</div>
-            <div class="days" id="today-box"> July <br>10th </div>
-            <div class="days"> July <br>11th </div>
-            <div class="days"> July <br>12th</div>
-            <div class="days"> July <br>13th </div>
-        </div>
-        <div id="wrapper-right"></div>
-    </div>
+<div id="calendar-home">
+  <div id="wrapper-left"></div>
+  <div id="wrapper">
+    {% for day in week_days %}
+      <div class="days {% if day == today %}today-box{% endif %}">
+        {{ day|date:"M j" }}
+      </div>
+    {% endfor %}
+  </div>
+  <div id="wrapper-right"></div>
+</div>
 
     <div id="quote-div">
         <div id="quote-right"></div>
@@ -155,25 +154,32 @@
             }
 
             </style>
-            <script>
-                const habitInfo = document.getElementById("habit-info");
+        <script>
+  const habitContainer = document.getElementById("habit-container");
+  const habitInfo      = document.getElementById("habit-info");
 
-                document.getElementById("habit-container").addEventListener("mouseover", function (e) {
-                    const habit = e.target.closest(".habit");
-                    if (habit) {
-                        const habitName = habit.textContent.trim();
-                        habitInfo.querySelector("h3").textContent = habitName;
-                        habitInfo.querySelector("p").textContent = "description for " + habitName;
-                        habitInfo.style.display = "block";
-                    }
-                });
+  // 1) Show info when clicking a habit
+  habitContainer.addEventListener("click", e => {
+    const habit = e.target.closest(".habit");
+    if (habit) {
+      const habitName = habit.textContent.trim();
+      habitInfo.querySelector("h3").textContent = habitName;
+      habitInfo.querySelector("p").textContent  = `Description for ${habitName}`;
+      habitInfo.style.display = "block";
+      return;  // stop here if you clicked a habit
+    }
+  });
 
-                document.getElementById("habit-container").addEventListener("mouseout", function (e) {
-                    if (e.target.closest(".habit")) {
-                        habitInfo.style.display = "none";
-                    }
-                });
-            </script>
+  // 2) Hide info when clicking anywhere else
+  document.addEventListener("click", e => {
+    const clickedHabit     = e.target.closest(".habit");
+    const clickedInfoPanel = e.target.closest("#habit-info");
+    if (!clickedHabit && !clickedInfoPanel) {
+      habitInfo.style.display = "none";
+    }
+  });
+</script>
+
 
 
         </div>
@@ -220,7 +226,6 @@
     <!-- JS habit creator -->
     <script>
         const addHabitButton = document.querySelector(".main-button");
-        const habitContainer = document.getElementById("habit-container");
         const doneContainer = document.getElementById("done-container");
 
         let count = 1;
