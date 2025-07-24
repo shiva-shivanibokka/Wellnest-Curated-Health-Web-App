@@ -20,9 +20,10 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from .models import WaterIntake
-from .models import RecurringHabit
 from .models import User, WaterIntake, FoodIntake, SleepLog, WorkoutLog, RecurringHabit
 from django.http import JsonResponse
+from .models import RecurringHabit
+from .serializers import RecurringHabitSerializer
 
 
 
@@ -110,36 +111,6 @@ def progress_view(request):
 def profile(request):
     return render(request, 'profile.html')
 
-
-
-#adding habits
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def create_recurring_habit(request):
-    habit = RecurringHabit.objects.create(
-        user=request.user,
-        habit_type=request.data.get("habit_type"),
-        name=request.data.get("name"),
-        weekdays=request.data.get("weekdays"),  # should be a list like ["Monday", "Wednesday"]
-        default_value=request.data.get("default_value")
-    )
-    return Response({"message": "Recurring habit created.", "id": habit.id}, status=201)
-
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_recurring_habits(request):
-    habits = RecurringHabit.objects.filter(user=request.user)
-    return Response([
-        {
-            "name": habit.name,
-            "habit_type": habit.habit_type,
-            "weekdays": habit.weekdays,
-            "default_value": habit.default_value
-        } for habit in habits
-    ])
-
-
 #showing habits
 @login_required
 def get_today_recurring_habits(request):
@@ -158,16 +129,20 @@ def get_today_recurring_habits(request):
     
     return JsonResponse({"habits": today_habits})
 
-#logging habits
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def add_water_habit(request):
-    WaterIntake.objects.create(user=request.user, amount_ml=250.0)
-    return Response({"message": "Water habit added successfully"}, status=201)
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
-def get_user_water_habits(request):
-    user = request.user
-    has_water_log = WaterIntake.objects.filter(user=user).exists()
-    return Response({"has_water_habit": has_water_log})
+def recurring_habits(request):
+    if request.method == 'GET':
+        habits = RecurringHabit.objects.filter(user=request.user)
+        serializer = RecurringHabitSerializer(habits, many=True)
+        return Response(serializer.data)
+
+    # POST
+    serializer = RecurringHabitSerializer(data=request.data)
+    if serializer.is_valid():
+        # attach the user before saving
+        serializer.save(user=request.user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

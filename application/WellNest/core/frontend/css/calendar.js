@@ -1,8 +1,7 @@
 
   const habitContainer = document.getElementById("habit-container");
-  const habitInfo      = document.getElementById("habit-info");
 
-  // Show info when clicking a habit
+  /* Show info when clicking a habit
   habitContainer.addEventListener("click", e => {
     const habit = e.target.closest(".habit");
     if (habit) {
@@ -22,6 +21,14 @@
       habitInfo.style.display = "none";
     }
   });
+*/
+
+
+
+
+
+
+
 
 
     document.getElementById('streak-progress').addEventListener('click', () => {
@@ -29,7 +36,7 @@
     });
 
 
-   // JS habit creator 
+/* JS habit creator 
 console.log('document.cookie =', document.cookie);
 const addHabitButton = document.querySelector(".main-button");
 const doneContainer = document.getElementById("done-container");
@@ -69,13 +76,14 @@ function createHabitElement(text) {
     wrapper.appendChild(habit);
     return wrapper;
 }
-
+*/
 
 addHabitButton.addEventListener("click", () => {
     const newHabit = createHabitElement(`New Habit ${count++}`);
     habitContainer.appendChild(newHabit);
 });
 
+//TODO DONE toggle
 document.querySelectorAll(".check-empty").forEach(check => {
     check.addEventListener("click", () => {
         const wrapper = check.closest(".habit-wrapper");
@@ -95,6 +103,80 @@ document.querySelectorAll(".check-empty").forEach(check => {
         }
     });
 });
+
+
+//habit form 
+
+    //value
+    document.getElementById('habit-type').addEventListener('change', function () {
+    const valueInput = document.getElementById('value-input');
+    const type = this.value;
+
+    switch (type) {
+      case 'water':
+        valueInput.min = 0;
+        valueInput.max = 160;
+        valueInput.placeholder = "oz (0–160)";
+        valueInput.style.width = "100px";
+        break;
+      case 'food':
+        valueInput.min = 0;
+        valueInput.max = 5000;
+        valueInput.placeholder = "calories (0–5000)";
+        valueInput.style.width = "150px";
+        break;
+      case 'sleep':
+        valueInput.min = 0;
+        valueInput.max = 24;
+        valueInput.placeholder = "hours (0–24)";
+        valueInput.style.width = "100px";
+        break;
+      case 'workout':
+        valueInput.min = 0;
+        valueInput.max = 12;
+        valueInput.placeholder = "hours (0–12)";
+        valueInput.style.width = "100px";
+        break;
+      default:
+        valueInput.removeAttribute('min');
+        valueInput.removeAttribute('max');
+        valueInput.placeholder = "Enter value";
+    }
+
+    valueInput.value = '';
+
+  });
+  document.getElementById('habit-form').addEventListener('submit', function (e) {
+  const habitType = document.getElementById('habit-type').value;
+  const valueInput = document.getElementById('value-input');
+  const value = parseFloat(valueInput.value);
+
+  let min = 0, max;
+
+  switch (habitType) {
+    case 'water':
+      max = 160;
+      break;
+    case 'food':
+      max = 5000;
+      break;
+    case 'sleep':
+      max = 24;
+      break;
+    case 'workout':
+      max = 12;
+      break;
+    default:
+      max = Infinity;
+  }
+
+  if (isNaN(value) || value < min || value > max) {
+    e.preventDefault(); // block the form from submitting
+    alert(`Please enter a valid value for ${habitType} between ${min} and ${max}.`);
+    valueInput.focus();
+  }
+});
+
 
 //water habit 
 document.getElementById("water-habit").addEventListener("click", async () => {

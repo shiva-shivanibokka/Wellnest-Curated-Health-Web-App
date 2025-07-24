@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'header.css' %}">
     <link rel="stylesheet" href="{% static 'sideNav.css' %}">
     <link rel="stylesheet" href="{% static 'glass.css' %}">
+    <link rel="stylesheet" href="{% static 'form.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -99,11 +100,7 @@
     <div style="margin: 20px;">
         <div id="todo" style="display: flex;">
             <h2>To Do</h2>
-            <button class="main-button"> add habit
-            <img src="{% static 'plus.png' %}" style="height: 10px;" alt="">
-            </button>
-
-            <button class="main-button" id="water-habit"> add habit water
+            <button id="add-habit-button" > add habit
             <img src="{% static 'plus.png' %}" style="height: 10px;" alt="">
             </button>
 
@@ -114,69 +111,161 @@
         <div id="habit-container" style=" flex-grow:2;">
 
         </div>
-       
 
-        <div id="habit-info" style="flex-grow: 2; border: 5px ; border-radius: 15px; box-shadow: 2px 2px 5px gray; justify-content: center; text-align: center;">
 
-            <div style="display: flex; flex-direction: column;"> <h3>Habit Name</h3> <p style="color: gray; margin-top: -20px;">Description</p></div>
-            <p style="text-align: left; margin-left: 40px;">repeat</p>
-            <div style="display: flex; flex-direction: row; justify-content: space-evenly; text-align: center;">
-               
-                <div class="day-box">S</div>
-                <div class="day-box">M</div>
-                <div class="day-box" style="background-color: rgba(173, 255, 47, .2);">T</div>
-                <div class="day-box">W</div>
-                <div class="day-box" style="background-color: rgba(173, 255, 47, .2);">Th</div>
-                <div class="day-box">F</div>
-                <div class="day-box" style="background-color: rgba(173, 255, 47, .2);">S</div>
+        <div id="habit-info" action="">
+            <form id="habit-form" action="">
+                {% csrf_token %}
+                    <div id="habit-form-info"> <input id="habit-form-name" type="text" placeholder="Habit Name" required> 
+                    <input type="text" id="habit-form-description" placeholder="Description"> 
+                                    <div id="habit-color" style="display: flex; flex-direction: row; margin-top: 20px;">
 
-                
+                                    <!--drop down for choosing color-->
+                                    <label for="color-picker" style="margin-left: 20px;">Tag</label>
+                                    <select id="color-picker" name="color-picker" style=" margin-right: 20px;">
+                                    <option value="" disabled selected>Select color</option>
+                                    <option value="Green">Green</option>
+                                    <option value="Purple">Purple</option>
+                                    <option value="Gold">Gold</option>
+                                    <option value="Blue">Blue</option>
+                                    <option value="Red">Red</option>
+                                    </select>
 
+                                    <!--drop down for choosing predefined habits-->
+                                    <label for="habit-type" required>Habits</label>
+                                    <select id="habit-type" name="habit-type" style=" margin-right: 20px;">
+                                    <option value="" disabled selected>Select type</option>
+                                    <option value="water">Water Intake</option>
+                                    <option value="sleep">Sleep Log</option>
+                                    <option value="food">Food Intake</option>
+                                    <option value="workout">Workout</option>
+                                    <option value="custom">Custom</option>
+                                    </select>
+
+                                    <!--choosing value-->
+                                    <input type="number" id="value-input" name="value" placeholder="Enter value" style="width: 100px;">
+
+
+                                    </div>
+
+                    </div>
+
+                    <p style="text-align: left; margin-left: 40px;">repeat</p>
+                    <div style="display: flex; flex-direction: row; justify-content: space-evenly; text-align: center;">
+                    
+                        <div class="day-box">S</div>
+                        <div class="day-box">M</div>
+                        <div class="day-box">T</div>
+                        <div class="day-box">W</div>
+                        <div class="day-box">Th</div>
+                        <div class="day-box">F</div>
+                        <div class="day-box">S</div>
+
+                        
+
+                    </div>
+
+
+            </form>
+            <div style="display:flex; justify-content: flex-end; margin-top: 20px;">
+                <button id="form-submit"> add habit
+                <img src="{% static 'plus.png' %}" style="height: 10px;" alt="">
+                </button>
             </div>
-
-            <style> .day-box{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 50px;
-                width: 50px;
-                border: 1px solid black;
-                border-radius: 10px;
-            }
-
-            #habit-info {
-            display: none; 
-            transition: all 0.3s ease;
-            }
-
-            </style>
-
-
 
 
         </div>
-         <div style="flex-grow: 1;"></div>
+<style>
+    #habit-info{
+display: none;
+flex-grow: 2;
+border: 5px ; 
+padding: 3px;
+border-radius: 15px; 
+box-shadow: 2px 2px 5px gray; 
 
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const addHabitBtn   = document.getElementById("add-habit-button");
+  const container     = document.getElementById("habit-info");
+  const form          = document.getElementById("habit-form");
+  const csrfToken     = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+  // show the form when “add habit” is clicked
+  addHabitBtn.addEventListener("click", () => {
+    container.style.display = "block"
+  });
+
+  // toggle weekdays
+  form.querySelectorAll(".day-box").forEach(box =>
+    box.addEventListener("click", () => box.classList.toggle("selected"))
+  );
+
+  // handle the actual POST
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+
+    const payload = {
+    name:        document.getElementById("habit-form-name").value.trim(),
+    description: document.getElementById("habit-form-description").value.trim(),
+    color:       document.getElementById("color-picker").value,
+    habit_type:  document.getElementById("habit-type").value,
+    value:       parseFloat(document.getElementById("value-input").value) || null,
+    weekdays:    Array.from(document.querySelectorAll(".day-box.selected"))
+                        .map(el => el.textContent.trim()),
+    };
+
+
+    // front-end validation
+    if (!payload.name || !payload.description || !payload.color
+        || !payload.habit_type || !payload.weekdays.length) {
+      return alert("Please fill all fields and pick at least one day.");
+    }
+
+    const resp = await fetch("/api/habit/recurring/", {
+      method:      "POST",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type":  "application/json",
+        "X-CSRFToken":   csrfToken,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (resp.ok) {
+      alert("Habit added!");
+      form.reset();
+      form.style.display = "none";
+      loadCreatedHabits();   
+    } else {
+      const err = await resp.json();
+      alert("Error: " + JSON.stringify(err));
+    }
+  });
+});
+</script>
+
+
+        <!--streak progress element-->
         <div style="flex-grow: .5; margin-right: 40px; border: 5px solid black; border-radius: 15px;display: flex; align-items: center; justify-content: center; flex-direction: column; max-height: 200px; text-align: center;">
             <button style="margin-top: 10px; margin-bottom: -40px" id="streak-progress" > Progress </button> <br>
             <h2 style="font-size: 50px;">59 <img src="{% static 'streak-hot.png' %}" alt="" style="height: 40px;"></h2> <br> <b style="margin-top: -40px; padding-bottom: 10px;">Highest Streak</b>
         </div>
-
-
-        <style>
-            #streak-progress{
-                background-color: #4e148c;
-                color: gold;
-                padding: 36px;
-                border: none;
-                border-radius: 15px;
-                font-size: 20px;
-                font-weight: 500;
-                width: 250px ;
-                min-width: 150px;
-                padding-top: 16px;
-                padding-bottom: 16px;
-            }
+        <style>#streak-progress{
+        background-color: #4e148c;
+        color: gold;
+        padding: 36px;
+        border: none;
+        border-radius: 15px;
+        font-size: 20px;
+        font-weight: 500;
+        width: 250px ;
+        min-width: 150px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        }
         </style>
 
         </div>
@@ -188,7 +277,7 @@
     <div style="margin: 20px;">
         <div>
             <h2>Done</h2>
-            <div id="done-container"></div>
+            <div id="done-container"></div> 
         </div>
     </div>
 

@@ -1,0 +1,60 @@
+
+#habit-info{
+display: none;
+flex-grow: 2;
+border: 5px ; 
+padding: 3px;
+border-radius: 15px; 
+box-shadow: 2px 2px 5px gray; 
+
+
+}
+#habit-form-info{
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+flex-grow: 1; 
+border: 5px ; 
+padding: 3px;
+border-radius: 15px; 
+box-shadow: 2px 2px 5px gray; 
+text-align: center;
+}
+
+#habit-form-name{
+    font-size: 30px;
+    font-weight: bold;
+    border: none;
+    outline: none;  
+    text-align: center; 
+}
+
+#habit-form-description{
+    font-size: 20px;
+    border: none;
+    outline: none;
+    text-align: center;    
+}
+
+
+.day-box{
+display: flex;
+align-items: center;
+justify-content: center;
+height: 50px;
+width: 50px;
+border: 1px solid black;
+border-radius: 10px;
+}
+
+.day-box.selected {
+  background-color: rgba(173, 255, 47, 0.6);
+  border: 2px solid green;
+  font-weight: bold;
+}
+
+#value-input{
+    min-width: 70px;
+}
+
