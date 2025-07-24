@@ -2,7 +2,6 @@ h1 {
     margin: 10px;
     margin-top: 100px;
     padding-top: 30px;
-    letter-spacing: 1.8px;
 }
 
 h2 {
@@ -21,6 +20,7 @@ body {
     background-color: #ffffff;
     font-family: "Inter", sans-serif;
     letter-spacing: .8px;
+
 }
 
 .get-started-button {
@@ -37,6 +37,7 @@ body {
     display: inline-block;
     font-size: 20px;
     letter-spacing: .8px;
+
 }
 
 .have-account-button {
@@ -54,91 +55,3 @@ body {
     font-size: 20px;
     letter-spacing: .8px;
 }
-
-label {
-    padding-right: auto;
-}
-
-
-form#referral-form {
-    margin-top: 30px;
-    padding-left: 1%;
-    padding-right: 1%;
-}
-
-.checkbox-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, auto);
-    gap: 40px 40px;
-    margin-top: 30px;
-}
-
-.checkbox-grid div {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-}
-
-label {
-    padding-left: 7px;
-}
-
-.next-button {
-    background-color: #3a5a40;
-    border: black 2px solid;
-    border-radius: 12px;
-    color: white;
-    margin-top: 25px;
-    padding: 11px;
-    width: 15%;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    letter-spacing: .8px;
-    position: fixed;
-    bottom: 30px;
-    right: 50px;
-}
-
-.skip-survey-button {
-    background-color: #3a5a40;
-    border: black 2px solid;
-    border-radius: 12px;
-    color: white;
-    margin-top: 25px;
-    padding: 11px;
-    width: 15%;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    letter-spacing: .8px;
-    position: fixed;
-    bottom: 30px;
-    right: 50px;
-}
-
-button{
-    background-color: #3a5a40;
-    border: black 2px solid;
-    border-radius: 12px;
-    color: white;
-    margin-top: 25px;
-    padding: 11px;
-    width: 15%;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    letter-spacing: .8px;
-    position: fixed;
-    bottom: 30px;
-    right: 50px;
-}
-
-/*TODO: Color Scheme*/
