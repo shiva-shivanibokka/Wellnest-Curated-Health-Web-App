@@ -99,9 +99,14 @@ AUTH_PASSWORD_VALIDATORS = [
 LOGIN_URL = '/signin/'
 LOGIN_REDIRECT_URL = '/calendar/'
 AUTH_USER_MODEL = 'core.User'
+
+# users have to login after an hour
+SESSION_COOKIE_AGE = 3600  # seconds
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 # Internationalization
 LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/Los_Angeles"
 USE_I18N = True
 USE_TZ = True
 

@@ -42,3 +42,21 @@ class Custom_Habit(models.Model):
     name = models.CharField(max_length=20)
     duration_minutes = models.FloatField()
     timestamp = models.DateTimeField(auto_now_add=True)
+
+
+class RecurringHabit(models.Model):
+    HABIT_TYPE_CHOICES = [
+        ('water', 'Water Intake'),
+        ('food', 'Food Intake'),
+        ('sleep', 'Sleep Log'),
+        ('workout', 'Workout Log'),
+    ]
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    habit_type = models.CharField(max_length=10, choices=HABIT_TYPE_CHOICES)
+    name = models.CharField(max_length=50)
+    weekdays = models.JSONField() 
+    default_value = models.FloatField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.get_habit_type_display()}"

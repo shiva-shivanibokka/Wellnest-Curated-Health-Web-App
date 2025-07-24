@@ -18,8 +18,8 @@
 </head>
 
 <body>
-
-
+    <!-- csrf token -->
+    <form style="display: none;">{% csrf_token %}</form>
 
     <div id="header">
         <div class="box" id="profile-div">
@@ -100,24 +100,19 @@
         <div id="todo" style="display: flex;">
             <h2>To Do</h2>
             <button class="main-button"> add habit
-                <img src="{% static 'plus.png' %}" style="height: 10px;" alt="">
+            <img src="{% static 'plus.png' %}" style="height: 10px;" alt="">
             </button>
+
+            <button class="main-button" id="water-habit"> add habit water
+            <img src="{% static 'plus.png' %}" style="height: 10px;" alt="">
+            </button>
+
         </div>
         <div style="display: flex; gap: 20px; justify-content: space-between;">
 
 
         <div id="habit-container" style=" flex-grow:2;">
-            <div class="habit-wrapper">
-                <div class="habit">
-                    <img src="{% static 'check-empty.png' %}" alt="check-empty" class="check-empty"> Walking
-                </div>
-            </div>
 
-            <div class="habit-wrapper">
-                <div class="habit">
-                    <img src="{% static 'check-empty.png' %}" alt="check-empty" class="check-empty"> Drinking Water
-                </div>
-            </div>
         </div>
        
 
@@ -155,31 +150,7 @@
             }
 
             </style>
-        <script>
-  const habitContainer = document.getElementById("habit-container");
-  const habitInfo      = document.getElementById("habit-info");
 
-  // 1) Show info when clicking a habit
-  habitContainer.addEventListener("click", e => {
-    const habit = e.target.closest(".habit");
-    if (habit) {
-      const habitName = habit.textContent.trim();
-      habitInfo.querySelector("h3").textContent = habitName;
-      habitInfo.querySelector("p").textContent  = `Description for ${habitName}`;
-      habitInfo.style.display = "block";
-      return;  // stop here if you clicked a habit
-    }
-  });
-
-  // 2) Hide info when clicking anywhere else
-  document.addEventListener("click", e => {
-    const clickedHabit     = e.target.closest(".habit");
-    const clickedInfoPanel = e.target.closest("#habit-info");
-    if (!clickedHabit && !clickedInfoPanel) {
-      habitInfo.style.display = "none";
-    }
-  });
-</script>
 
 
 
@@ -190,11 +161,8 @@
             <button style="margin-top: 10px; margin-bottom: -40px" id="streak-progress" > Progress </button> <br>
             <h2 style="font-size: 50px;">59 <img src="{% static 'streak-hot.png' %}" alt="" style="height: 40px;"></h2> <br> <b style="margin-top: -40px; padding-bottom: 10px;">Highest Streak</b>
         </div>
-        <script>
-        document.getElementById('streak-progress').addEventListener('click', () => {
-        window.location.href = '/progress';
-        });
-        </script>
+
+
         <style>
             #streak-progress{
                 background-color: #4e148c;
@@ -224,74 +192,15 @@
         </div>
     </div>
 
-    <!-- JS habit creator -->
     <script>
-        console.log('document.cookie =', document.cookie);
-        const addHabitButton = document.querySelector(".main-button");
-        const doneContainer = document.getElementById("done-container");
-
-        let count = 1;
-
-        function createHabitElement(text) {
-            const wrapper = document.createElement("div");
-            wrapper.className = "habit-wrapper";
-
-            const habit = document.createElement("div");
-            habit.className = "habit";
-
-            const check = document.createElement("img");
-            check.src = "{% static 'check-empty.png' %}";
-            check.alt = "check-empty";
-            check.className = "check-empty";
-
-            check.addEventListener("click", () => {
-                const isInToDo = wrapper.parentElement === habitContainer;
-
-                if (isInToDo) {
-                    doneContainer.appendChild(wrapper);
-                    check.src = "{% static 'check.png' %}";
-                    check.alt = "check";
-                    habit.style.backgroundColor = "#4E148C";
-                } else {
-                    habitContainer.appendChild(wrapper);
-                    check.src = "{% static 'check-empty.png' %}";
-                    check.alt = "check-empty";
-                    habit.style.backgroundColor = "#295529";
-                }
-            });
-
-            habit.appendChild(check);
-            habit.appendChild(document.createTextNode(text));
-            wrapper.appendChild(habit);
-            return wrapper;
-        }
-
-        addHabitButton.addEventListener("click", () => {
-            const newHabit = createHabitElement(`New Habit ${count++}`);
-            habitContainer.appendChild(newHabit);
-        });
-
-        document.querySelectorAll(".check-empty").forEach(check => {
-            check.addEventListener("click", () => {
-                const wrapper = check.closest(".habit-wrapper");
-                const habit = wrapper.querySelector(".habit");
-                const isInToDo = wrapper.parentElement === habitContainer;
-
-                if (isInToDo) {
-                    doneContainer.appendChild(wrapper);
-                    check.src = "{% static 'check.png' %}";
-                    check.alt = "check";
-                    habit.style.backgroundColor = "#4E148C";
-                } else {
-                    habitContainer.appendChild(wrapper);
-                    check.src = "{% static 'check-empty.png' %}";
-                    check.alt = "check-empty";
-                    habit.style.backgroundColor = "#295529";
-                }
-            });
-        });
+        window.STATIC_URLS = {
+            checkEmpty: "{% static 'check-empty.png' %}",
+            checkDone: "{% static 'check.png' %}"
+        };
     </script>
 
+
+    <script src="{% static 'calendar.js' %}"></script>
     <script src="{% static 'sideNav.js' %}"></script>
     <script src="{% static 'header.js' %}"></script>
 </body>
