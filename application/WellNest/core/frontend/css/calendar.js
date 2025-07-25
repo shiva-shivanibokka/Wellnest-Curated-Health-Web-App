@@ -29,18 +29,52 @@ async function loadCreatedHabits() {
             check.alt = "check-empty";
             check.className = "check-empty";
 
-            check.addEventListener("click", () => {
+            check.addEventListener("click", async () => {
                 const isInToDo = wrapper.parentElement === habitContainer;
                 if (isInToDo) {
                     doneContainer.appendChild(wrapper);
                     check.src = window.STATIC_URLS.checkDone;
                     check.alt = "check";
                     habit.style.backgroundColor = "#4E148C";
+
+
+                    //posts to habit log
+                    await fetch("/api/habit/log/", {
+                        method: "POST",
+                        credentials: "same-origin",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRFToken": getCSRFToken(),  
+                        },
+                        body: JSON.stringify({
+                            name: habitObj.name,
+                            habit_type: habitObj.habit_type,
+                            description: habitObj.description || "",
+                            color: habitObj.color || "Green",
+                            value: habitObj.value || null,
+                        }),
+                    });
+
                 } else {
                     habitContainer.appendChild(wrapper);
                     check.src = window.STATIC_URLS.checkEmpty;
                     check.alt = "check-empty";
                     habit.style.backgroundColor = "#295529";
+
+                        // we remove from log 
+                        await fetch(`/api/habit/log/delete/`, {
+                        method: "DELETE",
+                        credentials: "same-origin",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRFToken": getCSRFToken(),
+                        },
+                        body: JSON.stringify({
+                            name: habitObj.name,
+                            habit_type: habitObj.habit_type,
+                            date: new Date().toISOString().split("T")[0],  
+                        }),
+                    });
                 }
             });
 
@@ -53,6 +87,14 @@ async function loadCreatedHabits() {
         console.error("Failed to load recurring habits:", err);
     }
 }
+
+function getCSRFToken() {
+    return document.cookie
+      .split("; ")
+      .find(row => row.startsWith("csrftoken"))
+      ?.split("=")[1];
+}
+
 
 
 document.getElementById('streak-progress').addEventListener('click', () => {

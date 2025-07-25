@@ -65,7 +65,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "backend_project.wsgi.application"
 
-# ✅ Updated Database Configuration for AWS MySQL
+# Updated Database Configuration for AWS MySQL
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",

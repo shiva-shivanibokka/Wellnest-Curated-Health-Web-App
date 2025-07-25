@@ -2,6 +2,8 @@ from rest_framework import serializers
 from .models import User
 from django.contrib.auth.hashers import make_password
 from .models import RecurringHabit
+from .models import HabitLog
+
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, source='encrypted_password')
@@ -33,7 +35,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-
+# Recurring Habit
 class RecurringHabitSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecurringHabit
@@ -48,3 +50,11 @@ class RecurringHabitSerializer(serializers.ModelSerializer):
             'timestamp',
         ]
         read_only_fields = ['id', 'timestamp']
+
+# Logging habit
+
+class HabitLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HabitLog
+        fields = ['habit_type', 'name', 'description', 'color', 'value', 'timestamp']
+        read_only_fields = ['timestamp']

@@ -24,6 +24,8 @@ from .models import User, WaterIntake, FoodIntake, SleepLog, WorkoutLog, Recurri
 from django.http import JsonResponse
 from .models import RecurringHabit
 from .serializers import RecurringHabitSerializer
+from .models import HabitLog
+from .serializers import HabitLogSerializer
 
 
 
@@ -111,7 +113,7 @@ def progress_view(request):
 def profile(request):
     return render(request, 'profile.html')
 
-#showing habits
+#showing habits for that day
 @login_required
 def get_today_recurring_habits(request):
     user = request.user
@@ -122,6 +124,9 @@ def get_today_recurring_habits(request):
         {
             "name": habit.name,
             "habit_type": habit.habit_type,
+            "description": habit.description,
+            "color": habit.color,
+            "value": habit.value,
         }
         for habit in habits
         if today_weekday in habit.weekdays
@@ -129,7 +134,7 @@ def get_today_recurring_habits(request):
     
     return JsonResponse({"habits": today_habits})
 
-
+# recurring habit GET and POST API we can see what habits a user has and post habits they want to create
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def recurring_habits(request):
@@ -146,3 +151,44 @@ def recurring_habits(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#Habit log, we keep record of Done Habits
+@api_view(['POST', 'GET'])
+@permission_classes([IsAuthenticated])
+def log_completed_habit(request):
+    if request.method == 'POST':
+        serializer = HabitLogSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)  # attach user
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # If GET
+    logs = HabitLog.objects.filter(user=request.user).order_by('-timestamp')
+    serializer = HabitLogSerializer(logs, many=True)
+    return Response(serializer.data)
+
+
+# Deleting a logged habit if the user says they haven't done it
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_habit_log(request):
+    user = request.user
+    name = request.data.get('name')
+    habit_type = request.data.get('habit_type')
+    date_str = request.data.get('date')
+
+    if not all([name, habit_type, date_str]):
+        return Response({"error": "Missing data"}, status=400)
+
+    try:
+        date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
+        logs = HabitLog.objects.filter(
+            user=user,
+            name=name,
+            habit_type=habit_type,
+            timestamp__date=date_obj
+        )
+        deleted_count, _ = logs.delete()
+        return Response({"deleted": deleted_count})
+    except Exception as e:
+        return Response({"error": str(e)}, status=400)
