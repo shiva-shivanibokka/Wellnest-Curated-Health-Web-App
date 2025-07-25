@@ -29,6 +29,7 @@ from .serializers import HabitLogSerializer
 
 
 
+
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserCreateSerializer
@@ -181,13 +182,19 @@ def delete_habit_log(request):
         return Response({"error": "Missing data"}, status=400)
 
     try:
-        date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
+        start = datetime.strptime(date_str, "%Y-%m-%d")
+        end = start + timedelta(days=1)
+
         logs = HabitLog.objects.filter(
             user=user,
             name=name,
             habit_type=habit_type,
-            timestamp__date=date_obj
+            timestamp__gte=start,
+            timestamp__lt=end
         )
+
+        print(f"[DEBUG] Found {logs.count()} logs to delete for {name} on {date_str}")
+        
         deleted_count, _ = logs.delete()
         return Response({"deleted": deleted_count})
     except Exception as e:
