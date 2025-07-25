@@ -61,6 +61,7 @@ Keep up the good work and stay focused on the essentials, you’ve got this!
     - Security Guidelines
     - Contact Information
     - A tutorial or set of instructions for SSH access to your database instance
+  - Master-main branch is not protected. That is an essential and important matter that you need to resolve as soon as possible. 
 
 
 
