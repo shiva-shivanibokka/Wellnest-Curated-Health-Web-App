@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'header.css' %}">
     <link rel="stylesheet" href="{% static 'sideNav.css' %}">
     <link rel="stylesheet" href="{% static 'glass.css' %}">
+    <link rel="stylesheet" href="{% static 'form.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -18,8 +19,8 @@
 </head>
 
 <body>
-
-
+    <!-- csrf token -->
+    <form style="display: none;">{% csrf_token %}</form>
 
     <div id="header">
         <div class="box" id="profile-div">
@@ -99,116 +100,114 @@
     <div style="margin: 20px;">
         <div id="todo" style="display: flex;">
             <h2>To Do</h2>
-            <button class="main-button"> add habit
-                <img src="{% static 'plus.png' %}" style="height: 10px;" alt="">
+            <button id="add-habit-button" > add habit
+            <img src="{% static 'plus.png' %}" style="height: 10px;" alt="">
             </button>
+
         </div>
         <div style="display: flex; gap: 20px; justify-content: space-between;">
 
 
         <div id="habit-container" style=" flex-grow:2;">
-            <div class="habit-wrapper">
-                <div class="habit">
-                    <img src="{% static 'check-empty.png' %}" alt="check-empty" class="check-empty"> Walking
-                </div>
-            </div>
 
-            <div class="habit-wrapper">
-                <div class="habit">
-                    <img src="{% static 'check-empty.png' %}" alt="check-empty" class="check-empty"> Drinking Water
-                </div>
-            </div>
         </div>
-       
 
-        <div id="habit-info" style="flex-grow: 2; border: 5px ; border-radius: 15px; box-shadow: 2px 2px 5px gray; justify-content: center; text-align: center;">
 
-            <div style="display: flex; flex-direction: column;"> <h3>Habit Name</h3> <p style="color: gray; margin-top: -20px;">Description</p></div>
-            <p style="text-align: left; margin-left: 40px;">repeat</p>
-            <div style="display: flex; flex-direction: row; justify-content: space-evenly; text-align: center;">
-               
-                <div class="day-box">S</div>
-                <div class="day-box">M</div>
-                <div class="day-box" style="background-color: rgba(173, 255, 47, .2);">T</div>
-                <div class="day-box">W</div>
-                <div class="day-box" style="background-color: rgba(173, 255, 47, .2);">Th</div>
-                <div class="day-box">F</div>
-                <div class="day-box" style="background-color: rgba(173, 255, 47, .2);">S</div>
+        <div id="habit-info" action="">
+            <form id="habit-form" action="">
+                {% csrf_token %}
+                    <div id="habit-form-info"> <input id="habit-form-name" type="text" placeholder="Habit Name" required> 
+                    <input type="text" id="habit-form-description" placeholder="Description"> 
+                                    <div id="habit-color" style="display: flex; flex-direction: row; margin-top: 20px;">
 
-                
+                                    <!--drop down for choosing color-->
+                                    <label for="color-picker" style="margin-left: 20px;">Tag</label>
+                                    <select id="color-picker" name="color-picker" style=" margin-right: 20px;">
+                                    <option value="" disabled selected>Select color</option>
+                                    <option value="Green">Green</option>
+                                    <option value="Purple">Purple</option>
+                                    <option value="Gold">Gold</option>
+                                    <option value="Blue">Blue</option>
+                                    <option value="Red">Red</option>
+                                    </select>
 
-            </div>
+                                    <!--drop down for choosing predefined habits-->
+                                    <label for="habit-type" required>Habits</label>
+                                    <select id="habit-type" name="habit-type" style=" margin-right: 20px;">
+                                    <option value="" disabled selected>Select type</option>
+                                    <option value="water">Water Intake</option>
+                                    <option value="sleep">Sleep Log</option>
+                                    <option value="food">Food Intake</option>
+                                    <option value="workout">Workout</option>
+                                    <option value="custom">Custom</option>
+                                    </select>
 
-            <style> .day-box{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 50px;
-                width: 50px;
-                border: 1px solid black;
-                border-radius: 10px;
-            }
+                                    <!--choosing value-->
+                                    <input type="number" id="value-input" name="value" placeholder="Enter value" style="width: 100px;">
 
-            #habit-info {
-            display: none; 
-            transition: all 0.3s ease;
-            }
 
-            </style>
-        <script>
-  const habitContainer = document.getElementById("habit-container");
-  const habitInfo      = document.getElementById("habit-info");
+                                    </div>
 
-  // 1) Show info when clicking a habit
-  habitContainer.addEventListener("click", e => {
-    const habit = e.target.closest(".habit");
-    if (habit) {
-      const habitName = habit.textContent.trim();
-      habitInfo.querySelector("h3").textContent = habitName;
-      habitInfo.querySelector("p").textContent  = `Description for ${habitName}`;
-      habitInfo.style.display = "block";
-      return;  // stop here if you clicked a habit
-    }
-  });
+                    </div>
 
-  // 2) Hide info when clicking anywhere else
-  document.addEventListener("click", e => {
-    const clickedHabit     = e.target.closest(".habit");
-    const clickedInfoPanel = e.target.closest("#habit-info");
-    if (!clickedHabit && !clickedInfoPanel) {
-      habitInfo.style.display = "none";
-    }
-  });
-</script>
+                    <p style="text-align: left; margin-left: 40px;">repeat</p>
+                    <div style="display: flex; flex-direction: row; justify-content: space-evenly; text-align: center;">
+                    
+                    <div class="day-box" data-day="Sunday">S</div>
+                    <div class="day-box" data-day="Monday">M</div>
+                    <div class="day-box" data-day="Tuesday">T</div>
+                    <div class="day-box" data-day="Wednesday">W</div>
+                    <div class="day-box" data-day="Thursday">Th</div>
+                    <div class="day-box" data-day="Friday">F</div>
+                    <div class="day-box" data-day="Saturday">S</div>
+
+                        
+
+                    </div>
+
+                    <div style="display:flex; justify-content: flex-end; margin-top: 20px;">
+                          <button type="submit" id="form-submit"> add habit
+                          <img src="{% static 'plus.png' %}" style="height: 10px;" alt="">
+                          </button>
+                    </div>
+
+            </form>
 
 
 
         </div>
-         <div style="flex-grow: 1;"></div>
+<style>
+    #habit-info{
+display: none;
+flex-grow: 2;
+border: 5px ; 
+padding: 3px;
+border-radius: 15px; 
+box-shadow: 2px 2px 5px gray; 
 
+}
+</style>
+
+
+
+        <!--streak progress element-->
         <div style="flex-grow: .5; margin-right: 40px; border: 5px solid black; border-radius: 15px;display: flex; align-items: center; justify-content: center; flex-direction: column; max-height: 200px; text-align: center;">
             <button style="margin-top: 10px; margin-bottom: -40px" id="streak-progress" > Progress </button> <br>
             <h2 style="font-size: 50px;">59 <img src="{% static 'streak-hot.png' %}" alt="" style="height: 40px;"></h2> <br> <b style="margin-top: -40px; padding-bottom: 10px;">Highest Streak</b>
         </div>
-        <script>
-        document.getElementById('streak-progress').addEventListener('click', () => {
-        window.location.href = '/progress';
-        });
-        </script>
-        <style>
-            #streak-progress{
-                background-color: #4e148c;
-                color: gold;
-                padding: 36px;
-                border: none;
-                border-radius: 15px;
-                font-size: 20px;
-                font-weight: 500;
-                width: 250px ;
-                min-width: 150px;
-                padding-top: 16px;
-                padding-bottom: 16px;
-            }
+        <style>#streak-progress{
+        background-color: #4e148c;
+        color: gold;
+        padding: 36px;
+        border: none;
+        border-radius: 15px;
+        font-size: 20px;
+        font-weight: 500;
+        width: 250px ;
+        min-width: 150px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        }
         </style>
 
         </div>
@@ -220,78 +219,19 @@
     <div style="margin: 20px;">
         <div>
             <h2>Done</h2>
-            <div id="done-container"></div>
+            <div id="done-container"></div> 
         </div>
     </div>
 
-    <!-- JS habit creator -->
     <script>
-        console.log('document.cookie =', document.cookie);
-        const addHabitButton = document.querySelector(".main-button");
-        const doneContainer = document.getElementById("done-container");
-
-        let count = 1;
-
-        function createHabitElement(text) {
-            const wrapper = document.createElement("div");
-            wrapper.className = "habit-wrapper";
-
-            const habit = document.createElement("div");
-            habit.className = "habit";
-
-            const check = document.createElement("img");
-            check.src = "{% static 'check-empty.png' %}";
-            check.alt = "check-empty";
-            check.className = "check-empty";
-
-            check.addEventListener("click", () => {
-                const isInToDo = wrapper.parentElement === habitContainer;
-
-                if (isInToDo) {
-                    doneContainer.appendChild(wrapper);
-                    check.src = "{% static 'check.png' %}";
-                    check.alt = "check";
-                    habit.style.backgroundColor = "#4E148C";
-                } else {
-                    habitContainer.appendChild(wrapper);
-                    check.src = "{% static 'check-empty.png' %}";
-                    check.alt = "check-empty";
-                    habit.style.backgroundColor = "#295529";
-                }
-            });
-
-            habit.appendChild(check);
-            habit.appendChild(document.createTextNode(text));
-            wrapper.appendChild(habit);
-            return wrapper;
-        }
-
-        addHabitButton.addEventListener("click", () => {
-            const newHabit = createHabitElement(`New Habit ${count++}`);
-            habitContainer.appendChild(newHabit);
-        });
-
-        document.querySelectorAll(".check-empty").forEach(check => {
-            check.addEventListener("click", () => {
-                const wrapper = check.closest(".habit-wrapper");
-                const habit = wrapper.querySelector(".habit");
-                const isInToDo = wrapper.parentElement === habitContainer;
-
-                if (isInToDo) {
-                    doneContainer.appendChild(wrapper);
-                    check.src = "{% static 'check.png' %}";
-                    check.alt = "check";
-                    habit.style.backgroundColor = "#4E148C";
-                } else {
-                    habitContainer.appendChild(wrapper);
-                    check.src = "{% static 'check-empty.png' %}";
-                    check.alt = "check-empty";
-                    habit.style.backgroundColor = "#295529";
-                }
-            });
-        });
+        window.STATIC_URLS = {
+            checkEmpty: "{% static 'check-empty.png' %}",
+            checkDone: "{% static 'check.png' %}"
+        };
     </script>
 
+    <script src="{% static 'form.js' %}"></script>
+    <script src="{% static 'calendar.js' %}"></script>
     <script src="{% static 'sideNav.js' %}"></script>
     <script src="{% static 'header.js' %}"></script>
 </body>

@@ -1,6 +1,9 @@
 from django.urls import path
 from . import views
 from .views import UserLoginView
+from .views import get_today_recurring_habits
+from .views import recurring_habits
+
 
 urlpatterns = [
     # path('users/', views.UserListCreateView.as_view(), name='user-list-create'),
@@ -21,5 +24,12 @@ urlpatterns = [
     path('calendar/', views.calendar_view, name='calendar'),
     path('progress/', views.progress_view, name='progress'),
     path('profile/', views.profile, name='profile'),
+    #login api
     path('api/users/login/', UserLoginView.as_view(), name='user-login'),
+    #creating habit apis
+    path('api/habit/recurring/', recurring_habits, name='recurring-habits'),
+
+    
+    #show habit api
+    path('api/habit/recurring/today/', get_today_recurring_habits),
 ]
