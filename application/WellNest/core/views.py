@@ -5,6 +5,7 @@ from django.conf import settings
 import os
 from django.db.models import Q
 import calendar
+from datetime import datetime, time
 from datetime import date
 from datetime import date, timedelta
 from datetime import datetime
@@ -22,11 +23,12 @@ from rest_framework.permissions import IsAuthenticated
 from .models import WaterIntake
 from .models import User, WaterIntake, FoodIntake, SleepLog, WorkoutLog, RecurringHabit
 from django.http import JsonResponse
+import json
 from .models import RecurringHabit
 from .serializers import RecurringHabitSerializer
 from .models import HabitLog
 from .serializers import HabitLogSerializer
-
+from django.utils import timezone
 
 
 
@@ -119,21 +121,51 @@ def profile(request):
 def get_today_recurring_habits(request):
     user = request.user
     today_weekday = datetime.now().strftime("%A")  # depending on days of the week 
-    
+    today_date = timezone.localdate()
+
     habits = RecurringHabit.objects.filter(user=user)
-    today_habits = [
-        {
+    today_habits = []
+    for habit in habits:
+        weekdays = habit.weekdays or []
+        if isinstance(weekdays, str):
+            try:
+                weekdays = json.loads(weekdays)
+
+            except json.JSONDecodeError:
+                weekdays = []
+        if today_weekday in weekdays:
+            today_habits.append(habit)
+  
+
+    start = datetime.combine(today_date, time.min).astimezone()
+    end   = datetime.combine(today_date, time.max).astimezone()
+
+    logged_names = set( HabitLog.objects.filter(
+        user=user,
+        timestamp__range=(start, end)
+    ).values_list('name', flat=True)
+    )
+
+    #accounting for done and to do habits 
+    todo = []
+    done = []
+
+    # filtering habits that the user says theyve done
+    for habit in today_habits:
+        habit_data = {
             "name": habit.name,
             "habit_type": habit.habit_type,
             "description": habit.description,
             "color": habit.color,
             "value": habit.value,
         }
-        for habit in habits
-        if today_weekday in habit.weekdays
-    ]
-    
-    return JsonResponse({"habits": today_habits})
+        if habit.name in logged_names:
+            done.append(habit_data)
+        else:
+            todo.append(habit_data)
+
+    return JsonResponse({"todo": todo, "done": done})
+
 
 # recurring habit GET and POST API we can see what habits a user has and post habits they want to create
 @api_view(['GET', 'POST'])
@@ -194,7 +226,7 @@ def delete_habit_log(request):
         )
 
         print(f"[DEBUG] Found {logs.count()} logs to delete for {name} on {date_str}")
-        
+
         deleted_count, _ = logs.delete()
         return Response({"deleted": deleted_count})
     except Exception as e:
