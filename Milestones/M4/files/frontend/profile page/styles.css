@@ -1,0 +1,148 @@
+/* General page layout */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff; /* White background */
+}
+
+.page-container {
+  padding: 20px;
+}
+
+/* Header section */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  padding: 0 20px;
+}
+
+.hamburger {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.title {
+  flex-grow: 1;
+  text-align: left;
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 10px;
+  color: #4B0082; /* Purple */
+}
+
+.search-btn {
+  background-color: #4B0082; /* Purple */
+  color: gold;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0 auto;
+}
+
+.user-icon {
+  font-size: 24px;
+  margin-left: 10px;
+  color: #4B0082;
+}
+
+/* Card layout */
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  width: 320px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 2px solid #4B0082;
+}
+
+.profile-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: #4B0082;
+}
+
+/* Buttons */
+.edit-btn,
+.save-btn {
+  background-color: #4B0082;
+  color: gold;
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Form layout */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 10px;
+}
+
+label {
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4B0082;
+}
+
+input,
+select {
+  padding: 8px;
+  border: 1px solid #888;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* Popup styling */
+.popup {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 16px;
+  padding: 40px 60px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  border: 3px solid #4B0082;
+  width: 400px;
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.popup-content strong {
+  font-size: 26px;
+  font-weight: 700;
+  color: #4B0082;
+  display: block;
+  margin-bottom: 20px;
+}
+
+#close-popup {
+  background-color: gold;
+  color: #4B0082;
+  padding: 10px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Utility class to hide elements */
+.hidden {
+  display: none;
+}

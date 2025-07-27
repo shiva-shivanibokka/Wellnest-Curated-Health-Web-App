@@ -1,0 +1,133 @@
+/* Container Layout */
+#container {
+    display: flex;
+    width: 80vw;
+    height: 70vh;
+    box-shadow: 0 25px 35px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+/* Left Logo Panel */
+#left {
+    flex: 1;
+    background-color: #f8f5e9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#left img {
+    max-width: 80%;
+    height: auto;
+}
+
+/* Right Form Panel */
+#right {
+    flex: 1;
+    background-color: #f3ecfe;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+}
+
+/* Form Layout */
+#signin-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Typography */
+h2 {
+    font-size: 48px;
+    color: #3D2376;
+    margin-bottom: 40px;
+    text-align: center;
+    width: 100%;
+}
+
+/* Input Fields */
+input {
+    margin-bottom: 25px;
+    width: 100%;
+    max-width: 450px;
+    padding: 16px;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: border 0.3s;
+    font-family: "Inter", sans-serif;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border: 2px solid #5D3FD3;
+    outline: none;
+}
+
+/* Buttons Container */
+#buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+/* Buttons Styling */
+button {
+    padding: 15px 35px;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: "Inter", sans-serif;
+    transition: all 0.3s ease;
+    width: 170px;
+    border: 3px solid transparent;
+}
+
+/* Sign In Button */
+#signin-btn {
+    background-color: #5D3FD3;
+    color: white;
+    border-color: #FFD700;
+}
+
+#signin-btn:hover {
+    background-color: #4722a3;
+    border-color: #e6c200;
+}
+
+/* Sign Up Button */
+#signup-btn {
+    background-color: #FFD700;
+    color: #3D2376;
+    border-color: #5D3FD3;
+}
+
+#signup-btn:hover {
+    background-color: #e6c200;
+    color: #2a185b;
+    border-color: #3D2376;
+}
+
+/* Page Background */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Inter", sans-serif;
+    background-color: #f0f4f8;
+}
+
+html, body {
+    overflow: hidden;
+}
