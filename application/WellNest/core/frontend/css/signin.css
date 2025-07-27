@@ -1,6 +1,6 @@
 #left {
     flex: 1;
-    background-color: #c8e6c9;
+    background-color: #f8f5e9;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,6 +36,9 @@ button {
     cursor: pointer;
     background-color: #00796b;
     color: white;
+    width: 125px;
+    font-weight: bold;
+    border: 2px solid black;
 }
 
 body {
@@ -50,11 +53,10 @@ body {
 
 input {
     margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    width: 250px;
+    min-width: 250px;
+    border: 1px ridge lightgray;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 #signin-form {
@@ -68,4 +70,31 @@ input {
     flex-direction: row;
     gap: 10px;
     margin-top: 10px;
+}
+
+#buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#signup-btn {
+    background-color: #3A5A40;
+}
+
+#signin-btn {
+    background-color: white;
+    color: black;
+}
+
+h2 {
+    font-size: 32px;
+}
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+    font-family: "Inter", sans-serif;
 }

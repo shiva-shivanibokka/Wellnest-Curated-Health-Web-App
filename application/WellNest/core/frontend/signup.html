@@ -8,27 +8,31 @@
     <title>signup</title>
     <!-- <link rel="stylesheet" href="css/signup.css"> -->
     <link rel="stylesheet" href="{% static 'signup.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
     <div id="container">
         <div id="left">
-            <form id="signup-form">
+            <form id="signup-form" method="post">
+               {% csrf_token %}
+
                 <h2 style="text-align: center;">Sign Up</h2>
 
-                <input type="text" id="username" name="username" placeholder="Username" value="ProfessorOrtiz123"
-                    required> <br>
+                <input type="text" id="username" name="username" placeholder="Username" required> <br>
 
-                <input type="email" id="email" name="email" placeholder="Email" value="ProfessorOrtiz456@example.com"
-                    required> <br>
+                <input type="email" id="email" name="email" placeholder="Email" required> <br>
 
-                <input type="password" id="password" name="password" placeholder="Password" value="password123"
-                    required> <br>
+                <input type="password" id="password" name="password" placeholder="Password" required> <br>
 
-                <input type="text" id="first_name" name="first_name" placeholder="First Name" value="Jose" required>
+                <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
                 <br>
 
-                <input type="text" id="last_name" name="last_name" placeholder="Last Name" value="Ortiz" required> <br>
+                <input type="text" id="last_name" name="last_name" placeholder="Last Name" required> <br>
 
                 <select id="gender" name="gender" required>
                     <option value="">Select Gender</option>
@@ -37,8 +41,10 @@
                     <option value="O">Other</option>
                 </select> <br>
 
-                <button type="submit" id="signup-btn">Sign Up</button>
-                <button type="submit" id="signin-btn">Sign In</button>
+                <div id="buttons">
+                    <button type="submit" id="signup-btn">Sign Up</button>
+                    <button type="button" id="signin-btn">Sign In</button>
+                </div>
             </form>
 
             <div id="message" style="margin-top: 10px; padding: 10px; display: none;"></div>
@@ -50,7 +56,7 @@
     </div>
 
     <script>
-        document.getElementById('signup-form').addEventListener('submit', async function (e) {
+        document.getElementById('signup-form').addEventListener('submit', async e => {
             e.preventDefault();
 
             const messageDiv = document.getElementById('message');
@@ -68,11 +74,17 @@
                 gender: document.getElementById('gender').value
             };
 
+           // Django CSRF token, similar to node.js token for authentication 
+
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
             try {
                 const response = await fetch('/api/users/create/', {
                     method: 'POST',
+                    credentials: 'same-origin',
                     headers: {
                         'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
                     },
                     body: JSON.stringify(formData)
                 });
@@ -80,7 +92,7 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    window.location.href = '/';
+                    window.location.href = '/calendar';
                 } else {
                     messageDiv.style.display = 'block';
                     messageDiv.style.color = 'red';

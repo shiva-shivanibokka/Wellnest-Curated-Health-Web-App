@@ -16,6 +16,9 @@
 </head>
 
 <body>
+    <div id="logo">
+        <img src="{% static 'WellNest.png' %}" alt="">
+    </div>
     <div id="home">
         <span class="mainText">Better habits. Better development.<br>Bigger Goals</span>
         <span class="subText">A Habit Tracker For Gators</span>
@@ -62,6 +65,11 @@
         buttonsDiv.innerHTML = `
         <button id="skipSurveyButton">Skip Survey</button>
         <button id="nextButton">Next</button>`;
+
+        document.querySelector('#skipSurveyButton').addEventListener('click', () => {
+            window.location.href = '/signup';
+            console.log('test')
+        })
 
         document.querySelector('#nextButton').addEventListener('click', () => {
             document.querySelector('.mainText').innerHTML = `Let's get to know you!`;
@@ -127,7 +135,7 @@
     })
 
     document.querySelector('#haveAccountButton').addEventListener('click', () => {
-        window.location.href = '/login';
+        window.location.href = '/signin';
     })
 </script>
 

@@ -8,6 +8,11 @@
     <title>Sign In</title>
     <!-- <link rel="stylesheet" href="css/signin.css"> -->
     <link rel="stylesheet" href="{% static 'signin.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -18,28 +23,54 @@
 
         <div id="right">
             <h2 style="text-align: center;">Sign In</h2>
+            <form id="signin-form">
 
-            <input type="text" id="email" name="email" placeholder="Email" required> <br>
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
 
-            <input type="password" id="password" name="password" placeholder="Password" required> <br>
+            <div id="error" style="color:red; display:none;"></div>
 
-            <div class="button-container">
-                <button type="submit" id="signin-btn">Sign In</button>
-                <button type="button" id="signup-btn">Sign Up</button>
-            </div>
+            <button type="submit">Sign In</button>
+            <button type="button" onclick="location.href='/signup'">Sign Up</button>
+            </form>
 
             <div id="message" style="margin-top: 10px; padding: 10px; display: none;"></div>
         </div>
     </div>
 
-    <script>
-        document.getElementById('signup-btn').addEventListener('click', () => {
-            window.location.href = '/signup';
-        });
-        document.getElementById('signin-btn').addEventListener('click', () => {
-            window.location.href = '/calendar';
-        });
-    </script>
+        <script>
+
+            document.getElementById('signin-form').addEventListener('submit', async e => {
+            e.preventDefault();
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            const form      = e.target;
+
+            const resp = await fetch('/api/users/login/', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken':   csrftoken,
+                },
+                body: JSON.stringify({
+                email:    form.email.value,
+                password: form.password.value
+                })
+            });
+
+            if (resp.ok) {
+                const params  = new URLSearchParams(window.location.search);
+                const nextUrl = params.get('next') || '/calendar/';
+                window.location.href = nextUrl;
+            } else {
+                const { detail } = await resp.json();
+                const err        = document.getElementById('error');
+                err.textContent  = detail;
+                err.style.display= 'block';
+            }
+            });
+        </script>
 </body>
 
 </html>
