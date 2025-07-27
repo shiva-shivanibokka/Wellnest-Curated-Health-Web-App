@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     box.addEventListener("click", () => box.classList.toggle("selected"))
   );
 
-  // —— Value‐input dynamic placeholder & constraints ——
+  // Value‐input dynamic placeholder & constraints 
   const valueInput = document.getElementById("value-input");
   document.getElementById("habit-type").addEventListener("change", function () {
     const type = this.value;
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     valueInput.value = "";
   });
 
-  // —— Form submission & value validation ——
+  //  Form submission & value validation 
   form.addEventListener("submit", async e => {
     // Front‐end range check
     const habitType = document.getElementById("habit-type").value;
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
       form.reset();
       form.style.display      = "none";
       container.style.display = "none";
-      loadCreatedHabits();    // GET+render function
+      loadCreatedHabits();    // GET+ display function
     } else {
       const err = await resp.json();
       alert("Error: " + JSON.stringify(err));

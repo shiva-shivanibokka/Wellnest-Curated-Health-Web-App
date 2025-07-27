@@ -1,0 +1,45 @@
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+    font-family: "Inter", sans-serif;
+}
+
+.purple-button {
+    color: gold;
+    background-color: #4B0082;
+    border: 2px solid black;
+}
+
+.green-button {
+    color: white;
+    background-color: #3A5A40;
+    border: 2px solid black;
+}
+
+.white-button {
+    color: black;
+    background-color: white;
+    border: 2px solid black;
+}
+
+.purple-text {
+    color: #4B0082;
+}
+
+.green-text {
+    color: #3A5A40;
+}
+
+.gold-text {
+    color: gold;
+}
+
+.text-box {
+    border: 1px ridge lightgray;
+    padding: 10px;
+}
+
+button {
+    border-radius: 15px;
+}

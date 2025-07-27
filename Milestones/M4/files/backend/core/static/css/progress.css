@@ -1,0 +1,170 @@
+/* Global Styling */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #333;
+}
+
+/* NAVIGATION BAR */
+.navbar {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    border-bottom: 2px solid #e2d4fa;
+    padding: 0.8rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.nav-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4B0082;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #4B0082;
+    font-weight: 600;
+}
+
+/* CONTENT SECTION */
+.content {
+    padding: 2rem;
+}
+
+/* MONTH HEADER */
+.month-header {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4B0082;
+    margin-bottom: 1rem;
+}
+
+.year {
+    font-size: 1rem;
+    color: #777;
+}
+
+/* CALENDAR STYLES */
+.calendar {
+    margin: 0 auto 2rem;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    padding: 1rem;
+    max-width: 700px;
+}
+
+.calendar table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.calendar th {
+    padding-bottom: 0.5rem;
+    color: #000;
+}
+
+.calendar td {
+    padding: 0.75rem 0;
+    border-radius: 8px;
+}
+
+/* Calendar color-coded days */
+.completed {
+    background-color: #c2f0c2;
+}
+
+.missed {
+    background-color: #f4bfbf;
+}
+
+.partial {
+    background-color: #f9e79f;
+}
+
+.prev-month {
+    background-color: #d9d9d9;
+}
+
+/* STATS */
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.stats h3 {
+    font-size: 2rem;
+    color: #000;
+}
+
+.stats p {
+    margin: 0;
+    color: #000;
+    font-weight: 500;
+}
+
+/* CHART STYLING */
+.section-title {
+    text-align: center;
+    color: goldenrod;
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem;
+}
+
+.chart-container {
+    width: 60%;
+    margin: 0 auto;
+}
+
+/* HABIT COMPLETION CIRCLES */
+.habit-circles {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+.habit-circle {
+    text-align: center;
+}
+
+.progress-ring {
+    display: block;
+    margin: 0 auto;
+}
+
+.progress-ring__circle {
+    stroke: goldenrod;
+    stroke-width: 12;
+    fill: none;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+.habit-label {
+    margin-top: 0.5rem;
+    color: purple;
+    font-weight: bold;
+}

@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>progress</title>
+  <link rel="stylesheet" href="{% static 'header.css' %}">
+  <link rel="stylesheet" href="{% static 'sideNav.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <div id="header">
+    <div class="box" id="profile-div">
+      <input type="text" id="search-box" placeholder="Search..." />
+      <img src="{% static 'streak-hot.png' %}" alt="streak-hot" id="streak-hot">
+      <a href="{% url 'profile' %}"><img src="{% static 'pf.png' %}" alt="pf icon" id="pf-icon"></a>
+    </div>
+    <div class="box" id="search-div"></div>
+    <div class="box" id="menu-div">
+      <img src="{% static 'menu.png' %}" alt="hamburger-menu" id="hamburger-menu">
+    </div>
+  </div>
+
+  <div id="sideNav">
+    <div class="nav-top">
+      <div id="icons" style="display: flex; justify-content: space-between; margin-top: -15px;">
+        <div id="icons-left">
+          <img src="{% static 'wn.png' %}" alt="WN Logo" id="navLogo" style="margin-left: -20px;">
+        </div>
+        <div id="icons-right">
+          <img src="{% static 'menu.png' %}" alt="close-nav" style="width: 40px;" id="close-nav">
+        </div>
+      </div>
+
+      <a href="{% url 'calendar' %}" class="nav-link">Home</a>
+      <a href="#" class="nav-link">Progress</a>
+      <a href="{% url 'socials' %}" class="nav-link">Socials</a>
+    </div>
+
+    <div class="nav-bottom">
+      <a href="{% url 'review' %}" class="nav-link">Review</a>
+      <a href="{% url 'about' %}" class="nav-link">About</a>
+    </div>
+  </div>
+
+  <div style="text-align: center;">
+    <h2>< July ></h2>
+    2025
+  </div>
+
+  <div id="streak-calendar" style="display: flex; align-items: center; justify-content: center;">
+    <img src="{% static 'streak-calendar.png' %}" alt="" style="max-height: 300px;">
+  </div>
+
+  <div style="display: flex; justify-content: center;">
+    <div style="max-width: 400px; display: flex; justify-content: space-between; align-items: center; padding-left: 200px; text-align:center; padding-right: 200px; gap: 20px;">
+      <div style="display: flex; flex-direction: column;">
+        <div><h1>56</h1></div>
+        <div><b>Highest Streak</b></div>
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        <div><h1>125</h1></div>
+        <div><b>Challenges Completed</b></div>
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        <div><h1>78%</h1></div>
+        <div><b>All time Habit Completion</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 50px;"></div>
+
+  <!-- ✅ Chart Section -->
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-top: 20px;">
+    <h2>Completions by Days</h2>
+    <canvas id="habitChart" width="700" height="400"></canvas>
+  </div>
+
+  <!-- ✅ Habit Circles -->
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-top: 40px;">
+    <h2>Completions by Habits</h2>
+    <div id="habit-circles" style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
+      {% for habit_name in habit_data.keys %}
+        <div class="habit-circle"
+          style="width: 100px; height: 100px; border: 4px solid green; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold;">
+          {{ habit_name }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div style="height: 50px;"></div>
+
+  <script src="{% static 'sideNav.js' %}"></script>
+  <script src="{% static 'header.js' %}"></script>
+
+  <!-- ✅ Chart Interactivity -->
+  <script>
+    const habitData = JSON.parse('{{ habit_data_json|escapejs }}');
+    const ctx = document.getElementById('habitChart').getContext('2d');
+    const initialHabit = Object.keys(habitData)[0];
+
+    let chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['S', 'M', 'T', 'W', 'Th', 'F', 'S'],
+        datasets: [{
+          label: initialHabit + ' Completion %',
+          data: habitData[initialHabit],
+          backgroundColor: '#f4a261'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+            ticks: {
+              callback: (value) => `${value}%`
+            }
+          }
+        }
+      }
+    });
+
+    document.querySelectorAll('.habit-circle').forEach(circle => {
+      circle.addEventListener('click', () => {
+        const habit = circle.textContent.trim();
+        chart.data.datasets[0].data = habitData[habit];
+        chart.data.datasets[0].label = habit + ' Completion %';
+        chart.update();
+      });
+    });
+  </script>
+</body>
+
+</html>

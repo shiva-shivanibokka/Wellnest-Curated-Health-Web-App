@@ -1,0 +1,170 @@
+/* Global Styling */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #333;
+    font-size: 18px; /* Increased base font size */
+}
+
+/* NAVIGATION BAR */
+.navbar {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    border-bottom: 2px solid #e2d4fa;
+    padding: 1.2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.nav-title {
+    font-size: 2rem; /* Larger nav title */
+    font-weight: bold;
+    color: #5b1690;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #5b1690;
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
+.nav-links a:hover {
+    color: #FFD700;
+}
+
+/* MAIN CONTAINER */
+.group-container {
+    max-width: 1080px;
+    margin: 2.5rem auto;
+    background-color: #ffffff;
+    border: 2px solid #a678d4;
+    border-radius: 20px;
+    padding: 2.5rem 3rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.group-title {
+    font-size: 2.8rem; /* Bigger heading */
+    color: #5b1690;
+    margin-bottom: 0.5rem;
+}
+
+.group-subtitle {
+    font-size: 1.3rem;
+    color: #a678d4;
+    font-weight: 500;
+}
+
+/* CHALLENGE INFO */
+.group-info h2,
+.leaderboard h2,
+.members h2 {
+    color: #5b1690;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.group-info p {
+    margin: 0.5rem 0;
+    font-size: 1.15rem;
+}
+
+/* LEADERBOARD */
+.leaderboard table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+}
+
+.leaderboard th,
+.leaderboard td {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+.leaderboard thead {
+    background-color: #f6edff;
+    color: #5b1690;
+}
+
+/* MEMBERS */
+.member-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding-left: 0;
+    list-style: none;
+    margin-top: 1.5rem;
+    justify-content: center;
+}
+
+.member-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+}
+
+.member-list img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #a678d4;
+    object-fit: cover;
+}
+
+.member-list span {
+    font-size: 1rem;
+    margin-top: 0.6rem;
+    color: #333;
+}
+
+/* ACTION BUTTONS */
+.group-actions {
+    text-align: center;
+    margin-top: 2.5rem;
+}
+
+.group-actions button {
+    background-color: #a678d4;
+    color: white;
+    padding: 0.9rem 1.8rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 12px;
+    margin: 0 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.group-actions button:hover {
+    background-color: #5b1690;
+}
+
+/* Gold Highlight (used in hover links, optional sections) */
+.highlight-gold {
+    color: #FFD700;
+}

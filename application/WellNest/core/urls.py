@@ -3,6 +3,7 @@ from . import views
 from .views import UserLoginView
 from .views import get_today_recurring_habits
 from .views import recurring_habits
+from .views import log_completed_habit, delete_habit_log
 
 
 urlpatterns = [
@@ -28,7 +29,10 @@ urlpatterns = [
     path('api/users/login/', UserLoginView.as_view(), name='user-login'),
     #creating habit apis
     path('api/habit/recurring/', recurring_habits, name='recurring-habits'),
-
+    # log habit
+    path('api/habit/log/', log_completed_habit, name='log_completed_habit'),
+    #delete habit
+    path('api/habit/log/delete/', delete_habit_log, name='delete_habit_log'),
     
     #show habit api
     path('api/habit/recurring/today/', get_today_recurring_habits),
