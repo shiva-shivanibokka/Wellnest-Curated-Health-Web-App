@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'sideNav.css' %}">
     <link rel="stylesheet" href="{% static 'glass.css' %}">
     <link rel="stylesheet" href="{% static 'form.css' %}">
+    <link rel="stylesheet" href="{% static 'calendar.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -67,26 +68,18 @@
         <div id="left"></div>
     </div>
 
-    <div id="calendarIcon-div" style="height: 50px;">
-        <div id="l"></div>
-        <div id="c" style="display: flex; text-align: center;">
-            <img src="{% static 'image 18.png' %}" alt="calendarIcon-home"
-                style="height: 40px; margin-left: 50px; text-align: center;">
+    <div id="calendar">
+        <div id="calendarIcon">
+            <img src="{% static 'image 18.png' %}" alt="calendarIcon-home">
         </div>
-        <div id="r"></div>
+        <div id="calendarDates">
+            {% for day in week_days %}
+            <div class="days {% if day == today %}today-box{% endif %}">
+              {{ day|date:"M j" }}
+            </div>
+          {% endfor %}
+        </div>
     </div>
-
-<div id="calendar-home">
-  <div id="wrapper-left"></div>
-  <div id="wrapper">
-    {% for day in week_days %}
-      <div class="days {% if day == today %}today-box{% endif %}">
-        {{ day|date:"M j" }}
-      </div>
-    {% endfor %}
-  </div>
-  <div id="wrapper-right"></div>
-</div>
 
     <div id="quote-div">
         <div id="quote-right"></div>
