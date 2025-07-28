@@ -9,6 +9,7 @@ box-shadow: 2px 2px 5px gray;
 
 
 }
+
 #habit-form-info{
 display: flex;
 align-items: center;
@@ -48,6 +49,22 @@ border: 1px solid black;
 border-radius: 10px;
 }
 
+.d-box{
+display: flex;
+align-items: center;
+justify-content: center;
+height: 50px;
+width: 50px;
+border: 1px solid black;
+border-radius: 10px;
+}
+
+.d-box.selected {
+  background-color: rgba(173, 255, 47, 0.6);
+  border: 2px solid green;
+  font-weight: bold;
+}
+
 .day-box.selected {
   background-color: rgba(173, 255, 47, 0.6);
   border: 2px solid green;
@@ -58,3 +75,17 @@ border-radius: 10px;
     min-width: 70px;
 }
 
+#habit-editor{
+    display: none; 
+}
+
+#habit-editor.on{
+
+    display: flex; 
+    flex-direction: column; 
+    flex-grow: 2;
+    border: 5px ; 
+    padding: 3px;
+    border-radius: 15px; 
+    box-shadow: 2px 2px 5px gray; 
+}
