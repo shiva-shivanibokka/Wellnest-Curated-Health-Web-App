@@ -29,8 +29,9 @@ from .serializers import RecurringHabitSerializer
 from .models import HabitLog
 from .serializers import HabitLogSerializer
 from django.utils import timezone
-
-
+from .models import FriendRequest, Notification
+from .serializers import FriendRequestSerializer, NotificationSerializer
+from .models import Friend
 
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -262,3 +263,54 @@ def delete_recurring_habit(request):
 
     except Exception as e:
         return Response({"error": str(e)}, status=500)
+
+# send friend request 
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def send_friend_request(request):
+    receiver_id = request.data.get('receiver_id')
+    sender = request.user
+
+    if sender.id == receiver_id:
+        return Response({"error": "Cannot send request to yourself"}, status=400)
+
+#not allowing spam
+    if FriendRequest.objects.filter(sender=sender, receiver_id=receiver_id).exists():
+        return Response({"error": "Friend request already sent"}, status=400)
+
+    FriendRequest.objects.create(sender=sender, receiver_id=receiver_id)
+    Notification.objects.create(user_id=receiver_id, message=f"{sender.username} sent you a friend request.")
+
+    return Response({"message": "Request sent"}, status=200)
+
+# upon accepting friend request
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def accept_friend_request(request):
+    request_id = request.data.get('request_id')
+    try:
+        friend_request = FriendRequest.objects.get(id=request_id, receiver=request.user)
+
+            #if alr accepted
+        if friend_request.is_accepted:
+            return Response({"message": "Already accepted"}, status=200)
+
+        friend_request.is_accepted = True
+        friend_request.save()
+
+        Friend.objects.create(user1=request.user, user2=friend_request.sender)
+
+        Notification.objects.create(user=friend_request.sender, message=f"{request.user.username} accepted your friend request.")
+        return Response({"message": "Friend request accepted"})
+    except FriendRequest.DoesNotExist:
+        return Response({"error": "Request not found"}, status=404)
+
+#notifications
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_notifications(request):
+    notifications = Notification.objects.filter(user=request.user).order_by('-timestamp')
+    serializer = NotificationSerializer(notifications, many=True)
+    return Response(serializer.data)

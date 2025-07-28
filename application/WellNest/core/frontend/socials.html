@@ -6,10 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social</title>
-    <link rel="stylesheet" href="{% static 'header.css' %}">
-    <link rel="stylesheet" href="{% static 'socials.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'social.css' %}">
     <link rel="stylesheet" href="{% static 'sideNav.css' %}">
+    <link rel="stylesheet" href="{% static 'header.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
@@ -22,13 +24,13 @@
 
 
 
-
     </style>
 
     <div id="header">
         <div class="box" id="profile-div">
             <input type="text" id="search-box" placeholder="Search..." />
             <img src="{% static 'search.png' %}" alt="search-icon" id="search-icon">
+            <img src="{% static 'notification-off.png' %}"  alt="notification-icon" id="notification-icon" style="width: 30px; ">
             <img src="{% static 'streak-hot.png' %}" alt="streak-hot" id="streak-hot">
             <a href="{% url 'profile' %}"><img src="{% static 'pf.png' %}" href="{% url 'profile' %}" alt="pf icon"id="pf-icon"></a>
         </div>
@@ -176,8 +178,18 @@
 
     </div>
 
-    <div>
-        <img src="{% static 'friends.png' %}" alt="friends" style="height: 100px;">
+    <div id="friends-list">
+
+        <div id="friend-element" style="display: flex;">
+
+            <div id="friend-element-info">
+                
+                <img src="{% static 'pf.png'%}" alt="" style="width: 40px; margin: -20px;">
+                  <h3>name</h3>
+            </div>
+        
+        </div>
+        
     </div>
 
 
@@ -231,35 +243,20 @@
         }
     </style>
 
-    <!--Family and 
-<div id="circles-container">
-<div class="circles" id="family">
-    <h3>Family</h3>
-    <div class="fList">
-        <ul>
-            <li>Member 1</li>
-            <li>Member 2</li>
-            
+    <div id="notification-modal" class="modal hidden">
+    <div class="modal-content">
+        <span id="close-modal" class="close">&times;</span>
+        <h2>Notifications</h2>
+        <ul id="notification-list">
+            <li>No new notifications</li>
         </ul>
     </div>
-</div>
-
-<div class="circles" id="friends">
-    <h3>Friends</h3>
-    <div class="fList">
-        <ul>
-            <li>Member 1</li>
-            <li>Member 2</li>
-            
-        </ul>
     </div>
-</div>
-</div>
-Friends -->
 
 
 
 
+    
 
     <script src="{% static 'sideNav.js' %}"></script>
     <script src="{% static 'header.js' %}"></script>

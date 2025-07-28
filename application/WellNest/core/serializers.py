@@ -3,6 +3,7 @@ from .models import User
 from django.contrib.auth.hashers import make_password
 from .models import RecurringHabit
 from .models import HabitLog
+from .models import FriendRequest, Notification
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -58,3 +59,17 @@ class HabitLogSerializer(serializers.ModelSerializer):
         model = HabitLog
         fields = ['habit_type', 'name', 'description', 'color', 'value', 'timestamp']
         read_only_fields = ['timestamp']
+
+# friend request
+class FriendRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FriendRequest
+        fields = '__all__'
+        read_only_fields = ['timestamp', 'is_accepted']
+
+#notification
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = '__all__'
+        read_only_fields = ['timestamp', 'is_read']

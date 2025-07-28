@@ -41,4 +41,9 @@ urlpatterns = [
     #delet habit
     path('api/habit/recurring/delete/', views.delete_recurring_habit, name='delete_recurring_habit'),
 
+    # notification and friend request APIS
+    path('api/friends/send/', views.send_friend_request, name='send_friend_request'),
+    path('api/friends/accept/', views.accept_friend_request, name='accept_friend_request'),
+    path('api/notifications/', views.get_notifications, name='get_notifications'),
+
 ]
