@@ -1,3 +1,15 @@
+/* Container Layout */
+#container {
+    display: flex;
+    width: 80vw;
+    height: 70vh;
+    box-shadow: 0 25px 35px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+/* Left Logo Panel */
 #left {
     flex: 1;
     background-color: #f8f5e9;
@@ -6,95 +18,116 @@
     align-items: center;
 }
 
+#left img {
+    max-width: 80%;
+    height: auto;
+}
+
+/* Right Form Panel */
 #right {
     flex: 1;
+    background-color: #f3ecfe;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(200px);
-    padding: 20px;
-    border-top: 2px solid rgba(255, 255, 255, .4);
-    border-right: 2px solid rgba(255, 255, 255, .4);
+    padding: 60px;
 }
 
-#container {
+/* Form Layout */
+#signin-form {
     display: flex;
-    width: 1200px;
-    max-height: 800px;
-    box-shadow: 0 20px 20px rgba(0, 0, 1, 0.5);
-    border-radius: 12px;
-    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
+/* Typography */
+h2 {
+    font-size: 48px;
+    color: #3D2376;
+    margin-bottom: 40px;
+    text-align: center;
+    width: 100%;
+}
+
+/* Input Fields */
+input {
+    margin-bottom: 25px;
+    width: 100%;
+    max-width: 450px;
+    padding: 16px;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: border 0.3s;
+    font-family: "Inter", sans-serif;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border: 2px solid #5D3FD3;
+    outline: none;
+}
+
+/* Buttons Container */
+#buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+/* Buttons Styling */
 button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 6px;
+    padding: 15px 35px;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 10px;
     cursor: pointer;
-    background-color: #00796b;
-    color: white;
-    width: 125px;
-    font-weight: bold;
-    border: 2px solid black;
+    font-family: "Inter", sans-serif;
+    transition: all 0.3s ease;
+    width: 170px;
+    border: 3px solid transparent;
 }
 
+/* Sign In Button */
+#signin-btn {
+    background-color: #5D3FD3;
+    color: white;
+    border-color: #FFD700;
+}
+
+#signin-btn:hover {
+    background-color: #4722a3;
+    border-color: #e6c200;
+}
+
+/* Sign Up Button */
+#signup-btn {
+    background-color: #FFD700;
+    color: #3D2376;
+    border-color: #5D3FD3;
+}
+
+#signup-btn:hover {
+    background-color: #e6c200;
+    color: #2a185b;
+    border-color: #3D2376;
+}
+
+/* Page Background */
 body {
     margin: 0;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: sans-serif;
+    font-family: "Inter", sans-serif;
     background-color: #f0f4f8;
 }
 
-input {
-    margin-bottom: 20px;
-    min-width: 250px;
-    border: 1px ridge lightgray;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-#signin-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.button-container {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-#buttons {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-}
-
-#signup-btn {
-    background-color: #3A5A40;
-}
-
-#signin-btn {
-    background-color: white;
-    color: black;
-}
-
-h2 {
-    font-size: 32px;
-}
-
-html,
-body {
-    height: 100%;
+html, body {
     overflow: hidden;
-    font-family: "Inter", sans-serif;
 }
