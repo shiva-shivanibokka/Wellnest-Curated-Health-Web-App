@@ -32,9 +32,13 @@ urlpatterns = [
     path('api/habit/recurring/', recurring_habits, name='recurring-habits'),
     # log habit
     path('api/habit/log/', log_completed_habit, name='log_completed_habit'),
-    #delete habit
+    #delete habit log
     path('api/habit/log/delete/', delete_habit_log, name='delete_habit_log'),
     
     #show habit api
     path('api/habit/recurring/today/', get_today_recurring_habits),
+
+    #delet habit
+    path('api/habit/recurring/delete/', views.delete_recurring_habit, name='delete_recurring_habit'),
+
 ]

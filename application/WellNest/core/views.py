@@ -116,6 +116,9 @@ def progress_view(request):
 def profile(request):
     return render(request, 'profile.html')
 
+def wellnest_group_view(request):
+    return render(request, 'core/group.html')
+
 #showing habits for that day
 @login_required
 def get_today_recurring_habits(request):
@@ -158,6 +161,7 @@ def get_today_recurring_habits(request):
             "description": habit.description,
             "color": habit.color,
             "value": habit.value,
+            "weekdays": habit.weekdays,
         }
         if habit.name in logged_names:
             done.append(habit_data)
@@ -214,7 +218,7 @@ def delete_habit_log(request):
         return Response({"error": "Missing data"}, status=400)
 
     try:
-        start = datetime.strptime(date_str, "%Y-%m-%d")
+        start = timezone.make_aware(datetime.strptime(date_str, "%Y-%m-%d"))
         end = start + timedelta(days=1)
 
         logs = HabitLog.objects.filter(
@@ -231,3 +235,30 @@ def delete_habit_log(request):
         return Response({"deleted": deleted_count})
     except Exception as e:
         return Response({"error": str(e)}, status=400)
+
+# Deleting habits
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_recurring_habit(request):
+    user = request.user
+    name = request.data.get('name')
+    habit_type = request.data.get('habit_type')
+
+    if not all([name, habit_type]):
+        return Response({"error": "Missing name or habit_type"}, status=400)
+
+    try:
+        deleted, _ = RecurringHabit.objects.filter(
+            user=user,
+            name=name,
+            habit_type=habit_type
+        ).delete()
+
+        if deleted:
+            return Response({"success": True})
+        else:
+            return Response({"error": "Habit not found"}, status=404)
+
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)

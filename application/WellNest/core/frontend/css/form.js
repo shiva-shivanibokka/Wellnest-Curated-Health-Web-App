@@ -3,11 +3,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const container     = document.getElementById("habit-info");
   const form          = document.getElementById("habit-form");
   const csrfToken     = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+  const habitEditor   = document.getElementById("habit-editor");
 
   // Show the form container
   addHabitBtn.addEventListener("click", () => {
     container.style.display = "block";
     form.style.display      = "block";
+    habitEditor.classList = "off";
+    form.reset();
   });
 
   // Toggle weekdays
