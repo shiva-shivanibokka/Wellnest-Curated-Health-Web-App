@@ -160,7 +160,7 @@ class Wellnest_Circle(models.Model):
     description = models.TextField(max_length=500, blank=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='created_wellnest_circles')
     created_at = models.DateTimeField(auto_now_add=True)
-    members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='joined_wellnest_circles', blank=True)
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='joined_wellnest_circles')
 
     def __str__(self):
         return f"{self.name} (by {self.created_by.username})"
