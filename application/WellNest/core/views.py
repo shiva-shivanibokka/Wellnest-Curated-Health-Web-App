@@ -2,6 +2,7 @@ from rest_framework import generics, filters
 from .models import User
 from .serializers import UserSerializer, UserCreateSerializer
 from django.conf import settings
+import requests
 import os
 from django.db.models import Q
 import calendar
@@ -123,7 +124,22 @@ def profile(request):
     return render(request, 'profile.html')
 
 def wellnest_group_view(request):
-    return render(request, 'core/group.html')
+    return render(request, 'group.html')
+
+
+
+@api_view(['GET'])
+def daily_quote_proxy(request):
+    try:
+        response = requests.get("https://zenquotes.io/api/today")
+        return Response(response.json())
+    except Exception as e:
+        return Response({"error": "Unable to fetch quote"}, status=500)
+
+
+
+
+        
 
 #showing habits for that day
 @login_required

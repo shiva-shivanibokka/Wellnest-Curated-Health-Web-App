@@ -87,10 +87,25 @@
         <div id="quote-right"></div>
         <div id="quote-center">
             <h3 style="margin-bottom: -10px;">Quote of the day</h3>
-            <br>"Always do your best"
+            <br> <div id="quote">"Always do your best"</div> <br> <div id="author"></div>
         </div>
         <div id="quote-left"></div>
     </div>
+
+      <script>
+        // to get past cors made Django API proxy u learn smt new everyday ! 
+    fetch("/quote")
+      .then(res => res.json())
+      .then(data => {
+        const quote = data[0];
+        document.getElementById("quote").textContent = `"${quote.q}"`;
+        document.getElementById("author").textContent = `– ${quote.a}`;
+      })
+      .catch(err => {
+        document.getElementById("quote").textContent = "Failed to load quote.";
+        console.error(err);
+      });
+  </script>
 
     <div style="margin: 20px;">
         <div id="todo" style="display: flex;">
