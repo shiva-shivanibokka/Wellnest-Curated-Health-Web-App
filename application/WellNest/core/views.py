@@ -409,4 +409,24 @@ def progress_by_habit(request):
 
     return Response(habit_data)
 
-
+#Get and show friends
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_friends(request):
+    user = request.user
+    
+    friends = Friend.objects.filter(Q(user1=user) | Q(user2=user))
+    
+    #their info
+    friend_data = []
+    for f in friends:
+        other = f.user2 if f.user1 == user else f.user1
+        friend_data.append({
+            "id": other.id,
+            "username": other.username,
+            "first_name": other.first_name,
+            "last_name": other.last_name,
+            "gender": other.gender
+        })
+    
+    return Response(friend_data)

@@ -1,4 +1,13 @@
 
+//csrf token let be at the top of the page
+function getCSRFToken() {
+    return document.cookie
+      .split("; ")
+      .find(row => row.startsWith("csrftoken"))
+      ?.split("=")[1];
+}
+
+
 //using modal for notification is easier use dive if necessary 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,6 +27,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 data.forEach(n => {
                     const li = document.createElement('li');
                     li.textContent = n.message;
+
+                    // accept button
+                    if (n.message.includes("sent you a friend request") && n.request_id) {
+                        const acceptBtn = document.createElement("button");
+                        acceptBtn.textContent = "Accept";
+                        acceptBtn.style.marginLeft = "10px";
+                        acceptBtn.style.padding = "5px 10px";
+                        acceptBtn.style.backgroundColor = "#135715ff";
+                        acceptBtn.style.color = "white";
+                        acceptBtn.style.border = "none";
+                        acceptBtn.style.borderRadius = "5px";
+                        acceptBtn.style.cursor = "pointer";
+
+                        acceptBtn.addEventListener("click", () => {
+                            fetch('/api/friends/accept/', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRFToken': getCSRFToken()
+                                },
+                                body: JSON.stringify({ request_id: n.request_id })
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                alert(data.message || data.error);
+                                li.textContent = `${n.message} Accepted`;
+                            })
+                            .catch(err => console.error("Error accepting friend request:", err));
+                        });
+
+                        li.appendChild(acceptBtn);
+                    }
                     list.appendChild(li);
                 });
             });
@@ -168,13 +209,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 resultElement.textContent = 'An error occurred.';
             });
 
-//csrf token don't touch
-function getCSRFToken() {
-    return document.cookie
-      .split("; ")
-      .find(row => row.startsWith("csrftoken"))
-      ?.split("=")[1];
-}
+
 
         // CIRCLE MOCK SEARCH
         const mockCircles = [
@@ -217,4 +252,43 @@ function getCSRFToken() {
             });
         }
     });
+
+
+// display friends on page load
+fetch('/api/friends/list/')
+    .then(res => res.json())
+    .then(data => {
+        const friendsList = document.getElementById('friends-list');
+        friendsList.innerHTML = ''; // clear placeholder
+
+        data.forEach(friend => {
+            const friendBox = document.createElement('div');
+            friendBox.id = 'friend-element-info';
+
+            /* pfp maybe later?
+            const pfImg = document.createElement('img');
+            pfImg.src = "/static/pf.png";  
+            pfImg.alt = "profile icon";
+            pfImg.style.width = "40px";
+            pfImg.style.margin = "-20px";
+            */ 
+            const name = document.createElement('h3');
+            name.textContent = `${friend.first_name} ${friend.last_name || ''}` || friend.username;
+
+            //friendBox.appendChild(pfImg);
+            friendBox.appendChild(name);
+
+            const wrapper = document.createElement('div');
+            wrapper.id = 'friend-element';
+            wrapper.style.display = "flex";
+            wrapper.appendChild(friendBox);
+
+            friendsList.appendChild(wrapper);
+        });
+    })
+    .catch(err => console.error("Error loading friends:", err));
+
+
+
+
 });

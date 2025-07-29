@@ -49,4 +49,7 @@ urlpatterns = [
     path('api/progress/days/', views.progress_by_day, name='progress_by_day'),
     path('api/progress/habits/', views.progress_by_habit, name='progress_by_habit'),
 
+    # get friends API
+    path('api/friends/list/', views.get_friends, name='get_friends'),
+
 ]
