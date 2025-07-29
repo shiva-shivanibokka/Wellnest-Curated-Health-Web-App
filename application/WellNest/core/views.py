@@ -32,6 +32,11 @@ from django.utils import timezone
 from .models import FriendRequest, Notification
 from .serializers import FriendRequestSerializer, NotificationSerializer
 from .models import Friend
+from collections import defaultdict
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.utils import timezone
+
 
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -124,7 +129,7 @@ def wellnest_group_view(request):
 @login_required
 def get_today_recurring_habits(request):
     user = request.user
-    today_weekday = datetime.now().strftime("%A")  # depending on days of the week 
+    today_weekday = timezone.localtime().strftime("%A") # depending on days of the week 
     today_date = timezone.localdate()
 
     habits = RecurringHabit.objects.filter(user=user)
@@ -314,3 +319,94 @@ def get_notifications(request):
     notifications = Notification.objects.filter(user=request.user).order_by('-timestamp')
     serializer = NotificationSerializer(notifications, many=True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def progress_by_day(request):
+    user = request.user
+    today = timezone.localdate()
+    week_start = today - timedelta(days=today.weekday())  # Monday
+    week_end = week_start + timedelta(days=6)
+
+    # Build day list: Sunday to Saturday
+    days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    total = defaultdict(int)
+    completed = defaultdict(int)
+
+    # Load logs once
+    logs = HabitLog.objects.filter(user=user, timestamp__date__range=(week_start, week_end))
+    log_set = set((log.name, log.habit_type, timezone.localtime(log.timestamp).strftime('%A')) for log in logs)
+
+    # Check every habit for scheduled days
+    habits = RecurringHabit.objects.filter(user=user)
+    for habit in habits:
+        weekdays = habit.weekdays or []
+        if isinstance(weekdays, str):
+            try:
+                weekdays = json.loads(weekdays)
+            except:
+                weekdays = []
+
+        for day in weekdays:
+            total[day] += 1
+            if (habit.name, habit.habit_type, day) in log_set:
+                completed[day] += 1
+
+    # Final % per day
+    percentages = []
+    for day in days:
+        c = completed[day]
+        t = total[day]
+        pct = min(int((c / t) * 100), 100) if t > 0 else 0
+        percentages.append(pct)
+
+    return Response({'labels': days, 'percentages': percentages})
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def progress_by_habit(request):
+    user = request.user
+    today = timezone.localdate()
+    week_start = today - timedelta(days=today.weekday())  # Monday
+    week_end = week_start + timedelta(days=6)  # Sunday
+
+    habits = RecurringHabit.objects.filter(user=user)
+    logs = HabitLog.objects.filter(user=user, timestamp__date__range=(week_start, today))
+
+    habit_data = []
+
+    for habit in habits:
+        scheduled_days = habit.weekdays or []
+        if isinstance(scheduled_days, str):
+            try:
+                scheduled_days = json.loads(scheduled_days)
+            except:
+                scheduled_days = []
+
+        scheduled_day_names = set(scheduled_days)
+
+        #total expected completions this week (Mon–Sun)
+        expected_total = sum(
+            1 for i in range(7)
+            if (week_start + timedelta(days=i)).strftime('%A') in scheduled_day_names
+        )
+
+        # Count completions
+        completed_so_far = logs.filter(name=habit.name, habit_type=habit.habit_type).count()
+
+        percent = int((completed_so_far / expected_total) * 100) if expected_total > 0 else 0
+        percent = min(percent, 100)
+
+        offset = 339.292 - (339.292 * percent / 100)
+
+        habit_data.append({
+            'name': habit.name,
+            'value': percent,
+            'offset': offset
+        })
+
+    return Response(habit_data)
+
+

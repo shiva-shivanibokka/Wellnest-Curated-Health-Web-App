@@ -46,4 +46,7 @@ urlpatterns = [
     path('api/friends/accept/', views.accept_friend_request, name='accept_friend_request'),
     path('api/notifications/', views.get_notifications, name='get_notifications'),
 
+    path('api/progress/days/', views.progress_by_day, name='progress_by_day'),
+    path('api/progress/habits/', views.progress_by_habit, name='progress_by_habit'),
+
 ]
