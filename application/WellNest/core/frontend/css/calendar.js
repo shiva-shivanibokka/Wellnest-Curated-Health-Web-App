@@ -810,9 +810,12 @@ document.querySelectorAll('.nav-link').forEach(link => {
                             case 'Progress':
                     window.location.href = '/progress';
                     break;
-                case 'Leaderboard':
-                    window.location.href = '/leaderboard';
-                    break;
+                            case 'Leaderboard':
+                window.location.href = '/leaderboard';
+                break;
+            case 'Socials':
+                window.location.href = '/socials';
+                break;
             default:
                 console.log('Unknown navigation:', text);
         }

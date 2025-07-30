@@ -1,230 +1,229 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Progress Dashboard</title>
+    <title>Progress Dashboard - WellNest</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'progress.css' %}">
-    <link rel="stylesheet" href="{% static 'header.css' %}">
-    <link rel="stylesheet" href="{% static 'sideNav.css' %}">
 </head>
-
 <body>
-    <div id="header">
-        <div class="box" id="profile-div">
-            <input type="text" id="search-box" placeholder="Search habits or people..." />
-            <img src="{% static 'streak-hot.png' %}" alt="streak-hot" id="streak-hot">
-            <a href="{% url 'profile' %}"><img src="{% static 'pf.png' %}" href="{% url 'profile' %}" alt="pf icon"
-                    id="pf-icon"></a>
-        </div>
-
-        <div class="box" id="search-div"></div>
-        <div class="box" id="menu-div">
-            <img src="{% static 'menu.png' %}" alt="hamburger-menu" id="hamburger-menu">
+    <!-- Animated Background Elements -->
+    <div class="bg-animation">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
         </div>
     </div>
 
-    <div id="sideNav">
-        <div class="nav-top">
-            <div id="icons" style="display: flex; justify-content: space-between; margin-top: -15px;">
-                <div id="icons-left">
-                    <img src="{% static 'wn.png' %}" alt="WN Logo" id="navLogo" style="margin-left: -20px;">
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-icon">
+                    <img src="{% static 'WellNest.png' %}" alt="WellNest Logo" style="width: 32px; height: 32px; border-radius: 8px;">
                 </div>
-                <div id="icons-right">
-                    <img src="{% static 'menu.png' %}" alt="close-nav" style="width: 40px;" id="close-nav">
+                <span class="logo-text">WellNest</span>
+            </div>
+            <div class="nav-links">
+                <div class="nav-link" onclick="window.location.href='/calendar'">
+                    <span class="nav-icon">📊</span>
+                    Dashboard
                 </div>
-            </div>
-
-            <a href="{% url 'calendar' %}" class="nav-link">Home</a>
-            <a href="{% url 'progress' %}" class="nav-link">Progress</a>
-            <a href="{% url 'socials' %}" class="nav-link">Socials</a>
-        </div>
-
-        <div class="nav-bottom">
-            <a href="{% url 'review' %}" class="nav-link">Review</a>
-            <a href="{% url 'about' %}" class="nav-link">About</a>
-        </div>
-    </div>
-
-    <div class="content">
-        <div class="month-header">
-            <h2>&lt; July &gt;</h2>
-            <div class="year">2025</div>
-        </div>
-
-        <div class="calendar">
-            <table>
-                <thead>
-                    <tr>
-                        <th>S</th>
-                        <th>M</th>
-                        <th>T</th>
-                        <th>W</th>
-                        <th>Th</th>
-                        <th>F</th>
-                        <th>S</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="prev-month">30</td>
-                        <td class="prev-month">1</td>
-                        <td class="prev-month">2</td>
-                        <td class="prev-month">3</td>
-                        <td class="prev-month">4</td>
-                        <td class="prev-month">5</td>
-                        <td class="prev-month">6</td>
-                    </tr>
-                    <tr>
-                        <td class="completed">7</td>
-                        <td class="completed">8</td>
-                        <td class="completed">9</td>
-                        <td class="missed">10</td>
-                        <td class="missed">11</td>
-                        <td class="partial">12</td>
-                        <td class="partial">13</td>
-                    </tr>
-                    <tr>
-                        <td class="missed">14</td>
-                        <td class="completed">15</td>
-                        <td class="completed">16</td>
-                        <td class="completed">17</td>
-                        <td class="prev-month">18</td>
-                        <td class="prev-month">19</td>
-                        <td class="prev-month">20</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-
-        <div class="stats">
-            <div>
-                <h3>56</h3>
-                <p>Highest<br>Streak</p>
-            </div>
-            <div>
-                <h3>125</h3>
-                <p>Challenges<br>Completed</p>
-            </div>
-            <div>
-                <h3>78%</h3>
-                <p>All time Habit<br>Completion</p>
-            </div>
-        </div>
-
-        <h2 class="section-title">Completions by Days</h2>
-        <div class="chart-container">
-            <canvas id="dailyChart"></canvas>
-        </div>
-
-        <h2 class="section-title">Completions by Habits</h2>
-        <div class="habit-circles">
-            {% for habit in habit_data %}
-            <div class="habit-circle">
-                <svg class="progress-ring" width="120" height="120">
-                    <!-- Full solid dark purple base -->
-                    <circle cx="60" cy="60" r="54" fill="#32006E" />
-                    <!-- Transparent ring path for progress animation -->
-                    <circle class="progress-ring__circle" cx="60" cy="60" r="54" stroke="goldenrod" stroke-width="12"
-                        fill="none" stroke-dasharray="339.292" stroke-dashoffset="{{ habit.offset }}"
-                        stroke-linecap="round" transform="rotate(-90 60 60)" />
-                </svg>
-                <div class="habit-label">
-                    <strong>{{ habit.value }}%</strong><br>
-                    <span>{{ habit.name }}</span>
+                <div class="nav-link">
+                    <span class="nav-icon">🎯</span>
+                    Habits
+                </div>
+                <div class="nav-link active">
+                    <span class="nav-icon">📈</span>
+                    Progress
+                </div>
+                <div class="nav-link" onclick="window.location.href='/leaderboard'">
+                    <span class="nav-icon">🏆</span>
+                    Leaderboard
+                </div>
+                <div class="nav-link" onclick="window.location.href='/socials'">
+                    <span class="nav-icon">👥</span>
+                    Socials
                 </div>
             </div>
-            {% endfor %}
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const ctx = document.getElementById('dailyChart').getContext('2d');
-        const dailyChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['S', 'M', 'T', 'W', 'Th', 'F', 'S'],
-                datasets: [{
-                    label: 'Completion %',
-                    data: [0, 0, 0, 0, 0, 0, 0],
-                    backgroundColor: '#4B0082',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100,
-                        ticks: {
-                            stepSize: 10,
-                            color: '#4B0082',
-                            font: { size: 16 }
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            color: '#4B0082',
-                            font: { size: 16 }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#4B0082',
-                            font: { size: 20 }
-                        }
-                    }
-                }
-            }
-        });
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", async () => {
-            try {
-                const [dayRes, habitRes] = await Promise.all([
-                    fetch("/api/progress/days/"),
-                    fetch("/api/progress/habits/")
-                ]);
-
-                const dayData = await dayRes.json();
-                const habitData = await habitRes.json();
-
-                // Fill in the bar chart
-                dailyChart.data.labels = dayData.labels.map(day => day.slice(0, 2));
-                dailyChart.data.datasets[0].data = dayData.percentages;
-                dailyChart.update();
-
-                // Fill in circular habits
-                const habitContainer = document.querySelector(".habit-circles");
-                habitContainer.innerHTML = habitData.map(habit => `
-            <div class="habit-circle">
-                <svg class="progress-ring" width="120" height="120">
-                    <circle cx="60" cy="60" r="54" fill="#32006E" />
-                    <circle class="progress-ring__circle" cx="60" cy="60" r="54"
-                        stroke="goldenrod" stroke-width="12" fill="none"
-                        stroke-dasharray="339.292" stroke-dashoffset="${habit.offset}"
-                        stroke-linecap="round" transform="rotate(-90 60 60)" />
-                </svg>
-                <div class="habit-label">
-                    <strong>${habit.value}%</strong><br>
-                    <span>${habit.name}</span>
+            <div class="nav-profile">
+                <div class="profile-avatar">{{ user_name|first|upper }}</div>
+                <div class="profile-dropdown">
+                    <a href="/profile" class="dropdown-link">👤 Profile</a>
+                    <a href="/settings" class="dropdown-link">⚙️ Settings</a>
+                    <a href="/" class="logout-btn">
+                        <span class="logout-icon">🚪</span>
+                        Logout
+                    </a>
                 </div>
             </div>
-        `).join('');
-            } catch (err) {
-                console.error("Failed to load progress data:", err);
-            }
-        });
-    </script>
+        </div>
+    </nav>
 
+    <!-- MAIN CONTENT -->
+    <main id="main-content">
+        <!-- Page Title -->
+        <header class="page-header">
+            <h1 class="page-title">Progress Dashboard</h1>
+        </header>
 
-    <script src="{% static 'sideNav.js' %}"></script>
+        <!-- Calendar Section -->
+        <section class="calendar-section">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button class="calendar-nav-btn" id="prev-month">‹</button>
+                    <h2 class="calendar-title">July 2025</h2>
+                    <button class="calendar-nav-btn" id="next-month">›</button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="calendar-weekdays">
+                        <div class="weekday">S</div>
+                        <div class="weekday">M</div>
+                        <div class="weekday">T</div>
+                        <div class="weekday">W</div>
+                        <div class="weekday">Th</div>
+                        <div class="weekday">F</div>
+                        <div class="weekday">S</div>
+                    </div>
+                    <div class="calendar-days">
+                        <div class="calendar-day gray">30</div>
+                        <div class="calendar-day gray">1</div>
+                        <div class="calendar-day gray">2</div>
+                        <div class="calendar-day gray">3</div>
+                        <div class="calendar-day gray">4</div>
+                        <div class="calendar-day gray">5</div>
+                        <div class="calendar-day gray">6</div>
+                        <div class="calendar-day green">7</div>
+                        <div class="calendar-day green">8</div>
+                        <div class="calendar-day green">9</div>
+                        <div class="calendar-day red">10</div>
+                        <div class="calendar-day red">11</div>
+                        <div class="calendar-day yellow">12</div>
+                        <div class="calendar-day yellow">13</div>
+                        <div class="calendar-day red">14</div>
+                        <div class="calendar-day gray">15</div>
+                        <div class="calendar-day gray">16</div>
+                        <div class="calendar-day gray">17</div>
+                        <div class="calendar-day gray">18</div>
+                        <div class="calendar-day gray">19</div>
+                        <div class="calendar-day gray">20</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Metrics Section -->
+        <section class="metrics-section">
+            <div class="metrics-container">
+                <div class="metric-card">
+                    <div class="metric-number">56</div>
+                    <div class="metric-label">Highest Streak</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">125</div>
+                    <div class="metric-label">Challenges Completed</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">78%</div>
+                    <div class="metric-label">All time Habit Completion</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Graph Section -->
+        <section class="graph-section">
+            <div class="graph-container">
+                <h3 class="graph-title">Completions by Days</h3>
+                <div class="graph-legend">
+                    <div class="legend-item">
+                        <div class="legend-color purple"></div>
+                        <span>Completion %</span>
+                    </div>
+                </div>
+                <div class="graph-chart">
+                    <div class="chart-y-axis">
+                        <div class="y-label">100</div>
+                        <div class="y-label">90</div>
+                        <div class="y-label">80</div>
+                        <div class="y-label">70</div>
+                        <div class="y-label">60</div>
+                        <div class="y-label">50</div>
+                        <div class="y-label">40</div>
+                        <div class="y-label">30</div>
+                        <div class="y-label">20</div>
+                        <div class="y-label">10</div>
+                        <div class="y-label">0</div>
+                    </div>
+                    <div class="chart-content">
+                        <div class="chart-grid">
+                            <!-- Grid lines will be added via CSS -->
+                        </div>
+                        <div class="chart-bars">
+                            <!-- Sample data bars -->
+                            <div class="chart-bar" style="height: 85%"></div>
+                            <div class="chart-bar" style="height: 92%"></div>
+                            <div class="chart-bar" style="height: 78%"></div>
+                            <div class="chart-bar" style="height: 95%"></div>
+                            <div class="chart-bar" style="height: 88%"></div>
+                            <div class="chart-bar" style="height: 76%"></div>
+                            <div class="chart-bar" style="height: 82%"></div>
+                        </div>
+                        <div class="chart-x-axis">
+                            <div class="x-label">S</div>
+                            <div class="x-label">M</div>
+                            <div class="x-label">T</div>
+                            <div class="x-label">W</div>
+                            <div class="x-label">Th</div>
+                            <div class="x-label">F</div>
+                            <div class="x-label">S</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Habits Progress Section -->
+        <section class="habits-section">
+            <div class="habits-container">
+                <h3 class="habits-title">Completions by Habits</h3>
+                <div class="habits-grid">
+                    <div class="habit-progress">
+                        <div class="habit-circle">
+                            <div class="habit-fill"></div>
+                        </div>
+                        <div class="habit-info">
+                            <div class="habit-percentage">14%</div>
+                            <div class="habit-name">Walking</div>
+                        </div>
+                    </div>
+                    <div class="habit-progress">
+                        <div class="habit-circle">
+                            <div class="habit-fill"></div>
+                        </div>
+                        <div class="habit-info">
+                            <div class="habit-percentage">14%</div>
+                            <div class="habit-name">Gym</div>
+                        </div>
+                    </div>
+                    <div class="habit-progress">
+                        <div class="habit-circle">
+                            <div class="habit-fill"></div>
+                        </div>
+                        <div class="habit-info">
+                            <div class="habit-percentage">14%</div>
+                            <div class="habit-name">Yoga</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="{% static 'progress.js' %}"></script>
 </body>
-
 </html>

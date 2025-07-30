@@ -1,266 +1,367 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social</title>
-    
-    <link rel="stylesheet" href="{% static 'social.css' %}">
-    <link rel="stylesheet" href="{% static 'sideNav.css' %}">
-    <link rel="stylesheet" href="{% static 'header.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
+    <title>Socials - WellNest</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'socials.css' %}">
 </head>
-
 <body>
-    {% csrf_token %}
-    <style>
-
-
-
-    </style>
-
-    <div id="header">
-        <div class="box" id="profile-div">
-            <input type="text" id="search-box" placeholder="Search..." />
-            <img src="{% static 'search.png' %}" alt="search-icon" id="search-icon">
-            <img src="{% static 'notification-off.png' %}"  alt="notification-icon" id="notification-icon" style="width: 30px; ">
-            <img src="{% static 'streak-hot.png' %}" alt="streak-hot" id="streak-hot">
-            <a href="{% url 'profile' %}"><img src="{% static 'pf.png' %}" href="{% url 'profile' %}" alt="pf icon"id="pf-icon"></a>
-        </div>
-
-        <div class="box" id="search-div"></div>
-        <div class="box" id="menu-div">
-            <img src="{% static 'menu.png' %}" alt="hamburger-menu" id="hamburger-menu">
+    <!-- Animated Background Elements -->
+    <div class="bg-animation">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
         </div>
     </div>
 
-    <div id="sideNav">
-        <div class="nav-top">
-            <div id="icons" style="display: flex; justify-content: space-between; margin-top: -15px;">
-                <div id="icons-left">
-                    <img src="{% static 'wn.png' %}" alt="WN Logo" id="navLogo" style="margin-left: -20px;">
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-icon">
+                    <img src="{% static 'WellNest.png' %}" alt="WellNest Logo" style="width: 32px; height: 32px; border-radius: 8px;">
                 </div>
-                <div id="icons-right">
-                    <img src="{% static 'menu.png' %}" alt="close-nav" style="width: 40px;" id="close-nav">
+                <span class="logo-text">WellNest</span>
+            </div>
+            <div class="nav-links">
+                <div class="nav-link" onclick="window.location.href='/calendar'">
+                    <span class="nav-icon">📊</span>
+                    Dashboard
+                </div>
+                <div class="nav-link">
+                    <span class="nav-icon">🎯</span>
+                    Habits
+                </div>
+                <div class="nav-link" onclick="window.location.href='/progress'">
+                    <span class="nav-icon">📈</span>
+                    Progress
+                </div>
+                <div class="nav-link" onclick="window.location.href='/leaderboard'">
+                    <span class="nav-icon">🏆</span>
+                    Leaderboard
+                </div>
+                <div class="nav-link active">
+                    <span class="nav-icon">👥</span>
+                    Socials
                 </div>
             </div>
-
-            <a href="{% url 'calendar' %}" class="nav-link">Home</a>
-            <a href="{% url 'progress' %}" class="nav-link">Progress</a>
-            <a href="{% url 'socials' %}" class="nav-link">Socials</a>
-        </div>
-
-        <div class="nav-bottom">
-            <a href="{% url 'review' %}" class="nav-link">Review</a>
-            <a href="{% url 'about' %}" class="nav-link">About</a>
-        </div>
-    </div>
-
-    <div id="searchResult-container" style="min-height: 100px;">
-
-        <div id="peopleResult-list">
-            <p id="searchResults" style="white-space: pre-wrap; margin-top: 10px; color: #333;"></p>
-        </div>
-
-        <div id="circlesResult-list"></div>
-
-    </div>
-
-    <style>
-        #searchResult-container {
-            display: flex;
-            padding-left: 100px;
-            padding-right: 100px;
-        }
-
-        #peopleResult-list {
-            flex-grow: 1;
-
-        }
-
-        #circlesResult-list {
-
-            flex-grow: 1;
-
-        }
-    </style>
-
-    <div class="wellNestCircles-text">
-
-        <h2>Your WellNest Circles</h2>
-        <button class="main-button" id="addCircle">add circle <img src="{% static 'plus.png' %}" style="height: 10px;"
-                alt="add circle"> </button>
-
-
-    </div>
-
-    <div style="display: flex; flex-direction: row;">
-
-
-
-
-        <div id="wellNestCircles-container" style="flex-grow: 1;">
-
-            <div class="circle" style="background-color: #588157 ;">
-                <div>
-                    <h3>SFSU Jogging Club</h3>
+            <div class="nav-profile">
+                <div class="profile-avatar">{{ user_name|first|upper }}</div>
+                <div class="profile-dropdown">
+                    <a href="/profile" class="dropdown-link">👤 Profile</a>
+                    <a href="/settings" class="dropdown-link">⚙️ Settings</a>
+                    <a href="/" class="logout-btn">
+                        <span class="logout-icon">🚪</span>
+                        Logout
+                    </a>
                 </div>
-
-                <div class="info">
-                    <div>
-                        30 day challenge
-                    </div>
-                    <div>
-                        10 members
-                    </div>
-                </div>
-
             </div>
-
-            <div class="circle" style="background-color: #4e148c ;">
-                <div>
-                    <h3>Dorm 26 Foodies</h3>
-                </div>
-
-
-                <div class="info">
-                    <div>
-                        Daily Task
-                    </div>
-                    <div>
-                        4 members
-                    </div>
-                </div>
-
-
-
-
-            </div>
-
-            <div class="circle" style="background-color: #dba159 ;">
-                <div>
-                    <h3>Intro to python gang</h3>
-                </div>
-
-                <div class="info">
-                    <div>
-                        Daily Task 10 mins per day
-                    </div>
-                    <div>
-                        7 members
-                    </div>
-                </div>
-
-
-            </div>
-
-
         </div>
+    </nav>
 
+    <!-- MAIN CONTENT -->
+    <main id="main-content">
+        <!-- Page Title -->
+        <header class="page-header">
+            <h1 class="page-title">Socials</h1>
+            <p class="page-subtitle">Connect with friends and join wellness groups</p>
+        </header>
 
-        <div id="circle-info" style="flex-grow: 2; "></div>
-
-    </div>
-
-    <div class="wellNestCircles-text" style="height: 100px;">
-
-        <h2>Your Friends</h2>
-        <button class="main-button">add friends <img src="{% static 'plus.png' %}" style="height: 10px;"
-                alt="add friends" id="addFriends"> </button>
-
-
-    </div>
-
-    <div id="friends-list">
-
-        <div id="friend-element" style="display: flex;">
-
-            <div id="friend-element-info">
-                
-                <img src="{% static 'pf.png'%}" alt="" style="width: 40px; margin: -20px;">
-                  <h3>name</h3>
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-card">
+                <div class="search-header">
+                    <h2>Find Friends & Groups</h2>
+                    <p>Search for friends to add or discover wellness groups to join</p>
+                </div>
+                <div class="search-container">
+                    <div class="search-input-group">
+                        <input type="text" id="search-input" placeholder="Search for friends or groups..." class="search-input">
+                        <button class="search-btn">
+                            <span class="search-icon">🔍</span>
+                        </button>
+                    </div>
+                    <div class="search-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="friends">Friends</button>
+                        <button class="filter-btn" data-filter="groups">Groups</button>
+                    </div>
+                </div>
             </div>
-        
+        </section>
+
+        <!-- Search Results -->
+        <section class="results-section" id="search-results">
+            <div class="results-container">
+                <!-- Results will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Wellness Groups -->
+        <section class="groups-section">
+            <div class="section-header">
+                <h2>Your Wellness Groups</h2>
+                <button class="btn btn-primary" id="create-group-btn">
+                    <span class="btn-icon">➕</span>
+                    Create Group
+                </button>
+            </div>
+            
+            <div class="groups-grid">
+                <div class="group-card" onclick="window.location.href='/leaderboard'">
+                    <div class="group-header">
+                        <div class="group-icon">🏃‍♂️</div>
+                        <div class="group-info">
+                            <h3>SFSU Jogging Club</h3>
+                            <p>30-day running challenge</p>
+                        </div>
+                        <div class="group-stats">
+                            <span class="member-count">10 members</span>
+                            <span class="challenge-status active">Active</span>
+                        </div>
+                    </div>
+                    <div class="group-progress">
+                        <div class="progress-info">
+                            <span>Challenge Progress</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="group-actions">
+                        <button class="btn btn-secondary" onclick="window.location.href='/leaderboard'">
+                            <span class="btn-icon">🏆</span>
+                            View Leaderboard
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group-card">
+                    <div class="group-header">
+                        <div class="group-icon">🍎</div>
+                        <div class="group-info">
+                            <h3>Dorm 26 Foodies</h3>
+                            <p>Healthy eating challenge</p>
+                        </div>
+                        <div class="group-stats">
+                            <span class="member-count">4 members</span>
+                            <span class="challenge-status active">Active</span>
+                        </div>
+                    </div>
+                    <div class="group-progress">
+                        <div class="progress-info">
+                            <span>Challenge Progress</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <div class="group-actions">
+                        <button class="btn btn-secondary">
+                            <span class="btn-icon">🏆</span>
+                            View Leaderboard
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group-card">
+                    <div class="group-header">
+                        <div class="group-icon">💻</div>
+                        <div class="group-info">
+                            <h3>Intro to Python Gang</h3>
+                            <p>Daily coding practice</p>
+                        </div>
+                        <div class="group-stats">
+                            <span class="member-count">7 members</span>
+                            <span class="challenge-status active">Active</span>
+                        </div>
+                    </div>
+                    <div class="group-progress">
+                        <div class="progress-info">
+                            <span>Challenge Progress</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="group-actions">
+                        <button class="btn btn-secondary">
+                            <span class="btn-icon">🏆</span>
+                            View Leaderboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Friends Section -->
+        <section class="friends-section">
+            <div class="section-header">
+                <h2>Your Friends</h2>
+                <button class="btn btn-primary" id="add-friends-btn">
+                    <span class="btn-icon">👥</span>
+                    Add Friends
+                </button>
+            </div>
+            
+            <div class="friends-grid">
+                <div class="friend-card">
+                    <div class="friend-avatar">A</div>
+                    <div class="friend-info">
+                        <h3>Alice Johnson</h3>
+                        <p>Wellness enthusiast</p>
+                        <div class="friend-stats">
+                            <span class="stat">15 days active</span>
+                            <span class="stat">8 habits</span>
+                        </div>
+                    </div>
+                    <div class="friend-actions">
+                        <button class="btn btn-secondary">View Profile</button>
+                    </div>
+                </div>
+
+                <div class="friend-card">
+                    <div class="friend-avatar">B</div>
+                    <div class="friend-info">
+                        <h3>Bob Smith</h3>
+                        <p>Fitness lover</p>
+                        <div class="friend-stats">
+                            <span class="stat">12 days active</span>
+                            <span class="stat">6 habits</span>
+                        </div>
+                    </div>
+                    <div class="friend-actions">
+                        <button class="btn btn-secondary">View Profile</button>
+                    </div>
+                </div>
+
+                <div class="friend-card">
+                    <div class="friend-avatar">C</div>
+                    <div class="friend-info">
+                        <h3>Charlie Brown</h3>
+                        <p>Health advocate</p>
+                        <div class="friend-stats">
+                            <span class="stat">20 days active</span>
+                            <span class="stat">10 habits</span>
+                        </div>
+                    </div>
+                    <div class="friend-actions">
+                        <button class="btn btn-secondary">View Profile</button>
+                    </div>
+                </div>
+
+                <div class="friend-card">
+                    <div class="friend-avatar">D</div>
+                    <div class="friend-info">
+                        <h3>Diana Prince</h3>
+                        <p>Wellness warrior</p>
+                        <div class="friend-stats">
+                            <span class="stat">18 days active</span>
+                            <span class="stat">9 habits</span>
+                        </div>
+                    </div>
+                    <div class="friend-actions">
+                        <button class="btn btn-secondary">View Profile</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Friend Requests -->
+        <section class="requests-section">
+            <div class="section-header">
+                <h2>Friend Requests</h2>
+                <span class="request-count">2 new</span>
+            </div>
+            
+            <div class="requests-list">
+                <div class="request-item">
+                    <div class="request-avatar">E</div>
+                    <div class="request-info">
+                        <h3>Emma Wilson</h3>
+                        <p>Wants to be your friend</p>
+                    </div>
+                    <div class="request-actions">
+                        <button class="btn btn-success accept-btn">
+                            <span class="btn-icon">✅</span>
+                            Accept
+                        </button>
+                        <button class="btn btn-danger decline-btn">
+                            <span class="btn-icon">❌</span>
+                            Decline
+                        </button>
+                    </div>
+                </div>
+
+                <div class="request-item">
+                    <div class="request-avatar">F</div>
+                    <div class="request-info">
+                        <h3>Frank Miller</h3>
+                        <p>Wants to be your friend</p>
+                    </div>
+                    <div class="request-actions">
+                        <button class="btn btn-success accept-btn">
+                            <span class="btn-icon">✅</span>
+                            Accept
+                        </button>
+                        <button class="btn btn-danger decline-btn">
+                            <span class="btn-icon">❌</span>
+                            Decline
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Create Group Modal -->
+    <div id="create-group-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Group</h2>
+                <button class="close-modal" id="close-create-modal">&times;</button>
+            </div>
+            <form id="create-group-form">
+                <div class="form-group">
+                    <label for="group-name">Group Name</label>
+                    <input type="text" id="group-name" name="groupName" placeholder="Enter group name" required>
+                </div>
+                <div class="form-group">
+                    <label for="group-description">Description</label>
+                    <textarea id="group-description" name="groupDescription" placeholder="Describe your group's purpose" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="challenge-type">Challenge Type</label>
+                    <select id="challenge-type" name="challengeType" required>
+                        <option value="">Select challenge type</option>
+                        <option value="fitness">Fitness</option>
+                        <option value="nutrition">Nutrition</option>
+                        <option value="mindfulness">Mindfulness</option>
+                        <option value="learning">Learning</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="challenge-duration">Duration (days)</label>
+                    <input type="number" id="challenge-duration" name="challengeDuration" placeholder="30" min="1" max="365" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancel-create-group">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Group</button>
+                </div>
+            </form>
         </div>
-        
     </div>
 
-
-    <style>
-        .wellNestCircles-text {
-            height: 100px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        #wellNestCircles-container {
-
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            gap: 20px;
-
-        }
-
-        .circle {
-            height: 100px;
-            max-width: 400px;
-            border-radius: 30px;
-            display: flex;
-            color: white;
-            flex-direction: column;
-            padding: 3px;
-
-        }
-
-        .info {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            margin: 3px;
-        }
-
-        .main-button {
-
-            border-radius: 40px;
-            height: 30px;
-            padding-left: 10px;
-            padding-right: 10px;
-            background-color: rgb(51, 141, 56);
-            border-color: transparent;
-            align-items: center;
-            display: flex;
-            gap: 5px;
-        }
-    </style>
-
-    <div id="notification-modal" class="modal hidden">
-    <div class="modal-content">
-        <span id="close-modal" class="close">&times;</span>
-        <h2>Notifications</h2>
-        <ul id="notification-list">
-            <li>No new notifications</li>
-        </ul>
-    </div>
-    </div>
-
-
-
-
-    
-
-    <script src="{% static 'sideNav.js' %}"></script>
-    <script src="{% static 'header.js' %}"></script>
     <script src="{% static 'socials.js' %}"></script>
 </body>
-
 </html>

@@ -128,9 +128,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 case 'Dashboard':
                     window.location.href = '/calendar';
                     break;
-                case 'Leaderboard':
-                    window.location.href = '/leaderboard';
-                    break;
+                            case 'Leaderboard':
+                window.location.href = '/leaderboard';
+                break;
+            case 'Socials':
+                window.location.href = '/socials';
+                break;
                 case 'Habits':
                     // For now, stay on progress page since habits functionality might be in calendar
                     console.log('Habits clicked');
