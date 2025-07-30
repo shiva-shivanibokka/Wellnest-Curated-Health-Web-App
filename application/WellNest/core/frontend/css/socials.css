@@ -1,6 +1,4 @@
-/* Socials Page CSS */
 
-/* CSS Variables */
 :root {
     --sf-purple: #4e148c;
     --sf-light-purple: #6b46c1;
@@ -25,7 +23,6 @@
     --radius-lg: 0.75rem;
 }
 
-/* Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -41,7 +38,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Animated Background */
 .bg-animation {
     position: fixed;
     top: 0;
@@ -116,7 +112,6 @@ body {
     }
 }
 
-/* Navbar Styles */
 #navbar {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -272,7 +267,6 @@ body {
     font-size: 14px;
 }
 
-/* Main Content */
 #main-content {
     max-width: 1200px;
     margin: 0 auto;
@@ -298,7 +292,6 @@ body {
     font-weight: 400;
 }
 
-/* Search Section */
 .search-section {
     margin-bottom: 3rem;
 }
@@ -403,7 +396,6 @@ body {
     border-color: var(--sf-purple);
 }
 
-/* Results Section */
 .results-section {
     margin-bottom: 3rem;
     display: none;
@@ -419,7 +411,6 @@ body {
     gap: 1rem;
 }
 
-/* Section Headers */
 .section-header {
     display: flex;
     align-items: center;
@@ -442,7 +433,6 @@ body {
     font-weight: 500;
 }
 
-/* Button Styles */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -502,7 +492,6 @@ body {
     font-size: 1rem;
 }
 
-/* Groups Section */
 .groups-section {
     margin-bottom: 3rem;
 }
@@ -619,7 +608,6 @@ body {
     justify-content: center;
 }
 
-/* Friends Section */
 .friends-section {
     margin-bottom: 3rem;
 }
@@ -760,7 +748,6 @@ body {
     gap: 0.5rem;
 }
 
-/* Modal Styles */
 .modal {
     position: fixed;
     top: 0;
@@ -819,7 +806,6 @@ body {
     color: var(--text-primary);
 }
 
-/* Form Styles */
 .form-group {
     margin-bottom: 1.5rem;
 }
@@ -864,7 +850,6 @@ body {
     margin-top: 2rem;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .nav-container {
         padding: 0 1rem;

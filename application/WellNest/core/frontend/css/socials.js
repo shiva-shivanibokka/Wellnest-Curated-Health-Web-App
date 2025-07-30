@@ -1,6 +1,4 @@
 
-//using modal for notification is easier use dive if necessary 
-
 document.addEventListener('DOMContentLoaded', () => {
     const notifIcon = document.getElementById('notification-icon');
     const modal = document.getElementById('notification-modal');
@@ -35,10 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
-    // ADD CIRCLE FUNCTION
+    
     document.getElementById('addCircle').addEventListener('click', function () {
         const container = document.getElementById('wellNestCircles-container');
 
@@ -68,12 +64,12 @@ document.addEventListener('DOMContentLoaded', function () {
         container.appendChild(newCircle);
     });
 
-    // SEARCH FUNCTION
+    
     document.getElementById('search-box').addEventListener('input', function () {
         const query = this.value.trim();
 
         const resultElement = document.getElementById('searchResults');
-        const circlesResult = document.getElementById('circlesResult-list');  // Moved this line here
+        const circlesResult = document.getElementById('circlesResult-list');
 
         if (query.length === 0) {
             resultElement.textContent = '';
@@ -81,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // user search and invite
         fetch(`/api/users/search/?search=${encodeURIComponent(query)}`)
             .then(response => response.json())
             .then(data => {
@@ -102,7 +97,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     userCard.style.backgroundColor = '#f9f9f9';
                     userCard.style.maxWidth = "400px";
 
-                    // INFO ROW 
                     const infoRow = document.createElement('div');
                     infoRow.style.display = "flex";
                     infoRow.style.justifyContent = "space-between";
@@ -123,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     userCard.appendChild(infoRow);
 
-                    // invite ppl
                     const invite = document.createElement('button');
                     invite.textContent = "Invite";
                     invite.style.width = '80px';
@@ -136,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     invite.style.cursor = "pointer";
                     invite.style.marginTop = "10px"; 
 
-                    // sending invite method
+                   
                     invite.addEventListener('click', () => {
                         console.log("Sending invite to user ID:", user.id);
                         fetch('/api/friends/send/', {
@@ -168,7 +161,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 resultElement.textContent = 'An error occurred.';
             });
 
-//csrf token don't touch
 function getCSRFToken() {
     return document.cookie
       .split("; ")
@@ -176,7 +168,6 @@ function getCSRFToken() {
       ?.split("=")[1];
 }
 
-        // CIRCLE MOCK SEARCH
         const mockCircles = [
             { name: 'Hackers United', task: 'Daily Hackathons', members: 12 },
             { name: 'Study Buddies', task: 'Weekly study sync', members: 5 },

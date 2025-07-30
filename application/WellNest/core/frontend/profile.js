@@ -1,44 +1,36 @@
-// Profile Page JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the page
+   
     initializeProfile();
     
-    // Add hover effects and interactions
     addHoverEffects();
     
-    // Add loading animations
     addLoadingAnimations();
     
-    // Setup form handling
     setupFormHandling();
     
-    // Setup popup handling
     setupPopupHandling();
 });
 
 function initializeProfile() {
     console.log('Profile page initialized');
     
-    // Add click handlers for navigation
     setupNavigation();
     
-    // Add card interactions
     setupCardInteractions();
     
-    // Setup achievement interactions
     setupAchievementInteractions();
 }
 
 function setupNavigation() {
-    // Handle navbar link clicks
+  
     const navLinks = document.querySelectorAll('.nav-link');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const text = this.textContent.trim();
             
-            // Navigate based on the link text
+
             switch(text) {
                 case 'Dashboard':
                     window.location.href = '/calendar';
@@ -64,7 +56,7 @@ function setupNavigation() {
 }
 
 function setupCardInteractions() {
-    // Add hover effects to profile cards
+    
     const profileCards = document.querySelectorAll('.profile-card');
     
     profileCards.forEach(card => {
@@ -79,12 +71,11 @@ function setupCardInteractions() {
         });
     });
     
-    // Add click effects to action buttons
     const actionButtons = document.querySelectorAll('.action-btn');
     
     actionButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Add a subtle click effect
+            
             this.style.transform = 'scale(0.95)';
             setTimeout(() => {
                 this.style.transform = 'scale(1)';
@@ -94,7 +85,7 @@ function setupCardInteractions() {
 }
 
 function setupAchievementInteractions() {
-    // Add hover effects to achievement items
+    
     const achievementItems = document.querySelectorAll('.achievement-item');
     
     achievementItems.forEach(item => {
@@ -108,7 +99,6 @@ function setupAchievementInteractions() {
             this.style.transform = 'translateY(0) scale(1)';
         });
         
-        // Add click effect for unlocked achievements
         item.addEventListener('click', function() {
             if (this.classList.contains('unlocked')) {
                 this.style.transform = 'scale(0.95)';
@@ -116,7 +106,6 @@ function setupAchievementInteractions() {
                     this.style.transform = 'scale(1)';
                 }, 150);
                 
-                // Show achievement details
                 const title = this.querySelector('h3').textContent;
                 showNotification(`Achievement: ${title}`, 'success');
             }
@@ -125,38 +114,33 @@ function setupAchievementInteractions() {
 }
 
 function setupFormHandling() {
-    // Handle profile form submission
+   n
     const profileForm = document.getElementById('profile-form');
     if (profileForm) {
         profileForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form data
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
             
-            // Validate form data
+
             if (!data.firstName || !data.lastName || !data.email) {
                 showNotification('Please fill in all required fields', 'error');
                 return;
             }
             
-            // Simulate saving (in a real app, this would make an API call)
             showNotification('Profile updated successfully!', 'success');
             
-            // Show success popup
             showPopup();
             
-            // Update the profile display
             updateProfileDisplay(data);
         });
     }
     
-    // Handle avatar edit button
     const editAvatarBtn = document.querySelector('.edit-avatar-btn');
     if (editAvatarBtn) {
         editAvatarBtn.addEventListener('click', function() {
-            // In a real app, this would open a file picker
+           
             showNotification('Avatar upload feature coming soon!', 'info');
         });
     }
@@ -172,7 +156,6 @@ function setupPopupHandling() {
         });
     }
     
-    // Close popup when clicking outside
     if (popup) {
         popup.addEventListener('click', function(e) {
             if (e.target === this) {
@@ -197,25 +180,22 @@ function hidePopup() {
 }
 
 function updateProfileDisplay(data) {
-    // Update the profile name display
+
     const profileNameLarge = document.querySelector('.profile-name-large');
     if (profileNameLarge && data.firstName && data.lastName) {
         profileNameLarge.textContent = `${data.firstName} ${data.lastName}`;
     }
     
-    // Update the profile email display
     const profileEmailLarge = document.querySelector('.profile-email-large');
     if (profileEmailLarge && data.email) {
         profileEmailLarge.textContent = data.email;
     }
     
-    // Update the avatar initial
     const avatarInitial = document.querySelector('.avatar-initial');
     if (avatarInitial && data.firstName) {
         avatarInitial.textContent = data.firstName.charAt(0).toUpperCase();
     }
     
-    // Update navbar profile info
     const navProfileName = document.querySelector('.nav-profile .profile-name');
     if (navProfileName && data.firstName) {
         navProfileName.textContent = data.firstName;
@@ -233,7 +213,7 @@ function updateProfileDisplay(data) {
 }
 
 function addHoverEffects() {
-    // Add hover effects to buttons
+    
     const buttons = document.querySelectorAll('.btn');
     
     buttons.forEach(button => {
@@ -248,7 +228,7 @@ function addHoverEffects() {
         });
     });
     
-    // Add hover effects to goal items
+    
     const goalItems = document.querySelectorAll('.goal-item');
     
     goalItems.forEach(item => {
@@ -262,7 +242,7 @@ function addHoverEffects() {
         });
     });
     
-    // Add hover effects to edit avatar button
+   
     const editAvatarBtn = document.querySelector('.edit-avatar-btn');
     if (editAvatarBtn) {
         editAvatarBtn.addEventListener('mouseenter', function() {
@@ -278,7 +258,7 @@ function addHoverEffects() {
 }
 
 function addLoadingAnimations() {
-    // Add fade-in animation to page elements
+    
     const elements = document.querySelectorAll('.profile-card');
     
     elements.forEach((element, index) => {
@@ -292,7 +272,6 @@ function addLoadingAnimations() {
         }, index * 200);
     });
     
-    // Add staggered animation to goal items
     const goalItems = document.querySelectorAll('.goal-item');
     
     goalItems.forEach((item, index) => {
@@ -306,7 +285,6 @@ function addLoadingAnimations() {
         }, 600 + (index * 100));
     });
     
-    // Add staggered animation to achievement items
     const achievementItems = document.querySelectorAll('.achievement-item');
     
     achievementItems.forEach((item, index) => {
@@ -322,7 +300,7 @@ function addLoadingAnimations() {
 }
 
 function showNotification(message, type = 'info') {
-    // Create notification element
+    
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.innerHTML = `
@@ -332,7 +310,6 @@ function showNotification(message, type = 'info') {
         </div>
     `;
     
-    // Add styles
     notification.style.cssText = `
         position: fixed;
         top: 20px;
@@ -348,15 +325,12 @@ function showNotification(message, type = 'info') {
         max-width: 300px;
     `;
     
-    // Add to page
     document.body.appendChild(notification);
     
-    // Animate in
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
     }, 100);
     
-    // Remove after 3 seconds
     setTimeout(() => {
         notification.style.transform = 'translateX(100%)';
         setTimeout(() => {
@@ -385,7 +359,6 @@ function getNotificationColor(type) {
     }
 }
 
-// Add smooth scrolling for better UX
 function smoothScrollTo(element) {
     element.scrollIntoView({
         behavior: 'smooth',
@@ -393,13 +366,11 @@ function smoothScrollTo(element) {
     });
 }
 
-// Add keyboard navigation support
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         // Close popup
         hidePopup();
         
-        // Close any open dropdowns
         const dropdowns = document.querySelectorAll('.profile-dropdown');
         dropdowns.forEach(dropdown => {
             dropdown.style.opacity = '0';
@@ -408,22 +379,6 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Add touch support for mobile devices
-if ('ontouchstart' in window) {
-    const touchElements = document.querySelectorAll('.profile-card, .btn, .goal-item, .achievement-item, .action-btn');
-    
-    touchElements.forEach(element => {
-        element.addEventListener('touchstart', function() {
-            this.style.transform = 'scale(0.98)';
-        });
-        
-        element.addEventListener('touchend', function() {
-            this.style.transform = 'scale(1)';
-        });
-    });
-}
-
-// Add performance optimizations
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -436,9 +391,9 @@ function debounce(func, wait) {
     };
 }
 
-// Optimize scroll events
+
 const optimizedScrollHandler = debounce(function() {
-    // Handle scroll-based animations if needed
+  
 }, 16);
 
 window.addEventListener('scroll', optimizedScrollHandler); 

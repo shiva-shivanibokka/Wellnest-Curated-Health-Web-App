@@ -1,44 +1,36 @@
-// Socials Page JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the page
+    
     initializeSocials();
     
-    // Add hover effects and interactions
     addHoverEffects();
     
-    // Add loading animations
     addLoadingAnimations();
     
-    // Setup search functionality
     setupSearchFunctionality();
     
-    // Setup friend request handling
     setupFriendRequests();
     
-    // Setup group management
     setupGroupManagement();
 });
 
 function initializeSocials() {
     console.log('Socials page initialized');
     
-    // Add click handlers for navigation
     setupNavigation();
     
-    // Add card interactions
     setupCardInteractions();
 }
 
 function setupNavigation() {
-    // Handle navbar link clicks
+   
     const navLinks = document.querySelectorAll('.nav-link');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const text = this.textContent.trim();
             
-            // Navigate based on the link text
+    
             switch(text) {
                 case 'Dashboard':
                     window.location.href = '/calendar';
@@ -50,11 +42,11 @@ function setupNavigation() {
                     window.location.href = '/leaderboard';
                     break;
                 case 'Socials':
-                    // Already on socials page
+                   
                     console.log('Already on socials page');
                     break;
                 case 'Habits':
-                    // For now, stay on socials page since habits functionality might be in calendar
+                    
                     console.log('Habits clicked - staying on socials page');
                     break;
                 default:
@@ -65,7 +57,7 @@ function setupNavigation() {
 }
 
 function setupCardInteractions() {
-    // Add hover effects to group cards
+    
     const groupCards = document.querySelectorAll('.group-card');
     
     groupCards.forEach(card => {
@@ -80,7 +72,7 @@ function setupCardInteractions() {
         });
     });
     
-    // Add hover effects to friend cards
+   
     const friendCards = document.querySelectorAll('.friend-card');
     
     friendCards.forEach(card => {
@@ -103,14 +95,14 @@ function setupSearchFunctionality() {
     const resultsSection = document.getElementById('search-results');
     const resultsContainer = document.querySelector('.results-container');
     
-    // Handle search button click
+ 
     if (searchBtn) {
         searchBtn.addEventListener('click', function() {
             performSearch();
         });
     }
     
-    // Handle search input enter key
+
     if (searchInput) {
         searchInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -119,16 +111,14 @@ function setupSearchFunctionality() {
         });
     }
     
-    // Handle filter button clicks
+
     filterBtns.forEach(btn => {
         btn.addEventListener('click', function() {
-            // Remove active class from all filter buttons
+           
             filterBtns.forEach(b => b.classList.remove('active'));
             
-            // Add active class to clicked button
             this.classList.add('active');
             
-            // Perform search with current filter
             performSearch();
         });
     });
@@ -142,11 +132,9 @@ function setupSearchFunctionality() {
             return;
         }
         
-        // Simulate search results
         const results = generateSearchResults(query, activeFilter);
         displaySearchResults(results);
         
-        // Show results section
         resultsSection.classList.add('show');
     }
     
@@ -230,7 +218,6 @@ function setupSearchFunctionality() {
             resultsContainer.appendChild(resultElement);
         });
         
-        // Add event listeners to new buttons
         setupResultButtonListeners();
     }
     
@@ -263,10 +250,8 @@ function setupFriendRequests() {
             const requestItem = this.closest('.request-item');
             const friendName = requestItem.querySelector('h3').textContent;
             
-            // Simulate accepting friend request
             showNotification(`Friend request from ${friendName} accepted!`, 'success');
             
-            // Remove the request item with animation
             requestItem.style.transform = 'translateX(100%)';
             requestItem.style.opacity = '0';
             setTimeout(() => {
@@ -281,10 +266,8 @@ function setupFriendRequests() {
             const requestItem = this.closest('.request-item');
             const friendName = requestItem.querySelector('h3').textContent;
             
-            // Simulate declining friend request
             showNotification(`Friend request from ${friendName} declined`, 'info');
             
-            // Remove the request item with animation
             requestItem.style.transform = 'translateX(100%)';
             requestItem.style.opacity = '0';
             setTimeout(() => {
@@ -315,14 +298,12 @@ function setupGroupManagement() {
     const cancelCreateGroup = document.getElementById('cancel-create-group');
     const createGroupForm = document.getElementById('create-group-form');
     
-    // Open create group modal
     if (createGroupBtn) {
         createGroupBtn.addEventListener('click', function() {
             createGroupModal.classList.remove('hidden');
         });
     }
     
-    // Close create group modal
     if (closeCreateModal) {
         closeCreateModal.addEventListener('click', function() {
             createGroupModal.classList.add('hidden');
@@ -335,7 +316,6 @@ function setupGroupManagement() {
         });
     }
     
-    // Close modal when clicking outside
     if (createGroupModal) {
         createGroupModal.addEventListener('click', function(e) {
             if (e.target === this) {
@@ -344,7 +324,6 @@ function setupGroupManagement() {
         });
     }
     
-    // Handle create group form submission
     if (createGroupForm) {
         createGroupForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -352,26 +331,22 @@ function setupGroupManagement() {
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
             
-            // Validate form data
             if (!data.groupName || !data.challengeType || !data.challengeDuration) {
                 showNotification('Please fill in all required fields', 'error');
                 return;
             }
             
-            // Simulate creating group
             showNotification(`Group "${data.groupName}" created successfully!`, 'success');
             
-            // Close modal
             createGroupModal.classList.add('hidden');
             
-            // Reset form
             this.reset();
         });
     }
 }
 
 function addHoverEffects() {
-    // Add hover effects to buttons
+    
     const buttons = document.querySelectorAll('.btn');
     
     buttons.forEach(button => {
@@ -386,7 +361,6 @@ function addHoverEffects() {
         });
     });
     
-    // Add hover effects to search filters
     const filterBtns = document.querySelectorAll('.filter-btn');
     
     filterBtns.forEach(btn => {
@@ -401,7 +375,6 @@ function addHoverEffects() {
         });
     });
     
-    // Add hover effects to request items
     const requestItems = document.querySelectorAll('.request-item');
     
     requestItems.forEach(item => {
@@ -418,7 +391,7 @@ function addHoverEffects() {
 }
 
 function addLoadingAnimations() {
-    // Add fade-in animation to page elements
+   
     const elements = document.querySelectorAll('.search-card, .group-card, .friend-card, .request-item');
     
     elements.forEach((element, index) => {
@@ -434,7 +407,7 @@ function addLoadingAnimations() {
 }
 
 function showNotification(message, type = 'info') {
-    // Create notification element
+
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.innerHTML = `
@@ -444,7 +417,6 @@ function showNotification(message, type = 'info') {
         </div>
     `;
     
-    // Add styles
     notification.style.cssText = `
         position: fixed;
         top: 20px;
@@ -460,15 +432,12 @@ function showNotification(message, type = 'info') {
         max-width: 300px;
     `;
     
-    // Add to page
     document.body.appendChild(notification);
     
-    // Animate in
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
     }, 100);
     
-    // Remove after 3 seconds
     setTimeout(() => {
         notification.style.transform = 'translateX(100%)';
         setTimeout(() => {
@@ -497,7 +466,6 @@ function getNotificationColor(type) {
     }
 }
 
-// Add smooth scrolling for better UX
 function smoothScrollTo(element) {
     element.scrollIntoView({
         behavior: 'smooth',
@@ -505,16 +473,14 @@ function smoothScrollTo(element) {
     });
 }
 
-// Add keyboard navigation support
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-        // Close any open modals
+        
         const modals = document.querySelectorAll('.modal');
         modals.forEach(modal => {
             modal.classList.add('hidden');
         });
         
-        // Close any open dropdowns
         const dropdowns = document.querySelectorAll('.profile-dropdown');
         dropdowns.forEach(dropdown => {
             dropdown.style.opacity = '0';
@@ -523,7 +489,6 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Add touch support for mobile devices
 if ('ontouchstart' in window) {
     const touchElements = document.querySelectorAll('.group-card, .friend-card, .request-item, .btn');
     
@@ -538,7 +503,6 @@ if ('ontouchstart' in window) {
     });
 }
 
-// Add performance optimizations
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -551,9 +515,8 @@ function debounce(func, wait) {
     };
 }
 
-// Optimize scroll events
 const optimizedScrollHandler = debounce(function() {
-    // Handle scroll-based animations if needed
+    
 }, 16);
 
 window.addEventListener('scroll', optimizedScrollHandler); 

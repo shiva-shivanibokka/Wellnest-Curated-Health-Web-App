@@ -1,6 +1,4 @@
-/* Settings Page CSS */
 
-/* CSS Variables */
 :root {
     --sf-purple: #4e148c;
     --sf-light-purple: #6b46c1;
@@ -25,7 +23,6 @@
     --radius-lg: 0.75rem;
 }
 
-/* Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -41,7 +38,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Animated Background */
 .bg-animation {
     position: fixed;
     top: 0;
@@ -116,7 +112,6 @@ body {
     }
 }
 
-/* Navbar Styles */
 #navbar {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -320,7 +315,6 @@ body {
     }
 }
 
-/* Settings Cards */
 .settings-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -363,7 +357,6 @@ body {
     color: var(--text-primary);
 }
 
-/* Form Styles */
 .settings-form {
     display: flex;
     flex-direction: column;
@@ -397,7 +390,6 @@ body {
     box-shadow: 0 0 0 3px rgba(110, 78, 193, 0.1);
 }
 
-/* Button Styles */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -447,7 +439,6 @@ body {
     font-size: 1rem;
 }
 
-/* Settings Options */
 .settings-options {
     display: flex;
     flex-direction: column;
@@ -481,7 +472,6 @@ body {
     margin: 0;
 }
 
-/* Toggle Switch */
 .toggle-switch {
     position: relative;
     display: inline-block;
@@ -527,7 +517,6 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-/* Theme Options */
 .theme-options {
     display: flex;
     gap: 1rem;
@@ -582,7 +571,6 @@ input:checked + .slider:before {
     color: var(--text-primary);
 }
 
-/* Danger Zone */
 .danger-card {
     border: 1px solid #fecaca;
     background: linear-gradient(135deg, rgba(254, 202, 202, 0.1), rgba(254, 202, 202, 0.05));
@@ -617,7 +605,6 @@ input:checked + .slider:before {
     margin: 0;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .nav-container {
         padding: 0 1rem;
