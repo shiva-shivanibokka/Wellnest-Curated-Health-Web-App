@@ -1,0 +1,225 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+
+  <!-- CSS Imports -->
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/sideNav.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/glass.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/form.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/calendar.css' %}" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;1,400&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    #add-habit-button,
+    #form-submit {
+      background-color: #4e148c;
+      color: gold;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    #streak-progress {
+      background-color: #4e148c;
+      color: gold;
+      padding: 6px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      border: none;
+    }
+
+    .main-section {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      margin: 20px;
+      flex-wrap: wrap;
+    }
+
+    #todo-box,
+    #done-box {
+      background-color: #f6edff;
+      border: 1.5px solid #5e1fa2;
+      border-radius: 8px;
+      padding: 20px;
+      flex: 1;
+      min-width: 600px;
+    }
+
+    #todo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #progress-box {
+      border: 2px solid black;
+      border-radius: 12px;
+      padding: 20px;
+      min-width: 250px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .progress-value {
+      font-size: 40px;
+    }
+
+    #done-box {
+      margin: 0 20px 30px 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <form style="display: none;">{% csrf_token %}</form>
+
+  <!-- Header -->
+  <div id="header">
+    <div class="box" id="profile-div">
+      <input type="text" id="search-box" placeholder="Search habits or people..." />
+      <img src="{% static 'streak-hot.png' %}" alt="streak-hot" id="streak-hot" />
+      <a href="{% url 'profile' %}">
+        <img src="{% static 'pf.png' %}" alt="pf icon" id="pf-icon" />
+      </a>
+    </div>
+    <div class="box" id="search-div"></div>
+    <div class="box" id="menu-div">
+      <img src="{% static 'menu.png' %}" alt="hamburger-menu" id="hamburger-menu" />
+    </div>
+  </div>
+
+  <!-- Side Nav -->
+  <div id="sideNav">
+    <div class="nav-top">
+      <div id="icons" style="display: flex; justify-content: space-between; margin-top: -15px;">
+        <div id="icons-left">
+          <img src="{% static 'wn.png' %}" alt="WN Logo" id="navLogo" style="margin-left: -20px;" />
+        </div>
+        <div id="icons-right">
+          <img src="{% static 'menu.png' %}" alt="close-nav" style="width: 40px;" id="close-nav" />
+        </div>
+      </div>
+      <a href="{% url 'calendar' %}" class="nav-link">Home</a>
+      <a href="{% url 'progress' %}" class="nav-link">Progress</a>
+      <a href="{% url 'socials' %}" class="nav-link">Socials</a>
+    </div>
+    <div class="nav-bottom">
+      <a href="{% url 'review' %}" class="nav-link">Review</a>
+      <a href="{% url 'about' %}" class="nav-link">About</a>
+    </div>
+  </div>
+
+  <!-- Welcome Message -->
+  <div id="today">
+    <div id="right"></div>
+    <div id="center">
+      <h1>Hello, {{ user.first_name|default:user.username }}!</h1>
+      <h2>Today</h2>
+      <h3>{{ today|date:"F jS" }}</h3>
+    </div>
+    <div id="left"></div>
+  </div>
+
+  <!-- Calendar Icon -->
+  <div id="calendarIcon-div" style="height: 50px;">
+    <div id="l"></div>
+    <div id="c" style="display: flex; text-align: center;">
+      <img src="{% static 'image 18.png' %}" alt="calendarIcon-home" style="height: 40px; margin-left: 50px;" />
+    </div>
+    <div id="r"></div>
+  </div>
+
+  <!-- Calendar Grid -->
+  <div id="calendar-home">
+    <div id="wrapper-left"></div>
+    <div id="wrapper">
+      {% for day in week_days %}
+        <div class="days {% if day == today %}today-box{% endif %}">{{ day|date:"M j" }}</div>
+      {% endfor %}
+    </div>
+    <div id="wrapper-right"></div>
+  </div>
+
+  <!-- Quote of the Day -->
+  <div id="quote-div">
+    <div id="quote-right"></div>
+    <div id="quote-center">
+      <h3 style="margin-bottom: -10px;">Quote of the day</h3>
+      <br>"Always do your best"
+    </div>
+    <div id="quote-left"></div>
+  </div>
+
+  <!-- Main Habit Section -->
+  <div class="main-section">
+    <!-- To Do Section -->
+    <div id="todo-box">
+      <div id="todo-header">
+        <h2>To Do</h2>
+        <button id="add-habit-button">
+          Add Habit
+          <img src="{% static 'plus.png' %}" alt="" />
+        </button>
+      </div>
+      <div id="habit-container"></div>
+    </div>
+
+    <!-- Progress Section -->
+    <div id="progress-box">
+      <button id="streak-progress">Progress</button>
+      <h2 class="progress-value">
+        59
+        <img src="{% static 'streak-hot.png' %}" alt="" style="height: 30px;" />
+      </h2>
+      <b>Highest Streak</b>
+    </div>
+  </div>
+
+  <!-- Done Section -->
+  <div id="done-box">
+    <h2>Done</h2>
+    <div id="done-container"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    window.STATIC_URLS = {
+      checkEmpty: "{% static 'check-empty.png' %}",
+      checkDone: "{% static 'check.png' %}",
+    };
+  </script>
+
+  <script src="{% static 'js/form.js' %}"></script>
+  <script src="{% static 'js/calendar.js' %}"></script>
+  <script src="{% static 'js/sideNav.js' %}"></script>
+  <script src="{% static 'js/header.js' %}"></script>
+</body>
+
+</html>
