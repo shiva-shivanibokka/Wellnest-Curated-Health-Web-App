@@ -1,4 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+const modal = document.getElementById("habit-modal");
+const openModalBtn = document.getElementById("add-habit-button");
+const closeModalBtn = document.getElementById("close-habit-modal");
+
+openModalBtn.addEventListener("click", () => {
+  modal.style.display = "block";
+  form.reset();
+});
+
+closeModalBtn.addEventListener("click", () => {
+  modal.close();
+});
+
+// Optional: Click outside the modal to close
+window.addEventListener("click", (event) => {
+  if (event.target === modal) {
+    modal.close();
+  }
+});
+
+
+
+
+
   const addHabitBtn   = document.getElementById("add-habit-button");
   const container     = document.getElementById("habit-info");
   const form          = document.getElementById("habit-form");
@@ -7,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Show the form container
   addHabitBtn.addEventListener("click", () => {
-    container.style.display = "block";
+    modal.showModal();
     form.style.display      = "block";
     habitEditor.classList = "off";
     form.reset();
@@ -107,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Habit added!");
       form.reset();
       form.style.display      = "none";
-      container.style.display = "none";
+      modal.close();
       loadCreatedHabits();    // GET+ display function
     } else {
       const err = await resp.json();

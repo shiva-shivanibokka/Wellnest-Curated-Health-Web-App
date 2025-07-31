@@ -1,158 +1,165 @@
-## Prioritized High-Level Functional Requirements
+### Prioritized High-Level Functional Requirements
 
-**Priority 1**
+### Priority 1
 
-**Registered Users**
+### M is maybe, D is done, N is no
 
-1. Users shall be able to create and register an account -D
-1. Users shall be able to edit their profile information 
-1. Users shall be able to delete their accounts
-1. Users shall be able to track their progress
-1. Users shall be able to navigate the app without complication 
+#### 1. Registered Users
 
-**User Personal Survey**
+1.1 Users shall be able to create and register an account. -D
 
-1. Users shall be asked onboard questions for curated habit suggestions -D (Should eliminate if we dont do anything with the survey answers)
-1. Users shall be able to skip survey -D
+1.2 Users shall be able to edit their profile information. -M
 
-**Personal Health Tracker**
+1.3 Users shall be able to delete their accounts. -M
 
-1. Users shall track number of consecutive habit sessions
-1. Users shall be able to monitor indications of completed habits -D
-1. User shall have an indication of missed habits
-1. Users shall be able to remove suggested habits by the app
+1.4 The system shall track user progress. -D
 
-**Habit Tracking**
+1.5 Users shall be able to navigate the app without complication. -N
 
-1. Users shall be able to add habits -D
-1. Users shall be able to delete habits 
-1. Users shall be able to modify days of habit occurance
-1. Users shall be able to name habits
-1. Users shall be able to track pre-defined habits
-1. Users shall be able to view suggested habits to track (Delete if not used in onboarding)
+#### User Personal Survey
 
-**Calendar**
+2.1 The app shall prompt users with onboarding questions for curated habit suggestions. -M
 
-1. Users shall be able to view their weekly progress
-1. Users shall be able to change the time of their habit
-1. Users shall be able to change the duration of the habit
+2.2 Users shall be able to skip the survey. -D
 
-**Settings**
+#### 3. Personal Health Tracker
 
-1. Users shall be able to change their information
-1. Users shall be able to delete their account
+3.1 The personal health tracker shall track the number of consecutive habit sessions for each user. -D
 
-**For Friends**
+3.2 The system shall display indications of completed habits. -D
 
-1. Users shall be able to create challenges.
-1. Users shall be able to view leaderboard
-1. Users shall be able to add friends
-1. Users shall be able to delete friends
+3.3 The system shall provide notifications for missed habits. -M
 
-**Leaderboards and Progress**
+3.4 Users shall be able to remove habits suggested by the app. -M
 
-1. Users shall be able to track their progression
-1. Users shall be able to compete with other users through a leaderboard
-1. Users shall gain points based off of their progress
-1. User shall be able to have tiered awards, indicated by badges in their profile
+#### 4. Habit Tracking
 
-**Priority 2**
+4.1 Users shall be able to add habits. -D
 
-**Registered Users**
+4.2 Users shall be able to delete habits. -D
 
-1. Users shall be able to create a profile picture
-1. Users shall be guided through helpful onboarding (slides or video)
+4.3 Users shall be able to modify habits. -D
 
-**User Personal Survey**
+4.4 Users shall be able to name habits. -D
 
-1. Users shall be able to skip individual questions -D
+4.5 Users shall be able to track pre-defined habits. -M
 
-**Habit Tracking**
+4.6 The system shall display suggested habits for users to track. -N
 
-1. Users shall be able to track custom habits
+#### 5. Calendar
 
-**Calendar**
+5.1 The calendar system shall display weekly progress for users. -D
 
-1. User shall be able to filter calendar view by type (habits, challenges).
-1. Users shall be able to view monthly progress
+5.2 Users shall be able to change the time of their habit. -D
 
-**Notifications**
+5.3 Users shall be able to change the duration of their habit. -D
 
-1. Users shall receive notifications through the app
+#### 6. Settings
 
-**Settings**
+6.1 Users shall be able to change their account information. -D
 
-1. Users shall be able to block other users
-1. Users shall be able to turn off notifications
+6.2 Users shall be able to delete their account. -M
 
-**For Friends**
+#### 7. For Friends
 
-1. Users shall be able to have joint habit tracking
-1. Users shall be able to see suggested friends on the app
+7.1 Users shall be able to create challenges. -N
 
-**Priority 3**
+7.2 Users shall be able to view the leaderboard. -N
 
-**Registered Users**
+7.3 Users shall be able to add friends using a link. -M
 
-1. Users shall be able to log in with their social profiles
-1. Users shall be able to connect their AI assistance to the app
-1. Users shall be able to connect to the app from multiple devices
-1. Users shall be able to share the app with their App Store family
+7.4 Users shall be able to delete friends. -D
 
-**User Personal Survey**
+#### 8. Leaderboards and Progress
 
-1. Users shall be able to rate the survey
-1. Users shall be able to report the survey
+8.1 The system shall track user progression. -D
 
-**Personal Health Tracker**
+8.2 Users shall be able to compete with others through a leaderboard. -N
 
-1. Users shall be able to view calorie goals met
-1. Users shall be able to see calorie loss goals
-1. Users shall be able to ask the AI assistant to suggest better habits
-1. Users shall be able to copy family goals to their own personal archive
+8.3 The system shall assign points based on user progress. -N
 
-**Habit Tracking**
+8.4 The system shall assign tiered awards and badges to signify leaderboard status in a “king of the hill” format. -N
 
-1. Users shall be able to add AI-suggested habits
+### Priority 2
 
-**Calendar**
+#### 1. Registered Users
 
-1. Users shall be able to filter calendar view by month week year
-1. Users shall be able to connect their calendar to their google calendar
-1. Users shall be able to share their Wellnest Calendar with Google Calendar users
-1. Users shall change their Calendar System (Gregorian, Indian, Islamic, Chinese)
+1.1 Users shall be able to create a profile picture. -N
 
-**Notification**
+1.2 The app shall guide users through a helpful onboarding experience. -N
 
-1. Users shall receive reminders to continue habits not logged
-1. Users shall receive notification of friend activity
-1. User shall receive notification of suggested habits
-1. Users shall receive a notification of habit to log each day
-1. Users shall receive notifications through email
+#### 2. User Personal Survey
 
-**Settings**
+2.1 Users shall be able to skip individual questions in the survey. -N
 
-1. Users shall be able to modify privacy settings for profile viewership
-1. Users shall have Wellnest contact email and socials
-1. Users shall be able to change the language
-1. Users shall be able to change accessibility functionalities
-1. Users shall be able to change the Font and Color
-1. Users shall be able to change between Light and Dark mode
-1. Users shall be able to change the time and calendar
-1. Users shall be able to change their account
-1. Users shall be able to connect their account to playstore
-1. Users shall be able to connect their account to appstore
+2.2 Users shall be able to rate the page and experience. -N
 
-**For Friends**
+#### 3. Habit Tracking
 
-1. Users shall be able to nudge friend.
-1. Users shall be able to see suggested friends from their contacts
-1. Users shall be able to see suggested friends from their Google or social accounts
-1. Users shall be able to view individual friends habits
+3.1 Users shall be able to track custom habits. -D
 
-**Leaderboard and Progress**
+#### 4. Calendar
 
-1. Users shall be able to share completed goals to social media
-1. Users shall be able to see AI analysis of their progress
-1. Users shall be able to remove themselves from leaderboards and competing
-1. Users shall be able to change the view of the leader board (Histogram, pie chart, etc)
+4.1 Users shall be able to filter the calendar view by type (habits, moods, journal, challenges). -N
+
+4.2 The calendar system shall display monthly progress. -D
+
+#### 5. Notifications
+
+5.1 The system shall send notifications to the app. -N
+
+#### 6. Settings
+
+6.1 Users shall be able to block other users. -N
+
+6.2 Users shall be able to turn off notifications -N
+
+#### 7. For Friends
+
+7.1 Users shall be able to participate in joint habit tracking. -D
+
+7.2 The system shall display suggested friends in the app. -N
+
+### Priority 3
+
+#### 1. Registered Users
+
+1.1 Users shall be able to connect their AI assistant to the app. -N
+
+1.2 Users shall be able to connect to the app from multiple devices. -N
+
+1.3 Users shall be able to share the app with their App Store family. -N
+
+#### 2. Notifications
+
+2.1 The system shall send reminders to continue unlogged habits.
+
+2.2 The system shall notify users of friend activity.
+
+2.3 The system shall notify users of suggested habits.
+
+2.4 The system shall send daily reminders to log habits.
+
+2.5 The system shall send notifications via email.
+
+#### 3. Settings
+
+3.1 Users shall be able to modify privacy settings for profile viewership.
+
+3.2 The app shall display Wellnest contact email and social links.
+
+3.3 Users shall be able to change the app language.
+
+3.4 Users shall be able to modify accessibility functionalities.
+
+3.5 Users shall be able to change the app’s font and color scheme.
+
+3.6 Users shall be able to toggle between Light and Dark mode.
+
+3.7 Users shall be able to change the time and calendar settings.
+
+3.8 Users shall be able to switch between different accounts.
+
+3.9 Users shall be able to connect their account to the Play Store.
+
+3.10 Users shall be able to connect their account to the App Store.

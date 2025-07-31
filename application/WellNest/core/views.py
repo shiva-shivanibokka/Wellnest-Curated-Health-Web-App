@@ -2,6 +2,7 @@ from rest_framework import generics, filters
 from .models import User
 from .serializers import UserSerializer, UserCreateSerializer
 from django.conf import settings
+import requests
 import os
 from django.db.models import Q
 import calendar
@@ -29,8 +30,14 @@ from .serializers import RecurringHabitSerializer
 from .models import HabitLog
 from .serializers import HabitLogSerializer
 from django.utils import timezone
-
-
+from .models import FriendRequest, Notification
+from .serializers import FriendRequestSerializer, NotificationSerializer
+from .models import Friend
+from collections import defaultdict
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.utils import timezone
+from .models import Wellnest_Circle
 
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -117,13 +124,27 @@ def profile(request):
     return render(request, 'profile.html')
 
 def wellnest_group_view(request):
-    return render(request, 'core/group.html')
+    return render(request, 'group.html')
+
+
+
+
+## quote proxy Get
+@api_view(['GET'])
+def daily_quote_proxy(request):
+    try:
+        response = requests.get("https://zenquotes.io/api/today")
+        return Response(response.json())
+    except Exception as e:
+        return Response({"error": "Unable to fetch quote"}, status=500)
+
+
 
 #showing habits for that day
 @login_required
 def get_today_recurring_habits(request):
     user = request.user
-    today_weekday = datetime.now().strftime("%A")  # depending on days of the week 
+    today_weekday = timezone.localtime().strftime("%A") # depending on days of the week 
     today_date = timezone.localdate()
 
     habits = RecurringHabit.objects.filter(user=user)
@@ -146,8 +167,9 @@ def get_today_recurring_habits(request):
     logged_names = set( HabitLog.objects.filter(
         user=user,
         timestamp__range=(start, end)
-    ).values_list('name', flat=True)
+    ).values_list('name', 'habit_type')
     )
+    print("Found logs today:", list(logged_names))
 
     #accounting for done and to do habits 
     todo = []
@@ -171,6 +193,18 @@ def get_today_recurring_habits(request):
     return JsonResponse({"todo": todo, "done": done})
 
 
+
+# quote of the day
+@api_view(['GET'])
+def daily_quote_proxy(request):
+    try:
+        response = requests.get("https://zenquotes.io/api/today", timeout=5)
+
+        return Response(response.json())
+    except Exception as e:
+        print("[ERROR] Exception occurred:", str(e))
+        return Response({"error": "Unable to fetch quote"}, status=500)
+
 # recurring habit GET and POST API we can see what habits a user has and post habits they want to create
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
@@ -188,6 +222,29 @@ def recurring_habits(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def update_recurring_habit(request):
+    user = request.user
+    name = request.data.get('name')
+    habit_type = request.data.get('habit_type')
+
+    if not all([name, habit_type]):
+        return Response({"error": "Missing name or habit_type"}, status=400)
+
+    try:
+        habit = RecurringHabit.objects.get(user=user, name=name, habit_type=habit_type)
+    except RecurringHabit.DoesNotExist:
+        return Response({"error": "Habit not found"}, status=404)
+
+    # Update fields
+    habit.description = request.data.get('description', habit.description)
+    habit.color = request.data.get('color', habit.color)
+    habit.save()
+
+    return Response({"success": True, "message": "Habit updated"})
+
 
 #Habit log, we keep record of Done Habits
 @api_view(['POST', 'GET'])
@@ -230,6 +287,8 @@ def delete_habit_log(request):
         )
 
         print(f"[DEBUG] Found {logs.count()} logs to delete for {name} on {date_str}")
+        print("Remaining logs after deletion:", HabitLog.objects.filter(user=user).values_list('name', 'timestamp'))
+
 
         deleted_count, _ = logs.delete()
         return Response({"deleted": deleted_count})
@@ -262,3 +321,305 @@ def delete_recurring_habit(request):
 
     except Exception as e:
         return Response({"error": str(e)}, status=500)
+
+# send friend request 
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def send_friend_request(request):
+    receiver_id = request.data.get('receiver_id')
+    sender = request.user
+
+    if sender.id == receiver_id:
+        return Response({"error": "Cannot send request to yourself"}, status=400)
+
+#not allowing spam
+    if FriendRequest.objects.filter(sender=sender, receiver_id=receiver_id).exists():
+        return Response({"error": "Friend request already sent"}, status=400)
+
+    FriendRequest.objects.create(sender=sender, receiver_id=receiver_id)
+    Notification.objects.create(user_id=receiver_id, message=f"{sender.username} sent you a friend request.")
+
+    return Response({"message": "Request sent"}, status=200)
+
+# upon accepting friend request
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def accept_friend_request(request):
+    request_id = request.data.get('request_id')
+    try:
+        friend_request = FriendRequest.objects.get(id=request_id, receiver=request.user)
+
+            #if alr accepted
+        if friend_request.is_accepted:
+            return Response({"message": "Already accepted"}, status=200)
+
+        friend_request.is_accepted = True
+        friend_request.save()
+
+        Friend.objects.create(user1=request.user, user2=friend_request.sender)
+
+        Notification.objects.create(user=friend_request.sender, message=f"{request.user.username} accepted your friend request.")
+        return Response({"message": "Friend request accepted"})
+    except FriendRequest.DoesNotExist:
+        return Response({"error": "Request not found"}, status=404)
+
+#notifications
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_notifications(request):
+    notifications = Notification.objects.filter(user=request.user).order_by('-timestamp')
+    serializer = NotificationSerializer(notifications, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def progress_by_day(request):
+    user = request.user
+    today = timezone.localdate()
+    week_start = today - timedelta(days=today.weekday())  # Monday
+    week_end = week_start + timedelta(days=6)
+
+    # Build day list: Sunday to Saturday
+    days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    total = defaultdict(int)
+    completed = defaultdict(int)
+
+    # Load logs once
+    logs = HabitLog.objects.filter(user=user, timestamp__date__range=(week_start, week_end))
+    log_set = set((log.name, log.habit_type, timezone.localtime(log.timestamp).strftime('%A')) for log in logs)
+
+    # Check every habit for scheduled days
+    habits = RecurringHabit.objects.filter(user=user)
+    for habit in habits:
+        weekdays = habit.weekdays or []
+        if isinstance(weekdays, str):
+            try:
+                weekdays = json.loads(weekdays)
+            except:
+                weekdays = []
+
+        for day in weekdays:
+            total[day] += 1
+            if (habit.name, habit.habit_type, day) in log_set:
+                completed[day] += 1
+
+    # Final % per day
+    percentages = []
+    for day in days:
+        c = completed[day]
+        t = total[day]
+        pct = min(int((c / t) * 100), 100) if t > 0 else 0
+        percentages.append(pct)
+
+    return Response({'labels': days, 'percentages': percentages})
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def progress_by_habit(request):
+    user = request.user
+    today = timezone.localdate()
+    week_start = today - timedelta(days=today.weekday())  # Monday
+    week_end = week_start + timedelta(days=6)  # Sunday
+
+    habits = RecurringHabit.objects.filter(user=user)
+    logs = HabitLog.objects.filter(user=user, timestamp__date__range=(week_start, today))
+
+    habit_data = []
+
+    for habit in habits:
+        scheduled_days = habit.weekdays or []
+        if isinstance(scheduled_days, str):
+            try:
+                scheduled_days = json.loads(scheduled_days)
+            except:
+                scheduled_days = []
+
+        scheduled_day_names = set(scheduled_days)
+
+        #total expected completions this week (Mon–Sun)
+        expected_total = sum(
+            1 for i in range(7)
+            if (week_start + timedelta(days=i)).strftime('%A') in scheduled_day_names
+        )
+
+        # Count completions
+        completed_so_far = logs.filter(name=habit.name, habit_type=habit.habit_type).count()
+
+        percent = int((completed_so_far / expected_total) * 100) if expected_total > 0 else 0
+        percent = min(percent, 100)
+
+        offset = 339.292 - (339.292 * percent / 100)
+
+        habit_data.append({
+            'name': habit.name,
+            'value': percent,
+            'offset': offset
+        })
+
+    return Response(habit_data)
+
+#Get and show friends
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_friends(request):
+    user = request.user
+    
+    friends = Friend.objects.filter(Q(user1=user) | Q(user2=user))
+    
+    #their info
+    friend_data = []
+    for f in friends:
+        other = f.user2 if f.user1 == user else f.user1
+        friend_data.append({
+            "id": other.id,
+            "username": other.username,
+            "first_name": other.first_name,
+            "last_name": other.last_name,
+            "gender": other.gender
+        })
+    
+    return Response(friend_data)
+
+# Creating Wellnest Circle
+# @login_required
+@csrf_exempt
+def create_wellnest_circle(request):
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return JsonResponse({'success': False, 'error': 'User not logged in'})
+
+        data = json.loads(request.body)
+        name = data.get('name')
+        description = data.get('description', '')
+        
+        circle = Wellnest_Circle.objects.create(
+            name=name,
+            description=description,
+            created_by=request.user
+        )
+
+        circle.members.add(request.user)
+        
+        return JsonResponse({
+            'success': True,
+            'circle_id': circle.id,
+            'name': circle.name
+        })
+
+# Joining Wellnest Circle
+@login_required
+@csrf_exempt
+def join_wellnest_circle(request, circle_id):
+    if request.method == 'POST':
+        circle = get_object_or_404(Wellnest_Circle, id=circle_id)
+        circle.add_member(request.user)
+        
+        return JsonResponse({
+            'success': True,
+        })
+
+@login_required
+@csrf_exempt
+def get_wellnest_circles(request):
+    if request.method == 'GET':
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        user = request.user
+        
+        created_circles = Wellnest_Circle.objects.filter(created_by=user)
+        member_circles = Wellnest_Circle.objects.filter(members=user)
+        
+        all_circles = (created_circles | member_circles).distinct()
+        
+        circles_data = []
+        for circle in all_circles:
+            circles_data.append({
+                'id': circle.id,
+                'name': circle.name,
+                'description': circle.description,
+                'created_by': circle.created_by.username,
+                'member_count': circle.members.count(),
+                'created_at': circle.created_at.isoformat(),
+                'is_creator': circle.created_by == user
+            })
+        
+        return JsonResponse({
+            'success': True,
+            'circles': circles_data
+        })
+
+@login_required
+@csrf_exempt
+def search_wellnest_circles(request):
+    if request.method == 'GET':
+        if not request.user.is_authenticated:
+            return JsonResponse({'success': False, 'error': 'User not logged in'})
+            
+        search_query = request.GET.get('name', '')
+        
+        if not search_query:
+            return JsonResponse({'success': True, 'circles': []})
+        
+        circles = Wellnest_Circle.objects.filter(name__icontains=search_query)
+        
+        circles_data = []
+        for circle in circles:
+            circles_data.append({
+                'id': circle.id,
+                'name': circle.name,
+                'description': circle.description,
+                'created_by': circle.created_by.username,
+                'member_count': circle.members.count(),
+                'created_at': circle.created_at.isoformat(),
+                'is_creator': circle.created_by == request.user,
+                'is_member': request.user in circle.members.all()
+            })
+        
+        return JsonResponse({
+            'success': True,
+            'circles': circles_data
+        })
+
+
+## user profile
+@api_view(['GET', 'PATCH'])
+@permission_classes([IsAuthenticated])
+def user_profile(request):
+    if request.method == 'GET':
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        serializer = UserSerializer(request.user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+
+
+# Delete User
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_user_account(request):
+    user = request.user
+
+    # Delete related objects
+    RecurringHabit.objects.filter(user=user).delete()
+    HabitLog.objects.filter(user=user).delete()
+    FriendRequest.objects.filter(Q(sender=user) | Q(receiver=user)).delete()
+    Notification.objects.filter(user=user).delete()
+    Friend.objects.filter(Q(user1=user) | Q(user2=user)).delete()
+
+    # Remove user from circles ASK @KEVIN TO CHECK THIS
+    for circle in user.joined_wellnest_circles.all():
+        circle.members.remove(user)
+    user.created_wellnest_circles.all().delete()
+
+    #delete the user account
+    user.delete()
+
+    return Response(status=204)

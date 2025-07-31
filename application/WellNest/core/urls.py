@@ -4,11 +4,18 @@ from .views import UserLoginView
 from .views import get_today_recurring_habits
 from .views import recurring_habits
 from .views import log_completed_habit, delete_habit_log
+from .views import daily_quote_proxy
+from .views import update_recurring_habit
+
+
 
 
 urlpatterns = [
     # path('users/', views.UserListCreateView.as_view(), name='user-list-create'),
     # path('users/<int:pk>/', views.UserDetailView.as_view(), name='user-detail'),
+
+    #quote of the day proxy
+    path('quote/', daily_quote_proxy),
 
     # API Routes
     path('api/users/', views.UserListView.as_view(), name='user-list'),
@@ -25,7 +32,6 @@ urlpatterns = [
     path('calendar/', views.calendar_view, name='calendar'),
     path('progress/', views.progress_view, name='progress'),
     path('profile/', views.profile, name='profile'),
-    path('group/', views.wellnest_group_view, name='wellnest_group'),
     #login api
     path('api/users/login/', UserLoginView.as_view(), name='user-login'),
     #creating habit apis
@@ -40,5 +46,35 @@ urlpatterns = [
 
     #delet habit
     path('api/habit/recurring/delete/', views.delete_recurring_habit, name='delete_recurring_habit'),
+
+    # notification and friend request APIS
+    path('api/friends/send/', views.send_friend_request, name='send_friend_request'),
+    path('api/friends/accept/', views.accept_friend_request, name='accept_friend_request'),
+    path('api/notifications/', views.get_notifications, name='get_notifications'),
+
+    path('api/progress/days/', views.progress_by_day, name='progress_by_day'),
+    path('api/progress/habits/', views.progress_by_habit, name='progress_by_habit'),
+
+    # get friends API
+    path('api/friends/list/', views.get_friends, name='get_friends'),
+
+    # Create Wellnest Circle
+    path('api/circle/create/', views.create_wellnest_circle, name='create_wellnest_circle'),
+    # Join Wellnest Circle
+    path('api/circle/join/<int:circle_id>/', views.join_wellnest_circle, name='join_wellnest_circle'),
+    # Show Wellnest Circles
+    path('api/circles/', views.get_wellnest_circles, name='get_wellnest_circles'),
+    path('api/circles/search/', views.search_wellnest_circles, name='search_wellnest_circles'),
+
+    #editing habits
+    path('api/habit/recurring/update/', update_recurring_habit, name='update_recurring_habit'),
+
+    #profile
+    path('api/user/profile/', views.user_profile, name='user_profile'),
+
+    #Delete User
+    path('api/user/delete/', views.delete_user_account, name='delete_user_account'),
+
+
 
 ]

@@ -7,6 +7,13 @@ class User(AbstractUser):
     gender = models.CharField(max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
 
+
+    def get_friends(self):
+        from .models import Friend
+        return User.objects.filter(
+            Q(friend_user1__user2=self) | Q(friend_user2__user1=self)
+        )
+
     def __str__(self):
         return self.username
 
@@ -103,3 +110,57 @@ class HabitLog(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.habit_type} @ {self.timestamp.date()}"
+
+## friend request
+class FriendRequest(models.Model):
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='sent_requests')
+    receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='received_requests')
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_accepted = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.sender.username} => {self.receiver.username} (Accepted: {self.is_accepted})"
+
+# notifications
+class Notification(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='notifications')
+    message = models.CharField(max_length=255)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user.username}: {self.message[:30]}"
+
+
+## friends table that allows for easier search
+class Friend(models.Model):
+    user1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friend_user1')
+    user2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friend_user2')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user1', 'user2'],
+                name='unique_friendship'
+            )
+        ]
+
+    def save(self, *args, **kwargs):
+        # this makes sure that A and B is the same as B and A, this is prob best practice but w node.js and sql i used to just keep 2 rows
+        if self.user1.id > self.user2.id:
+            self.user1, self.user2 = self.user2, self.user1
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.user1.username} ↔ {self.user2.username}"
+
+class Wellnest_Circle(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(max_length=500, blank=True)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='created_wellnest_circles')
+    created_at = models.DateTimeField(auto_now_add=True)
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='joined_wellnest_circles')
+
+    def __str__(self):
+        return f"{self.name} (by {self.created_by.username})"

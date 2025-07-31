@@ -1,29 +1,30 @@
-/* Container Layout */
-#container {
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f4f8;
+  }
+  
+  /* Layout */
+  #main-container {
     display: flex;
-    width: 80vw;
-    height: 70vh;
+    width: 70vw;
+    height: 60vh;
     box-shadow: 0 25px 35px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
     overflow: hidden;
-    background-color: #ffffff;
-}
-
-/* Left Form Side */
-#left {
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 60px;
+    padding: 40px;
     background-color: #f3ecfe;
-}
-
-/* Right Logo Side */
-#right {
-    flex: 1;
-    background-color: #f8f5e9;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,9 +37,9 @@
 
 /* Typography */
 h2 {
-    font-size: 48px;
+    font-size: 36px;
     color: #3D2376;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     text-align: center;
     width: 100%;
 }
@@ -53,63 +54,73 @@ h2 {
 
 /* Input & Select Styling */
 input, select {
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     width: 100%;
-    max-width: 450px;
-    padding: 16px;
-    font-size: 20px;
+    max-width: 350px;
+    padding: 12px;
+    font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 10px;
-    transition: border 0.3s;
-    font-family: "Inter", sans-serif;
-    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  input:focus, select:focus {
+    outline: none;
 }
 
-input:focus, select:focus {
-    border: 2px solid #5D3FD3;
-    outline: none;
+/* Checkbox styling - keep it visible */
+input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+    margin-bottom: 0;
+}
+
+label {
+    margin-bottom: 15px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
 }
 
 /* Buttons */
 #buttons {
     display: flex;
+    gap: 20px;
     justify-content: center;
     align-items: center;
-    gap: 40px;
-    margin-top: 30px;
+    gap: 25px;
+    margin-top: 25px;
 }
 
 button {
-    padding: 15px 35px;
-    font-size: 20px;
+    padding: 12px 25px;
+    font-size: 16px;
     font-weight: 600;
-    border-radius: 10px;
+    border: 2px solid transparent;
     cursor: pointer;
     font-family: "Inter", sans-serif;
     transition: all 0.3s ease;
-    width: 170px;
+    width: 140px;
 }
 
 /* Sign Up Button */
 #signup-btn {
     background-color: #5D3FD3;
     color: white;
-    border: 3px solid #FFD700;
-}
-
-#signup-btn:hover {
+    border-color: #FFD700;
+  }
+  
+  #signup-btn:hover {
     background-color: #4722a3;
-    border-color: #e6c200;
-}
-
-/* Sign In Button */
-#signin-btn {
+  }
+  
+  #signin-btn {
     background-color: #FFD700;
     color: #3D2376;
-    border: 3px solid #5D3FD3;
-}
-
-#signin-btn:hover {
+    border-color: #5D3FD3;
+  }
+  
+  #signin-btn:hover {
     background-color: #e6c200;
     color: #2a185b;
     border-color: #3D2376;
@@ -128,4 +139,21 @@ body {
 
 html, body {
     overflow: hidden;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 14px;
+    max-width: 350px;
+    text-align: left;
+    padding: 10px;
+}
+
+.checkbox input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+    margin-bottom: 0;
+    flex-shrink: 0;
 }
