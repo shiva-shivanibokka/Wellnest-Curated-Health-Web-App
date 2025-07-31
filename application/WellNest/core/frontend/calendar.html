@@ -116,6 +116,21 @@
   });
 </script>
 
+      <script>
+        // to get past cors made Django API proxy u learn smt new everyday ! 
+    fetch("/quote")
+      .then(res => res.json())
+      .then(data => {
+        const quote = data[0];
+        document.getElementById("quote").textContent = `"${quote.q}"`;
+        document.getElementById("author").textContent = `– ${quote.a}`;
+      })
+      .catch(err => {
+        document.getElementById("quote").textContent = "Failed to load quote.";
+        console.error(err);
+      });
+  </script>
+
     <div style="margin: 20px;">
         <div id="todo" style="display: flex;">
             <h2>To Do</h2>

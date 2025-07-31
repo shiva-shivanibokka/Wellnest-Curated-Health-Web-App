@@ -1,74 +1,73 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In</title>
-    <link rel="stylesheet" href="{% static 'signin.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In</title>
+  <link rel="stylesheet" href="{% static 'signin.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 </head>
-
 <body>
-    <div id="container">
-        <div id="left">
-            <img src="{% static 'WellNest.png' %}" alt="WellNest Logo">
-        </div>
-
-        <div id="right">
-            <form id="signin-form" method="post">
-                {% csrf_token %}
-                <h2 class="form-title">Sign In</h2>
-
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Password" required>
-
-                <div id="error" style="color:red; display:none;"></div>
-
-                <div id="buttons">
-                    <button type="submit" id="signin-btn">Sign In</button>
-                    <button type="button" id="signup-btn" onclick="location.href='/signup'">Sign Up</button>
-                </div>
-            </form>
-
-            <div id="message" style="margin-top: 10px; padding: 10px; display: none;"></div>
-        </div>
+  <div id="main-container">
+    <div id="left-section">
+      <a href="{% url 'home' %}" class="logo-wrapper">
+        <img src="{% static 'WellNest.png' %}" alt="WellNest Logo" class="logo" />
+      </a>
+      <div class="visual-bg"><img src="{% static 'exercise.jpeg' %}" alt="Exercise" class="exercise-image"/></div>
     </div>
 
-    <script>
-        document.getElementById('signin-form').addEventListener('submit', async e => {
-            e.preventDefault();
-            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-            const form = e.target;
+    <div id="right-section">
+      <form id="signin-form" method="post">
+        {% csrf_token %}
+        <div class="form-header">
+          <h2>Sign In</h2>
+        </div>
 
-            const resp = await fetch('/api/users/login/', {
-                method: 'POST',
-                credentials: 'same-origin',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrftoken,
-                },
-                body: JSON.stringify({
-                    email: form.email.value,
-                    password: form.password.value
-                })
-            });
+        <div class="form-body">
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="password" name="password" placeholder="Password" required />
+          <div id="error" style="color: red; display: none;"></div>
 
-            if (resp.ok) {
-                const params = new URLSearchParams(window.location.search);
-                const nextUrl = params.get('next') || '/calendar/';
-                window.location.href = nextUrl;
-            } else {
-                const { detail } = await resp.json();
-                const err = document.getElementById('error');
-                err.textContent = detail;
-                err.style.display = 'block';
-            }
-        });
-    </script>
+          <div class="buttons">
+            <button type="submit" id="signin-btn">Sign In</button>
+            <button type="button" id="signup-btn" onclick="location.href='/signup'">Sign Up</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('signin-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      const form = e.target;
+
+      const resp = await fetch('/api/users/login/', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify({
+          email: form.email.value,
+          password: form.password.value
+        })
+      });
+
+      if (resp.ok) {
+        const params = new URLSearchParams(window.location.search);
+        const nextUrl = params.get('next') || '/calendar/';
+        window.location.href = nextUrl;
+      } else {
+        const { detail } = await resp.json();
+        const err = document.getElementById('error');
+        err.textContent = detail;
+        err.style.display = 'block';
+      }
+    });
+  </script>
 </body>
-
 </html>

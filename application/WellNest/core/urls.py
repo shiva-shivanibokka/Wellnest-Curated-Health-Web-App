@@ -9,6 +9,7 @@ from .views import update_recurring_habit
 
 
 
+
 urlpatterns = [
     # path('users/', views.UserListCreateView.as_view(), name='user-list-create'),
     # path('users/<int:pk>/', views.UserDetailView.as_view(), name='user-detail'),
@@ -31,7 +32,6 @@ urlpatterns = [
     path('calendar/', views.calendar_view, name='calendar'),
     path('progress/', views.progress_view, name='progress'),
     path('profile/', views.profile, name='profile'),
-    path('group/', views.wellnest_group_view, name='wellnest_group'),
     #login api
     path('api/users/login/', UserLoginView.as_view(), name='user-login'),
     #creating habit apis
