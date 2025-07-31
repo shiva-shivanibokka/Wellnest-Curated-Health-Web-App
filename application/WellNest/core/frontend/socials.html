@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social</title>
-    
+
     <link rel="stylesheet" href="{% static 'social.css' %}">
     <link rel="stylesheet" href="{% static 'sideNav.css' %}">
     <link rel="stylesheet" href="{% static 'header.css' %}">
@@ -30,9 +30,11 @@
         <div class="box" id="profile-div">
             <input type="text" id="search-box" placeholder="Search..." />
             <img src="{% static 'search.png' %}" alt="search-icon" id="search-icon">
-            <img src="{% static 'notification-off.png' %}"  alt="notification-icon" id="notification-icon" style="width: 30px; ">
+            <img src="{% static 'notification-off.png' %}" alt="notification-icon" id="notification-icon"
+                style="width: 30px; ">
             <img src="{% static 'streak-hot.png' %}" alt="streak-hot" id="streak-hot">
-            <a href="{% url 'profile' %}"><img src="{% static 'pf.png' %}" href="{% url 'profile' %}" alt="pf icon"id="pf-icon"></a>
+            <a href="{% url 'profile' %}"><img src="{% static 'pf.png' %}" href="{% url 'profile' %}" alt="pf icon"
+                    id="pf-icon"></a>
         </div>
 
         <div class="box" id="search-div"></div>
@@ -183,13 +185,33 @@
         <div id="friend-element" style="display: flex;">
 
             <div id="friend-element-info">
-                
+
                 <img src="{% static 'pf.png'%}" alt="" style="width: 40px; margin: -20px;">
-                  <h3>name</h3>
+                <h3>name</h3>
             </div>
-        
+
         </div>
-        
+
+    </div>
+
+    <div id="createWellnestCircle">
+        <form id="createWellnestCircleForm">
+            <div class="form-header">
+                <h2>Create a Circle</h2>
+            </div>
+            <div class="form-body">
+                <div>
+                    <label for="circle_name">Name:</label>
+                    <input type="text" id="circle_name" name="circle_name" class="text-box" required>
+                    <label for="circle_description">Description:</label>
+                    <textarea id="circle_description" name="circle_description" class="text-box" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn text-box">Create Circle</button>
+                    <button type="button" class="cancel-btn text-box">Cancel</button>
+                </div>
+            </div>
+        </form>
     </div>
 
 
@@ -244,19 +266,19 @@
     </style>
 
     <div id="notification-modal" class="modal hidden">
-    <div class="modal-content">
-        <span id="close-modal" class="close">&times;</span>
-        <h2>Notifications</h2>
-        <ul id="notification-list">
-            <li>No new notifications</li>
-        </ul>
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <h2>Notifications</h2>
+            <ul id="notification-list">
+                <li>No new notifications</li>
+            </ul>
+        </div>
     </div>
-    </div>
 
 
 
 
-    
+
 
     <script src="{% static 'sideNav.js' %}"></script>
     <script src="{% static 'header.js' %}"></script>
