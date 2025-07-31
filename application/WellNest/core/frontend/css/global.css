@@ -1,7 +1,6 @@
 html,
 body {
     height: 100%;
-    overflow: hidden;
     font-family: "Inter", sans-serif;
 }
 
@@ -38,6 +37,7 @@ body {
 .text-box {
     border: 1px ridge lightgray;
     padding: 10px;
+    border-radius: 5px;
 }
 
 button {

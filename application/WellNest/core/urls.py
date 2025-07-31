@@ -5,12 +5,15 @@ from .views import get_today_recurring_habits
 from .views import recurring_habits
 from .views import log_completed_habit, delete_habit_log
 from .views import daily_quote_proxy
+from .views import update_recurring_habit
+
+
 
 urlpatterns = [
     # path('users/', views.UserListCreateView.as_view(), name='user-list-create'),
     # path('users/<int:pk>/', views.UserDetailView.as_view(), name='user-detail'),
 
-    #quote proxy
+    #quote of the day proxy
     path('quote/', daily_quote_proxy),
 
     # API Routes
@@ -54,5 +57,24 @@ urlpatterns = [
 
     # get friends API
     path('api/friends/list/', views.get_friends, name='get_friends'),
+
+    # Create Wellnest Circle
+    path('api/circle/create/', views.create_wellnest_circle, name='create_wellnest_circle'),
+    # Join Wellnest Circle
+    path('api/circle/join/<int:circle_id>/', views.join_wellnest_circle, name='join_wellnest_circle'),
+    # Show Wellnest Circles
+    path('api/circles/', views.get_wellnest_circles, name='get_wellnest_circles'),
+    path('api/circles/search/', views.search_wellnest_circles, name='search_wellnest_circles'),
+
+    #editing habits
+    path('api/habit/recurring/update/', update_recurring_habit, name='update_recurring_habit'),
+
+    #profile
+    path('api/user/profile/', views.user_profile, name='user_profile'),
+
+    #Delete User
+    path('api/user/delete/', views.delete_user_account, name='delete_user_account'),
+
+
 
 ]

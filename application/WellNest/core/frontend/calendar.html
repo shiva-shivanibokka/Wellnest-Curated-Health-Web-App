@@ -87,25 +87,34 @@
         <div id="quote-right"></div>
         <div id="quote-center">
             <h3 style="margin-bottom: -10px;">Quote of the day</h3>
-            <br> <div id="quote">"Always do your best"</div> <br> <div id="author"></div>
+            <br> 
+            <p id="quote-text" style="font-size: 20px; font-weight: bold; color:black; margin-bottom: -10px;">Loading...</p>
+            <br>
+            <p id="quote-author" style="text-align: center; font-weight: bold;"></p>
         </div>
         <div id="quote-left"></div>
     </div>
-
-      <script>
-        // to get past cors made Django API proxy u learn smt new everyday ! 
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
     fetch("/quote")
-      .then(res => res.json())
-      .then(data => {
-        const quote = data[0];
-        document.getElementById("quote").textContent = `"${quote.q}"`;
-        document.getElementById("author").textContent = `– ${quote.a}`;
+      .then(function (response) {
+        return response.json();
       })
-      .catch(err => {
-        document.getElementById("quote").textContent = "Failed to load quote.";
-        console.error(err);
+      .then(function (data) {
+        if (Array.isArray(data) && data.length > 0) {
+          const quoteObj = data[0];
+          document.getElementById("quote-text").textContent = `"${quoteObj.q}"`;
+          document.getElementById("quote-author").textContent = `– ${quoteObj.a || "Unknown"}`;
+        } else {
+          document.getElementById("quote-text").textContent = "No quote available.";
+        }
+      })
+      .catch(function (error) {
+        console.error("Quote fetch error:", error);
+        document.getElementById("quote-text").textContent = "Failed to load quote.";
       });
-  </script>
+  });
+</script>
 
     <div style="margin: 20px;">
         <div id="todo" style="display: flex;">
@@ -122,109 +131,97 @@
 
         </div>
 
-        <div id="habit-editor">
-            <button id="close-editor" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">✕</button>
-            <div style="display: flex; flex-direction: column; text-align: center;"> <h3 style="margin-bottom: -10px;">Habit Name</h3> <h4>Description</h4> </div>
+<dialog id="habit-modal">
+  <form id="habit-form" method="dialog">
+    <button type="button" class="close-btn" data-dialog-id="habit-modal">×</button>
 
-            <p style="text-align: left; margin-left: 40px;">repeating on</p>
-            <div style="display: flex; flex-direction: row; justify-content: space-evenly; text-align: center;">
-            
-            <div class="d-box" data-day="Sunday">S</div>
-            <div class="d-box" data-day="Monday">M</div>
-            <div class="d-box" data-day="Tuesday">T</div>
-            <div class="d-box" data-day="Wednesday">W</div>
-            <div class="d-box" data-day="Thursday">Th</div>
-            <div class="d-box" data-day="Friday">F</div>
-            <div class="d-box" data-day="Saturday">S</div>
+    <h3>Add New Habit</h3>
+    <div id="habit-form-info">
+      <input id="habit-form-name" type="text" placeholder="Habit Name" required>
+      <input id="habit-form-description" type="text" placeholder="Description">
+      <div id="habit-color">
+        <label for="color-picker">Tag</label>
+        <select id="color-picker" required>
+          <option disabled selected>Select tag</option>
+          <option value="Green">Green</option>
+          <option value="Purple">Purple</option>
+          <option value="Gold">Gold</option>
+          <option value="Blue">Blue</option>
+          <option value="Red">Red</option>
+        </select>
 
-            </div>
+        <label for="habit-type">Type</label>
+        <select id="habit-type" required>
+          <option disabled selected>Select type</option>
+          <option value="water">Water Intake</option>
+          <option value="sleep">Sleep Log</option>
+          <option value="food">Food Intake</option>
+          <option value="workout">Workout</option>
+          <option value="custom">Custom</option>
+        </select>
 
-            <div style="margin-top: 20px;">
-             <button id="delete-habit" style="border: transparent; background-color: #e74c3c; color: white; border-radius: 10px;">Delete Habit</button>
-             
-            </div>
+        <input type="number" id="value-input" placeholder="Value">
+      </div>
+    </div>
 
+    <p>Repeat on:</p>
+    <div class="day-select">
+      <div class="day-box" data-day="Sunday">S</div>
+      <div class="day-box" data-day="Monday">M</div>
+      <div class="day-box" data-day="Tuesday">T</div>
+      <div class="day-box" data-day="Wednesday">W</div>
+      <div class="day-box" data-day="Thursday">Th</div>
+      <div class="day-box" data-day="Friday">F</div>
+      <div class="day-box" data-day="Saturday">S</div>
+    </div>
 
-        </div>
+    <div class="form-actions">
+      <button type="submit" id="form-submit">Add Habit <img src="{% static 'plus.png' %}" alt="" style="width: 10px;"></button>
+    </div>
+  </form>
+</dialog>
 
+<dialog id="habit-editor-modal">
+  <div class="editor-content">
+    <button type="button" class="close-btn" data-dialog-id="habit-editor-modal">×</button>
+    <h3 id="editor-name">Habit Name</h3>
+    <h4 id="editor-desc">Description</h4>
+    <!-- desc editor -->
+    <label for="editor-description">Description</label>
+    <input id="editor-description" type="text" placeholder="Description">
 
-        <div id="habit-info" action="">
-            <form id="habit-form" action="">
-                {% csrf_token %}
-                    <div id="habit-form-info"> <input id="habit-form-name" type="text" placeholder="Habit Name" required> 
-                    <input type="text" id="habit-form-description" placeholder="Description"> 
-                                    <div id="habit-color" style="display: flex; flex-direction: row; margin-top: 20px;">
+    <!-- color editor -->
+    <label for="editor-color">Tag</label>
+    <select id="editor-color">
+      <option value="Green">Green</option>
+      <option value="Purple">Purple</option>
+      <option value="Gold">Gold</option>
+      <option value="Blue">Blue</option>
+      <option value="Red">Red</option>
+    </select>
 
-                                    <!--drop down for choosing color-->
-                                    <label for="color-picker" style="margin-left: 20px;">Tag</label>
-                                    <select id="color-picker" name="color-picker" style=" margin-right: 20px;">
-                                    <option value="" disabled selected>Select color</option>
-                                    <option value="Green">Green</option>
-                                    <option value="Purple">Purple</option>
-                                    <option value="Gold">Gold</option>
-                                    <option value="Blue">Blue</option>
-                                    <option value="Red">Red</option>
-                                    </select>
+    <p>Repeating on:</p>
+    <div class="day-select">
+      <div class="d-box" data-day="Sunday">S</div>
+      <div class="d-box" data-day="Monday">M</div>
+      <div class="d-box" data-day="Tuesday">T</div>
+      <div class="d-box" data-day="Wednesday">W</div>
+      <div class="d-box" data-day="Thursday">Th</div>
+      <div class="d-box" data-day="Friday">F</div>
+      <div class="d-box" data-day="Saturday">S</div>
+    </div>
 
-                                    <!--drop down for choosing predefined habits-->
-                                    <label for="habit-type" required>Habits</label>
-                                    <select id="habit-type" name="habit-type" style=" margin-right: 20px;">
-                                    <option value="" disabled selected>Select type</option>
-                                    <option value="water">Water Intake</option>
-                                    <option value="sleep">Sleep Log</option>
-                                    <option value="food">Food Intake</option>
-                                    <option value="workout">Workout</option>
-                                    <option value="custom">Custom</option>
-                                    </select>
-
-                                    <!--choosing value-->
-                                    <input type="number" id="value-input" name="value" placeholder="Enter value" style="width: 100px;">
-
-
-                                    </div>
-
-                    </div>
-
-                    <p style="text-align: left; margin-left: 40px;">repeat</p>
-                    <div style="display: flex; flex-direction: row; justify-content: space-evenly; text-align: center;">
-                    
-                    <div class="day-box" data-day="Sunday">S</div>
-                    <div class="day-box" data-day="Monday">M</div>
-                    <div class="day-box" data-day="Tuesday">T</div>
-                    <div class="day-box" data-day="Wednesday">W</div>
-                    <div class="day-box" data-day="Thursday">Th</div>
-                    <div class="day-box" data-day="Friday">F</div>
-                    <div class="day-box" data-day="Saturday">S</div>
-
-                        
-
-                    </div>
-
-                    <div style="display:flex; justify-content: flex-end; margin-top: 20px;">
-                          <button type="submit" id="form-submit"> add habit
-                          <img src="{% static 'plus.png' %}" style="height: 10px;" alt="">
-                          </button>
-                        
-                         <button id="cancel-habit-creation" type="button"> cancel </button>
-
-
-                    </div>
-
-            </form>
+    <div class="form-actions">
+      <button id="save-habit">Save Changes</button>
+      <button id="delete-habit">Delete Habit</button>
+    </div>
+  </div>
+</dialog>
 
 
 
-        </div>
 <style>
-    #habit-info{
-display: none;
-flex-grow: 2;
-border: 5px ; 
-padding: 3px;
-border-radius: 15px; 
-box-shadow: 2px 2px 5px gray; 
 
-}
 </style>
 
 
@@ -269,7 +266,7 @@ box-shadow: 2px 2px 5px gray;
         };
     </script>
 
-    <script src="{% static 'form.js' %}"></script>
+
     <script src="{% static 'calendar.js' %}"></script>
     <script src="{% static 'sideNav.js' %}"></script>
 </body>

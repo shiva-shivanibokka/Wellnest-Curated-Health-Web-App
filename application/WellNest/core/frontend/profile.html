@@ -55,28 +55,37 @@
 
     <div class="card">
       <div class="profile-icon">&#128100;</div>
-      <button class="edit-btn">Edit</button>
+        <form id="profile-form">
+          <label>First Name</label>
+          <input type="text" id="first-name" name="firstName" required />
 
-      <form id="profile-form">
-        <label>First Name</label>
-        <input type="text" placeholder="Enter first name" name="firstName" required />
+          <label>Last Name</label>
+          <input type="text" id="last-name" name="lastName" required />
 
-        <label>Last Name</label>
-        <input type="text" placeholder="Enter last name" name="lastName" required />
+          <label>Email</label>
+          <input type="email" id="email" name="email" required />
 
-        <label>Email</label>
-        <input type="email" placeholder="Enter email" name="email" required />
+          <label>Gender</label>
+          <select id="gender" name="gender" required>
+            <option value="">Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
 
-        <label>Gender</label>
-        <select name="gender" required>
-          <option value="">Select gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Other">Other</option>
-        </select>
+          <button type="submit" class="save-btn">Save</button>
+        </form>
 
-        <button type="submit" class="save-btn">Save</button>
-      </form>
+        <button type="button" id="delete-account-btn" class="delete-btn">Delete Account</button>
+        <div id="delete-confirm-popup" class="popup hidden">
+          <div class="popup-content">
+            <strong>Are you sure you want to delete your account?</strong>
+            <p>This will remove all your habits, logs, friends, and notifications.</p>
+            <button id="confirm-delete">Yes, Delete</button>
+            <button id="cancel-delete">Cancel</button>
+          </div>
+        </div>
+
     </div>
 
     <div id="popup" class="popup hidden">
@@ -85,31 +94,126 @@
         <button id="close-popup">Close</button>
       </div>
     </div>
+
+
+
   </div>
+<!--Delete Account-->
 
-  <script src="script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const deleteBtn = document.getElementById("delete-account-btn");
+  const confirmPopup = document.getElementById("delete-confirm-popup");
+  const confirmDelete = document.getElementById("confirm-delete");
+  const cancelDelete = document.getElementById("cancel-delete");
 
-  <script>
-    const form = document.getElementById("profile-form");
-    const popup = document.getElementById("popup");
-    const closePopup = document.getElementById("close-popup");
+  deleteBtn.addEventListener("click", () => {
+    confirmPopup.classList.remove("hidden");
+  });
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault(); // Prevents the page from refreshing
+  cancelDelete.addEventListener("click", () => {
+    confirmPopup.classList.add("hidden");
+  });
 
-      // Optionally you could add validation or logging here
+  confirmDelete.addEventListener("click", () => {
+    fetch("/api/user/delete/", {
+      method: "DELETE",
+      headers: {
+        "X-CSRFToken": getCookie("csrftoken")
+      }
+    })
+    .then(res => {
+      if (res.status === 204) {
+        alert("Account deleted successfully");
+        window.location.href = "/signup/";
+      } else {
+        return res.json();
+      }
+    })
+    .then(err => {
+      if (err && err.error) alert("Error: " + err.error);
+    });
+  });
 
-      // Show the popup
-      popup.classList.remove("hidden");
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name + "=")) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+});
+</script>
+
+<!--edit account-->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  fetch("/api/user/profile/")
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("first-name").value = data.first_name || "";
+      document.getElementById("last-name").value = data.last_name || "";
+      document.getElementById("email").value = data.email || "";
+
+      const genderInput = document.getElementById("gender");
+      const genderMap = { m: "Male", f: "Female", o: "Other" };
+      const genderRaw = (data.gender || "").toLowerCase();  
+      genderInput.value = genderMap[genderRaw] || "";
     });
 
-    closePopup.addEventListener("click", function () {
-      popup.classList.add("hidden");
+  const form = document.getElementById("profile-form");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-      // Optional: Reset form after saving
-      form.reset();
+    const genderMapReverse = { "Male": "M", "Female": "F", "Other": "O" };
+    const payload = {
+      first_name: document.getElementById("first-name").value,
+      last_name: document.getElementById("last-name").value,
+      email: document.getElementById("email").value,
+      gender: document.getElementById("gender").value,
+    };
+
+    fetch("/api/user/profile/", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken")
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("popup").classList.remove("hidden");
     });
-  </script>
+  });
+
+  document.getElementById("close-popup").addEventListener("click", function () {
+    document.getElementById("popup").classList.add("hidden");
+  });
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name + "=")) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+});
+</script>
   <script src="{% static 'sideNav.js' %}"></script>
   <script src="{% static 'header.js' %}"></script>
 </body>
