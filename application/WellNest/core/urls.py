@@ -56,4 +56,11 @@ urlpatterns = [
     # get friends API
     path('api/friends/list/', views.get_friends, name='get_friends'),
 
+    # Create Wellnest Circle
+    path('api/circle/create/', views.create_wellnest_circle, name='create_wellnest_circle'),
+    # Join Wellnest Circle
+    path('api/circle/join/<int:circle_id>/', views.join_wellnest_circle, name='join_wellnest_circle'),
+    # Show Wellnest Circles
+    path('api/circles/', views.get_wellnest_circles, name='get_wellnest_circles'),
+    path('api/circles/search/', views.search_wellnest_circles, name='search_wellnest_circles'),
 ]

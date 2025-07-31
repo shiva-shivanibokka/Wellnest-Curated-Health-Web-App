@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'social.css' %}">
     <link rel="stylesheet" href="{% static 'sideNav.css' %}">
     <link rel="stylesheet" href="{% static 'header.css' %}">
+    <link rel="stylesheet" href="{% static 'global.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -108,63 +109,7 @@
 
 
 
-        <div id="wellNestCircles-container" style="flex-grow: 1;">
-
-            <div class="circle" style="background-color: #588157 ;">
-                <div>
-                    <h3>SFSU Jogging Club</h3>
-                </div>
-
-                <div class="info">
-                    <div>
-                        30 day challenge
-                    </div>
-                    <div>
-                        10 members
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="circle" style="background-color: #4e148c ;">
-                <div>
-                    <h3>Dorm 26 Foodies</h3>
-                </div>
-
-
-                <div class="info">
-                    <div>
-                        Daily Task
-                    </div>
-                    <div>
-                        4 members
-                    </div>
-                </div>
-
-
-
-
-            </div>
-
-            <div class="circle" style="background-color: #dba159 ;">
-                <div>
-                    <h3>Intro to python gang</h3>
-                </div>
-
-                <div class="info">
-                    <div>
-                        Daily Task 10 mins per day
-                    </div>
-                    <div>
-                        7 members
-                    </div>
-                </div>
-
-
-            </div>
-
-
-        </div>
+        <div id="wellNestCircles-container" style="flex-grow: 1;"></div>
 
 
         <div id="circle-info" style="flex-grow: 2; "></div>
@@ -196,19 +141,24 @@
 
     <div id="createWellnestCircle">
         <form id="createWellnestCircleForm">
-            <div class="form-header">
+            <div>
                 <h2>Create a Circle</h2>
             </div>
-            <div class="form-body">
+            <div>
                 <div>
-                    <label for="circle_name">Name:</label>
-                    <input type="text" id="circle_name" name="circle_name" class="text-box" required>
-                    <label for="circle_description">Description:</label>
-                    <textarea id="circle_description" name="circle_description" class="text-box" required></textarea>
+                    <div class="form-field">
+                        <label for="circle_name">Name:</label>
+                        <input type="text" id="circle-name" name="circle-name" class="text-box" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="circle-description">Description:</label>
+                        <textarea id="circle-description" name="circle-description" class="text-box"
+                            required></textarea>
+                    </div>
                 </div>
-                <div class="form-actions">
-                    <button type="submit" class="submit-btn text-box">Create Circle</button>
-                    <button type="button" class="cancel-btn text-box">Cancel</button>
+                <div class="form-buttons">
+                    <button type="button" id="create-circle-button" class="purple-button">Create Circle</button>
+                    <button type="button" id="cancel-circle-button" class="white-button">Cancel</button>
                 </div>
             </div>
         </form>

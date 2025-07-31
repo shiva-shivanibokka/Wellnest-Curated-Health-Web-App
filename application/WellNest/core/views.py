@@ -37,7 +37,7 @@ from collections import defaultdict
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.utils import timezone
-
+from .models import Wellnest_Circle
 
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -443,3 +443,103 @@ def get_friends(request):
         })
     
     return Response(friend_data)
+
+# Creating Wellnest Circle
+# @login_required
+@csrf_exempt
+def create_wellnest_circle(request):
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return JsonResponse({'success': False, 'error': 'User not logged in'})
+
+        data = json.loads(request.body)
+        name = data.get('name')
+        description = data.get('description', '')
+        
+        circle = Wellnest_Circle.objects.create(
+            name=name,
+            description=description,
+            created_by=request.user
+        )
+
+        circle.members.add(request.user)
+        
+        return JsonResponse({
+            'success': True,
+            'circle_id': circle.id,
+            'name': circle.name
+        })
+
+# Joining Wellnest Circle
+@login_required
+@csrf_exempt
+def join_wellnest_circle(request, circle_id):
+    if request.method == 'POST':
+        circle = get_object_or_404(Wellnest_Circle, id=circle_id)
+        circle.add_member(request.user)
+        
+        return JsonResponse({
+            'success': True,
+        })
+
+@login_required
+@csrf_exempt
+def get_wellnest_circles(request):
+    if request.method == 'GET':
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        user = request.user
+        
+        created_circles = Wellnest_Circle.objects.filter(created_by=user)
+        member_circles = Wellnest_Circle.objects.filter(members=user)
+        
+        all_circles = (created_circles | member_circles).distinct()
+        
+        circles_data = []
+        for circle in all_circles:
+            circles_data.append({
+                'id': circle.id,
+                'name': circle.name,
+                'description': circle.description,
+                'created_by': circle.created_by.username,
+                'member_count': circle.members.count(),
+                'created_at': circle.created_at.isoformat(),
+                'is_creator': circle.created_by == user
+            })
+        
+        return JsonResponse({
+            'success': True,
+            'circles': circles_data
+        })
+
+@login_required
+@csrf_exempt
+def search_wellnest_circles(request):
+    if request.method == 'GET':
+        if not request.user.is_authenticated:
+            return JsonResponse({'success': False, 'error': 'User not logged in'})
+            
+        search_query = request.GET.get('name', '')
+        
+        if not search_query:
+            return JsonResponse({'success': True, 'circles': []})
+        
+        circles = Wellnest_Circle.objects.filter(name__icontains=search_query)
+        
+        circles_data = []
+        for circle in circles:
+            circles_data.append({
+                'id': circle.id,
+                'name': circle.name,
+                'description': circle.description,
+                'created_by': circle.created_by.username,
+                'member_count': circle.members.count(),
+                'created_at': circle.created_at.isoformat(),
+                'is_creator': circle.created_by == request.user,
+                'is_member': request.user in circle.members.all()
+            })
+        
+        return JsonResponse({
+            'success': True,
+            'circles': circles_data
+        })

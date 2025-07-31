@@ -121,28 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', function () {
     // ADD CIRCLE FUNCTION
     document.getElementById('addCircle').addEventListener('click', async function () {
-        // const myHeaders = new Headers();
-        // myHeaders.append("Content-Type", "application/json");
-
-        // const raw = JSON.stringify({
-        //     "name": "New Test Circle",
-        //     "description:": "Testing out creating a new circle"
-        // });
-
-        // const requestOptions = {
-        //     method: "POST",
-        //     headers: myHeaders,
-        //     body: raw,
-        //     redirect: "follow"
-        // };
-
-        // const res = await fetch("/api/circle/create/", requestOptions);
-        // if(res.success == false) return;
-
         const formDiv = document.querySelector('#createWellnestCircle');
         formDiv.style.display = 'flex';
-
-        loadUserCircles();
     });
 
     document.querySelector('#createWellnestCircle').addEventListener('click', (event) => {
@@ -153,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     // SEARCH FUNCTION
-    document.getElementById('search-box').addEventListener('input', function () {
+    document.getElementById('search-box').addEventListener('input', async function () {
         const query = this.value.trim();
 
         const resultElement = document.getElementById('searchResults');
@@ -255,13 +235,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // CIRCLE MOCK SEARCH
-        const mockCircles = [
-            { name: 'Hackers United', task: 'Daily Hackathons', members: 12 },
-            { name: 'Study Buddies', task: 'Weekly study sync', members: 5 },
-            { name: 'Lorem Ipsum Crew', task: 'Lorem ipsum dolor sit amet', members: 8 }
-        ];
+        const res = await fetch('http://127.0.0.1:8000/api/circles/search/?name=' + query);
+        const data = await res.json();
+        console.log(data)
 
-        const filtered = mockCircles.filter(c =>
+        const filtered = data.circles.filter(c =>
             c.name.toLowerCase().includes(query.toLowerCase())
         );
 
@@ -281,14 +259,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 const name = document.createElement('h4');
                 name.textContent = c.name;
 
-                const task = document.createElement('p');
-                task.textContent = `Task: ${c.task}`;
+                const description = document.createElement('p');
+                description.textContent = `Description: ${c.description}`;
 
                 const members = document.createElement('p');
-                members.textContent = `Members: ${c.members}`;
+                members.textContent = `Member Count: ${c.member_count}`;
 
                 circleCard.appendChild(name);
-                circleCard.appendChild(task);
+                circleCard.appendChild(description);
                 circleCard.appendChild(members);
 
                 circlesResult.appendChild(circleCard);
@@ -335,3 +313,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 });
+
+document.querySelector('#create-circle-button').addEventListener('click', async function (e) {
+    const name = document.querySelector('#circle-name').value;
+    const description = document.querySelector('#circle-description').value;
+    console.log(name)
+    console.log(description)
+
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+        "name": name,
+        "description": description
+    });
+
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+    };
+
+    const res = await fetch("/api/circle/create/", requestOptions);
+    if (res.success == false) return;
+
+    loadUserCircles();
+
+    const formDiv = document.querySelector('#createWellnestCircle');
+    formDiv.style.display = 'none';
+})
