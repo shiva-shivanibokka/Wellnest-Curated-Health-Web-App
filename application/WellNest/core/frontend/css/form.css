@@ -1,91 +1,116 @@
 
-#habit-info{
-display: none;
-flex-grow: 2;
-border: 5px ; 
-padding: 3px;
-border-radius: 15px; 
-box-shadow: 2px 2px 5px gray; 
-
-
+dialog {
+  border: none;
+  border-radius: 12px;
+  padding: 0;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  width: 90vw;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-#habit-form-info{
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
-flex-grow: 1; 
-border: 5px ; 
-padding: 3px;
-border-radius: 15px; 
-box-shadow: 2px 2px 5px gray; 
-text-align: center;
-}
-
-#habit-form-name{
-    font-size: 30px;
-    font-weight: bold;
-    border: none;
-    outline: none;  
-    text-align: center; 
-}
-
-#habit-form-description{
-    font-size: 20px;
-    border: none;
-    outline: none;
-    text-align: center;    
+dialog::backdrop {
+  background: rgba(0,0,0,0.5);
 }
 
 
-.day-box{
-display: flex;
-align-items: center;
-justify-content: center;
-height: 50px;
-width: 50px;
-border: 1px solid black;
-border-radius: 10px;
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+.close-btn:hover {
+  color: #333;
 }
 
-.d-box{
-display: flex;
-align-items: center;
-justify-content: center;
-height: 50px;
-width: 50px;
-border: 1px solid black;
-border-radius: 10px;
+
+.modal-content,
+.editor-content {
+  padding: 24px;
+  box-sizing: border-box;
+  position: relative;
 }
 
+
+#habit-form h3,
+#editor-name {
+  margin: 0 0 12px;
+  font-size: 24px;
+  text-align: center;
+}
+#editor-desc {
+  margin: 0 0 16px;
+  font-size: 16px;
+  text-align: center;
+  color: #666;
+}
+
+
+#habit-form-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+#habit-form-info input,
+#habit-form-info select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+
+.day-select {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 12px 0;
+}
+.day-box,
+.d-box {
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+  border: 2px solid #aaa;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+.day-box.selected,
 .d-box.selected {
-  background-color: rgba(173, 255, 47, 0.6);
-  border: 2px solid green;
-  font-weight: bold;
+  background: #4e148c;
+  border-color: #4e148c;
+  color: gold;
 }
 
-.day-box.selected {
-  background-color: rgba(173, 255, 47, 0.6);
-  border: 2px solid green;
-  font-weight: bold;
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+  gap: 12px;
 }
-
-#value-input{
-    min-width: 70px;
+#form-submit,
+#delete-habit {
+  background: #4e148c;
+  color: gold;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
 }
-
-#habit-editor{
-    display: none; 
-}
-
-#habit-editor.on{
-
-    display: flex; 
-    flex-direction: column; 
-    flex-grow: 2;
-    border: 5px ; 
-    padding: 3px;
-    border-radius: 15px; 
-    box-shadow: 2px 2px 5px gray; 
+#form-submit:hover,
+#delete-habit:hover {
+  background: #6b1db1;
 }
