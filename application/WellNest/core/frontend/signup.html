@@ -2,50 +2,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign Up</title>
-  <link rel="stylesheet" href="{% static 'signup.css' %}" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>signup</title>
+  <link rel="stylesheet" href="{% static 'signup.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div id="main-container">
-    <div id="left-section">
-      <a href="{% url 'home' %}" class="logo-wrapper">
-        <img src="{% static 'WellNest.png' %}" alt="WellNest Logo" class="logo" />
-      </a>
-      <div class="visual-bg"><img src="{% static 'exercise.jpeg' %}" alt="Exercise" class="exercise-image"/></div>
-    </div>
-
-    <div id="right-section">
+  <div id="container">
+    <div id="left">
       <form id="signup-form" method="post">
         {% csrf_token %}
-        <div class="form-header">
-          <h2>Sign Up</h2>
+        <h2 class="form-title" style="margin-bottom: -.5px;">Sign Up</h2>
+
+        <input type="text" id="username" name="username" placeholder="Username" required>
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
+        <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
+
+        <select id="gender" name="gender" required>
+          <option value="">Select Gender</option>
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+          <option value="O">Other</option>
+        </select>
+
+        <label for="tos" class="checkbox">
+          <input type="checkbox" id="tos" name="tos" required>
+          Accept our terms and conditions
+        </label>
+
+        <div id="buttons" style="margin-top: -20px;">
+          <button type="submit" id="signup-btn" class="btn primary-btn">Sign Up</button>
+          <button type="button" id="signin-btn" class="btn secondary-btn">Sign In</button>
+
         </div>
 
-        <div class="form-body">
-          <input type="text" id="username" name="username" placeholder="Username" required />
-          <input type="email" id="email" name="email" placeholder="Email" required />
-          <input type="password" id="password" name="password" placeholder="Password" required />
-          <input type="text" id="first_name" name="first_name" placeholder="First Name" required />
-          <input type="text" id="last_name" name="last_name" placeholder="Last Name" required />
-
-          <select id="gender" name="gender" required>
-            <option value="">Select Gender</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-            <option value="O">Other</option>
-          </select>
-
-          <div class="buttons">
-            <button type="submit" id="signup-btn">Sign Up</button>
-            <button type="button" id="signin-btn">Sign In</button>
-          </div>
-
-          <div id="message" style="margin-top: 10px; padding: 10px; display: none;"></div>
-        </div>
+        <div style="height: 20px;"></div>
       </form>
+
+      <div id="message" style="margin-top: 10px; padding: 10px; display: none;"></div>
+    </div>
+
+    <div id="right">
+      <img src="{% static 'WellNest.png' %}" alt="WellNest Logo">
     </div>
   </div>
 
@@ -103,6 +106,7 @@
         messageDiv.style.display = 'block';
         messageDiv.style.color = 'red';
         messageDiv.textContent = 'Network error. Please try again.';
+        console.error('Error:', error);
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Sign Up';
@@ -114,4 +118,5 @@
     });
   </script>
 </body>
+
 </html>
