@@ -13,7 +13,7 @@
 
 
 <body>
-    
+    <!-- Animated Background Elements -->
     <div class="bg-animation">
         <div class="floating-shapes">
             <div class="shape shape-1"></div>
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    
+    <!-- NAVBAR -->
     <nav id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -72,217 +72,133 @@
             <h2>&lt; July &gt;</h2>
             <div class="year">2025</div>
         </div>
+    </nav>
 
-        <div class="calendar">
-            <table>
-                <thead>
-                    <tr>
-                        <th>S</th>
-                        <th>M</th>
-                        <th>T</th>
-                        <th>W</th>
-                        <th>Th</th>
-                        <th>F</th>
-                        <th>S</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="prev-month">30</td>
-                        <td class="prev-month">1</td>
-                        <td class="prev-month">2</td>
-                        <td class="prev-month">3</td>
-                        <td class="prev-month">4</td>
-                        <td class="prev-month">5</td>
-                        <td class="prev-month">6</td>
-                    </tr>
-                    <tr>
-                        <td class="completed">7</td>
-                        <td class="completed">8</td>
-                        <td class="completed">9</td>
-                        <td class="missed">10</td>
-                        <td class="missed">11</td>
-                        <td class="partial">12</td>
-                        <td class="partial">13</td>
-                    </tr>
-                    <tr>
-                        <td class="missed">14</td>
-                        <td class="completed">15</td>
-                        <td class="completed">16</td>
-                        <td class="completed">17</td>
-                        <td class="prev-month">18</td>
-                        <td class="prev-month">19</td>
-                        <td class="prev-month">20</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <!-- MAIN CONTENT -->
+    <main id="main-content">
+        <!-- Page Title -->
+        <header class="page-header">
+            <h1 class="page-title">Progress Dashboard</h1>
+        </header>
 
-
-    <div id="sideNav">
-        <div class="nav-top">
-            <div id="icons" style="display: flex; justify-content: space-between; margin-top: -15px;">
-                <div id="icons-left">
-                    <img src="{% static 'wn.png' %}" alt="WN Logo" id="navLogo" style="margin-left: -20px;">
+        <!-- Calendar Section -->
+        <section class="calendar-section">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button class="calendar-nav-btn" id="prev-month">‹</button>
+                    <h2 class="calendar-title">July 2025</h2>
+                    <button class="calendar-nav-btn" id="next-month">›</button>
                 </div>
                 <div id="icons-right">
                     <img src="{% static 'menu.png' %}" alt="close-nav" style="width: 40px;" id="close-nav">
                 </div>
             </div>
+        </section>
 
-            <a href="{% url 'calendar' %}" class="nav-link">Home</a>
-            <a href="#" class="nav-link">Progress</a>
-            <a href="{% url 'socials' %}" class="nav-link">Socials</a>
-        </div>
-
-        <div class="nav-bottom">
-            <a href="{% url 'review' %}" class="nav-link">Review</a>
-            <a href="{% url 'about' %}" class="nav-link">About</a>
-        </div>
-    </div>
-
-    <div style="text-align: center;">
-        <h2>
-            < July>
-        </h2>
-        2025
-    </div>
-
-    <div id="streak-calendar" style="display: flex; align-items: center; justify-content: center;">
-        <img src="{% static 'streak-calendar.png' %}" alt="" style="max-height: 300px;">
-
-    </div>
-    <div style="display: flex; justify-content: center;">
-
-        <div
-            style="max-width: 400px; display: flex; justify-content: space-between; align-items: center; padding-left: 200px; text-align:center; padding-right: 200px; gap: 20px;">
-
-            <div style="display: flex; flex-direction: column;">
-                <div>
-                    <h1>56</h1>
+        <!-- Key Metrics Section -->
+        <section class="metrics-section">
+            <div class="metrics-container">
+                <div class="metric-card">
+                    <div class="metric-number">56</div>
+                    <div class="metric-label">Highest Streak</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">125</div>
+                    <div class="metric-label">Challenges Completed</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">78%</div>
+                    <div class="metric-label">All time Habit Completion</div>
                 </div>
                 <div> <b>Highest Streak</b> </div>
             </div>
+        </section>
 
-            <div style="display: flex; flex-direction: column;">
-                <div>
-                    <h1>125</h1>
+        <!-- Graph Section -->
+        <section class="graph-section">
+            <div class="graph-container">
+                <h3 class="graph-title">Completions by Days</h3>
+                <div class="graph-legend">
+                    <div class="legend-item">
+                        <div class="legend-color purple"></div>
+                        <span>Completion %</span>
+                    </div>
                 </div>
-                <div> <b>Challenges Completed </b></div>
-            </div>
-
-        <h2 class="section-title">Completions by Habits</h2>
-        <div class="habit-circles">
-            {% for habit in habit_data %}
-            <div class="habit-circle">
-                <svg class="progress-ring" width="120" height="120">
-                    <!-- Full solid dark purple base -->
-                    <circle cx="60" cy="60" r="54" fill="#32006E" />
-                    <!-- Transparent ring path for progress animation -->
-                    <circle class="progress-ring__circle" cx="60" cy="60" r="54" stroke="goldenrod" stroke-width="12"
-                        fill="none" stroke-dasharray="339.292" stroke-dashoffset="{{ habit.offset }}"
-                        stroke-linecap="round" transform="rotate(-90 60 60)" />
-                </svg>
-                <div class="habit-label">
-                    <strong>{{ habit.value }}%</strong><br>
-                    <span>{{ habit.name }}</span>
+                <div class="graph-chart">
+                    <div class="chart-y-axis">
+                        <div class="y-label">100</div>
+                        <div class="y-label">90</div>
+                        <div class="y-label">80</div>
+                        <div class="y-label">70</div>
+                        <div class="y-label">60</div>
+                        <div class="y-label">50</div>
+                        <div class="y-label">40</div>
+                        <div class="y-label">30</div>
+                        <div class="y-label">20</div>
+                        <div class="y-label">10</div>
+                        <div class="y-label">0</div>
+                    </div>
+                    <div class="chart-content">
+                        <div class="chart-grid">
+                            <!-- Grid lines will be added via CSS -->
+                        </div>
+                        <div class="chart-bars">
+                            <!-- Sample data bars -->
+                            <div class="chart-bar" style="height: 85%"></div>
+                            <div class="chart-bar" style="height: 92%"></div>
+                            <div class="chart-bar" style="height: 78%"></div>
+                            <div class="chart-bar" style="height: 95%"></div>
+                            <div class="chart-bar" style="height: 88%"></div>
+                            <div class="chart-bar" style="height: 76%"></div>
+                            <div class="chart-bar" style="height: 82%"></div>
+                        </div>
+                        <div class="chart-x-axis">
+                            <div class="x-label">S</div>
+                            <div class="x-label">M</div>
+                            <div class="x-label">T</div>
+                            <div class="x-label">W</div>
+                            <div class="x-label">Th</div>
+                            <div class="x-label">F</div>
+                            <div class="x-label">S</div>
+                        </div>
+                    </div>
                 </div>
                 <div> <b> All time Habit Completion </b></div>
             </div>
+        </section>
 
-        </div>
-
-    </div>
-
-    <div style="height: 50px;"></div>
-
-    <div
-        style="display: flex; flex-direction: column;align-items: center; justify-content: center; text-align: center; margin-top: 20px;">
-        <h2> Completions by Days</h2>
-        <img src="{% static 'graph.png' %}" alt="" style="width: 400px;">
-    </div>
-
-
-    <div
-        style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-        <h2> Completions by Habits </h2>
-        <img src="{% static 'completions.png' %}" alt="" style="width: 400px;">
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const ctx = document.getElementById('dailyChart').getContext('2d');
-        const dailyChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['S', 'M', 'T', 'W', 'Th', 'F', 'S'],
-                datasets: [{
-                    label: 'Completion %',
-                    data: [0, 0, 0, 0, 0, 0, 0],
-                    backgroundColor: '#4B0082',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100,
-                        ticks: {
-                            stepSize: 10,
-                            color: '#4B0082',
-                            font: { size: 16 }
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            color: '#4B0082',
-                            font: { size: 16 }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#4B0082',
-                            font: { size: 20 }
-                        }
-                    }
-                }
-            }
-        });
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", async () => {
-            try {
-                const [dayRes, habitRes] = await Promise.all([
-                    fetch("/api/progress/days/"),
-                    fetch("/api/progress/habits/")
-                ]);
-
-                const dayData = await dayRes.json();
-                const habitData = await habitRes.json();
-
-                // Fill in the bar chart
-                dailyChart.data.labels = dayData.labels.map(day => day.slice(0, 2));
-                dailyChart.data.datasets[0].data = dayData.percentages;
-                dailyChart.update();
-
-                // Fill in circular habits
-                const habitContainer = document.querySelector(".habit-circles");
-                habitContainer.innerHTML = habitData.map(habit => `
-            <div class="habit-circle">
-                <svg class="progress-ring" width="120" height="120">
-                    <circle cx="60" cy="60" r="54" fill="#32006E" />
-                    <circle class="progress-ring__circle" cx="60" cy="60" r="54"
-                        stroke="goldenrod" stroke-width="12" fill="none"
-                        stroke-dasharray="339.292" stroke-dashoffset="${habit.offset}"
-                        stroke-linecap="round" transform="rotate(-90 60 60)" />
-                </svg>
-                <div class="habit-label">
-                    <strong>${habit.value}%</strong><br>
-                    <span>${habit.name}</span>
+        <!-- Habits Progress Section -->
+        <section class="habits-section">
+            <div class="habits-container">
+                <h3 class="habits-title">Completions by Habits</h3>
+                <div class="habits-grid">
+                    <div class="habit-progress">
+                        <div class="habit-circle">
+                            <div class="habit-fill"></div>
+                        </div>
+                        <div class="habit-info">
+                            <div class="habit-percentage">14%</div>
+                            <div class="habit-name">Walking</div>
+                        </div>
+                    </div>
+                    <div class="habit-progress">
+                        <div class="habit-circle">
+                            <div class="habit-fill"></div>
+                        </div>
+                        <div class="habit-info">
+                            <div class="habit-percentage">14%</div>
+                            <div class="habit-name">Gym</div>
+                        </div>
+                    </div>
+                    <div class="habit-progress">
+                        <div class="habit-circle">
+                            <div class="habit-fill"></div>
+                        </div>
+                        <div class="habit-info">
+                            <div class="habit-percentage">14%</div>
+                            <div class="habit-name">Yoga</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         `).join('');

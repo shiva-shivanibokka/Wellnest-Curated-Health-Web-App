@@ -1,35 +1,44 @@
+// Settings Page JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
-    
+    // Initialize the page
     initializeSettings();
     
+    // Add hover effects and interactions
     addHoverEffects();
     
+    // Add loading animations
     addLoadingAnimations();
     
+    // Setup form handling
     setupFormHandling();
     
+    // Setup theme selection
     setupThemeSelection();
     
+    // Setup toggle switches
     setupToggleSwitches();
 });
 
 function initializeSettings() {
     console.log('Settings page initialized');
     
+    // Add click handlers for navigation
     setupNavigation();
     
+    // Add card interactions
     setupCardInteractions();
 }
 
 function setupNavigation() {
-    
+    // Handle navbar link clicks
     const navLinks = document.querySelectorAll('.nav-link');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const text = this.textContent.trim();
             
+            // Navigate based on the link text
             switch(text) {
                 case 'Dashboard':
                     window.location.href = '/calendar';
@@ -55,7 +64,7 @@ function setupNavigation() {
 }
 
 function setupCardInteractions() {
-    
+    // Add hover effects to settings cards
     const settingsCards = document.querySelectorAll('.settings-card');
     
     settingsCards.forEach(card => {
@@ -72,32 +81,36 @@ function setupCardInteractions() {
 }
 
 function setupFormHandling() {
-    
+    // Handle account settings form
     const saveBtn = document.querySelector('.save-btn');
     if (saveBtn) {
         saveBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
+            // Get form data
             const firstName = document.getElementById('firstName').value;
             const lastName = document.getElementById('lastName').value;
             const email = document.getElementById('email').value;
             const username = document.getElementById('username').value;
             
+            // Validate form data
             if (!firstName || !lastName || !email || !username) {
                 showNotification('Please fill in all fields', 'error');
                 return;
             }
             
+            // Simulate saving (in a real app, this would make an API call)
             showNotification('Settings saved successfully!', 'success');
             
+            // Add a small delay to show the success message
             setTimeout(() => {
-               
+                // You could redirect or update the UI here
                 console.log('Settings saved:', { firstName, lastName, email, username });
             }, 1000);
         });
     }
     
-   
+    // Handle danger zone actions
     const deleteAccountBtn = document.querySelector('.btn-danger');
     if (deleteAccountBtn) {
         deleteAccountBtn.addEventListener('click', function(e) {
@@ -105,7 +118,7 @@ function setupFormHandling() {
             
             if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
                 showNotification('Account deletion initiated...', 'warning');
-             
+                // In a real app, this would make an API call to delete the account
             }
         });
     }
@@ -117,6 +130,7 @@ function setupFormHandling() {
             
             showNotification('Preparing data export...', 'info');
             
+            // Simulate data export
             setTimeout(() => {
                 showNotification('Data export completed!', 'success');
             }, 2000);
@@ -129,13 +143,16 @@ function setupThemeSelection() {
     
     themeOptions.forEach(option => {
         option.addEventListener('click', function() {
-            
+            // Remove active class from all options
             themeOptions.forEach(opt => opt.classList.remove('active'));
             
+            // Add active class to clicked option
             this.classList.add('active');
             
+            // Get the theme name
             const themeName = this.querySelector('span').textContent;
             
+            // Apply theme (in a real app, this would update CSS variables)
             applyTheme(themeName);
             
             showNotification(`Theme changed to ${themeName}`, 'success');
@@ -144,9 +161,10 @@ function setupThemeSelection() {
 }
 
 function applyTheme(themeName) {
-   
+    // In a real app, this would update CSS variables or load different stylesheets
     console.log('Applying theme:', themeName);
     
+    // Example of how you might apply themes
     const root = document.documentElement;
     
     switch(themeName) {
@@ -161,7 +179,7 @@ function applyTheme(themeName) {
             root.style.setProperty('--border-color', '#4a5568');
             break;
         case 'Auto':
-
+            // Auto theme would follow system preference
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 applyTheme('Dark Mode');
             } else {
@@ -181,13 +199,14 @@ function setupToggleSwitches() {
             
             console.log(`${settingName}: ${isEnabled ? 'enabled' : 'disabled'}`);
             
+            // In a real app, this would save the setting to the backend
             showNotification(`${settingName} ${isEnabled ? 'enabled' : 'disabled'}`, 'success');
         });
     });
 }
 
 function addHoverEffects() {
-    
+    // Add hover effects to buttons
     const buttons = document.querySelectorAll('.btn');
     
     buttons.forEach(button => {
@@ -202,6 +221,7 @@ function addHoverEffects() {
         });
     });
     
+    // Add hover effects to option items
     const optionItems = document.querySelectorAll('.option-item');
     
     optionItems.forEach(item => {
@@ -217,7 +237,7 @@ function addHoverEffects() {
 }
 
 function addLoadingAnimations() {
-    
+    // Add fade-in animation to page elements
     const elements = document.querySelectorAll('.settings-card');
     
     elements.forEach((element, index) => {
@@ -233,7 +253,7 @@ function addLoadingAnimations() {
 }
 
 function showNotification(message, type = 'info') {
-    
+    // Create notification element
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.innerHTML = `
@@ -243,6 +263,7 @@ function showNotification(message, type = 'info') {
         </div>
     `;
     
+    // Add styles
     notification.style.cssText = `
         position: fixed;
         top: 20px;
@@ -258,12 +279,15 @@ function showNotification(message, type = 'info') {
         max-width: 300px;
     `;
     
+    // Add to page
     document.body.appendChild(notification);
     
+    // Animate in
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
     }, 100);
     
+    // Remove after 3 seconds
     setTimeout(() => {
         notification.style.transform = 'translateX(100%)';
         setTimeout(() => {
@@ -292,6 +316,7 @@ function getNotificationColor(type) {
     }
 }
 
+// Add smooth scrolling for better UX
 function smoothScrollTo(element) {
     element.scrollIntoView({
         behavior: 'smooth',
@@ -299,10 +324,10 @@ function smoothScrollTo(element) {
     });
 }
 
-
+// Add keyboard navigation support
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-        
+        // Close any open modals or dropdowns
         const dropdowns = document.querySelectorAll('.profile-dropdown');
         dropdowns.forEach(dropdown => {
             dropdown.style.opacity = '0';
@@ -311,7 +336,7 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-
+// Add touch support for mobile devices
 if ('ontouchstart' in window) {
     const touchElements = document.querySelectorAll('.settings-card, .btn, .option-item');
     
@@ -326,6 +351,7 @@ if ('ontouchstart' in window) {
     });
 }
 
+// Add performance optimizations
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -338,7 +364,9 @@ function debounce(func, wait) {
     };
 }
 
+// Optimize scroll events
 const optimizedScrollHandler = debounce(function() {
+    // Handle scroll-based animations if needed
 }, 16);
 
 window.addEventListener('scroll', optimizedScrollHandler); 

@@ -1,4 +1,4 @@
-
+/* SF State Color Variables */
 :root {
   --sf-purple: #4B2E83;
   --sf-gold: #F4B942;
@@ -19,6 +19,7 @@
   --radius-lg: 12px;
 }
 
+/* Reset and Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -33,6 +34,7 @@ body {
   line-height: 1.6;
 }
 
+/* Animated Background */
 .bg-animation {
   position: fixed;
   top: 0;
@@ -102,6 +104,7 @@ body {
   50% { transform: translateY(-20px); }
 }
 
+/* Navbar Styles */
 #navbar {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -261,12 +264,14 @@ body {
   font-size: 14px;
 }
 
+/* Main Content */
 #main-content {
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
 }
 
+/* Page Header */
 .page-header {
   margin-bottom: 40px;
   text-align: center;
@@ -285,6 +290,7 @@ body {
   font-weight: 400;
 }
 
+/* Challenge Section */
 .challenge-section {
   margin-bottom: 40px;
 }
@@ -332,6 +338,7 @@ body {
   font-weight: 400;
 }
 
+/* Section Titles */
 .section-title {
   font-size: 1.3rem;
   font-weight: 600;
@@ -339,6 +346,7 @@ body {
   margin-bottom: 20px;
 }
 
+/* Challenge Details */
 .challenge-details {
   margin-bottom: 30px;
 }
@@ -367,6 +375,7 @@ body {
   flex: 1;
 }
 
+/* Leaderboard Table */
 .leaderboard-section {
   margin-bottom: 30px;
 }
@@ -456,6 +465,7 @@ body {
   justify-content: flex-end;
 }
 
+/* Global Leaderboard */
 .global-leaderboard-section {
   margin-bottom: 40px;
 }
@@ -485,6 +495,7 @@ body {
   justify-content: flex-end;
 }
 
+/* Group Members */
 .members-section {
   margin-bottom: 30px;
 }
@@ -530,6 +541,7 @@ body {
   text-align: center;
 }
 
+/* Action Buttons */
 .action-buttons {
   display: flex;
   gap: 15px;
@@ -576,6 +588,7 @@ body {
   font-size: 1rem;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
   .nav-container {
     padding: 0 15px;

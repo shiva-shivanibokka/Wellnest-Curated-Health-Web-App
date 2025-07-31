@@ -1,4 +1,4 @@
-
+/* SF State Color Variables */
 :root {
   --sf-purple: #4B2E83;
   --sf-gold: #F4B942;
@@ -19,6 +19,7 @@
   --radius-lg: 12px;
 }
 
+/* Reset and Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -33,6 +34,7 @@ body {
   line-height: 1.6;
 }
 
+/* Animated Background */
 .bg-animation {
   position: fixed;
   top: 0;
@@ -102,6 +104,7 @@ body {
   50% { transform: translateY(-20px); }
 }
 
+/* Navbar Styles */
 #navbar {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -261,12 +264,14 @@ body {
   font-size: 14px;
 }
 
+/* Main Content */
 #main-content {
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
 }
 
+/* Page Header */
 .page-header {
   margin-bottom: 40px;
   text-align: center;
@@ -279,6 +284,7 @@ body {
   margin-bottom: 10px;
 }
 
+/* Calendar Section */
 .calendar-section {
   margin-bottom: 40px;
 }
@@ -422,6 +428,7 @@ body {
   font-weight: 500;
 }
 
+/* Graph Section */
 .graph-section {
   margin-bottom: 40px;
 }
@@ -622,6 +629,7 @@ body {
   font-weight: 500;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
   .nav-container {
     padding: 0 15px;

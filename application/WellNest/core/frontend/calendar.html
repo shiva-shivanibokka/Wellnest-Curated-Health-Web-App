@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'calendar.css' %}">
 </head>
 <body>
-
+    <!-- Animated Background Elements -->
     <div class="bg-animation">
         <div class="floating-shapes">
             <div class="shape shape-1"></div>
@@ -20,6 +20,7 @@
         </div>
     </div>
 
+    <!-- NAVBAR -->
     <nav id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -66,7 +67,7 @@
         </div>
     </nav>
 
-
+    <!-- HEADER -->
     <header id="dashboard-header">
         <div class="header-content">
             <div class="greeting-section">
@@ -89,7 +90,7 @@
         </div>
     </header>
 
-
+    <!-- CALENDAR BAR -->
     <div id="calendar-bar">
         <div class="calendar-container">
             {% for day in week_days %}
@@ -104,6 +105,7 @@
         </div>
     </div>
 
+    <!-- MAIN CONTENT -->
     <main id="main-content">
         <section class="block-left">
             <div class="dashboard-card todo-card">
@@ -254,8 +256,10 @@
         </section>
     </main>
 
+    <!-- Modal Overlay -->
     <div class="modal-overlay" id="modal-overlay"></div>
 
+    <!-- Habit Form Modal -->
     <form id="habit-form" class="habit-modal">
         <div class="modal-header">
             <h3>✨ Create New Habit</h3>
@@ -316,6 +320,7 @@
         </div>
     </form>
 
+    <!-- Habit Editor Modal -->
     <div id="habit-editor" class="habit-modal">
         <div class="modal-header">
             <h3>Edit Habit</h3>
@@ -344,7 +349,7 @@
     </div>
 
     <script>
-       
+        // Set up static URLs for JavaScript
         window.STATIC_URLS = {
             checkEmpty: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3C/svg%3E",
             checkDone: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/%3E%3Cpolyline points='22,4 12,14.01 9,11.01'/%3E%3C/svg%3E"

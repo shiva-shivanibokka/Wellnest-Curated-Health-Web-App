@@ -1,4 +1,6 @@
+/* Profile Page CSS */
 
+/* CSS Variables */
 :root {
     --sf-purple: #4e148c;
     --sf-light-purple: #6b46c1;
@@ -23,6 +25,7 @@
     --radius-lg: 0.75rem;
 }
 
+/* Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -38,6 +41,7 @@ body {
     overflow-x: hidden;
 }
 
+/* Animated Background */
 .bg-animation {
     position: fixed;
     top: 0;
@@ -112,6 +116,7 @@ body {
     }
 }
 
+/* Navbar Styles */
 #navbar {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -267,6 +272,7 @@ body {
     font-size: 14px;
 }
 
+/* Main Content */
 #main-content {
     max-width: 1200px;
     margin: 0 auto;
@@ -292,6 +298,7 @@ body {
     font-weight: 400;
 }
 
+/* Profile Container */
 .profile-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -313,6 +320,7 @@ body {
     }
 }
 
+/* Profile Cards */
 .profile-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -328,6 +336,7 @@ body {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
+/* Profile Header */
 .profile-header {
     display: flex;
     align-items: center;
@@ -449,6 +458,7 @@ body {
     color: var(--text-primary);
 }
 
+/* Form Styles */
 .profile-form {
     display: flex;
     flex-direction: column;
@@ -498,6 +508,7 @@ body {
     min-height: 80px;
 }
 
+/* Button Styles */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -526,6 +537,7 @@ body {
     font-size: 1rem;
 }
 
+/* Goals Container */
 .goals-container {
     display: flex;
     flex-direction: column;
@@ -575,6 +587,7 @@ body {
     margin-bottom: 0.75rem;
 }
 
+/* Fix for progress bars overflowing the card */
 .goal-progress {
     display: flex;
     align-items: center;
@@ -611,6 +624,7 @@ body {
     min-width: 40px;
 }
 
+/* Achievements Grid */
 .achievements-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -659,6 +673,7 @@ body {
     line-height: 1.4;
 }
 
+/* Actions Grid */
 .actions-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -696,6 +711,7 @@ body {
     font-weight: 500;
 }
 
+/* Popup Styles */
 .popup {
     position: fixed;
     top: 0;
@@ -742,6 +758,7 @@ body {
     margin-bottom: 1.5rem;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
     .nav-container {
         padding: 0 1rem;

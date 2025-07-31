@@ -1,11 +1,12 @@
+// Progress Dashboard JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
-
+    // Calendar navigation functionality
     const prevMonthBtn = document.getElementById('prev-month');
     const nextMonthBtn = document.getElementById('next-month');
     const calendarTitle = document.querySelector('.calendar-title');
     
-    let currentMonth = 6; // July
+    let currentMonth = 6; // July (0-indexed)
     let currentYear = 2025;
     
     const months = [
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Add hover effects to calendar days
     const calendarDays = document.querySelectorAll('.calendar-day');
     calendarDays.forEach(day => {
         day.addEventListener('mouseenter', function() {
@@ -50,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Add hover effects to metric cards
     const metricCards = document.querySelectorAll('.metric-card');
     metricCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
@@ -61,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Add hover effects to chart bars
     const chartBars = document.querySelectorAll('.chart-bar');
     chartBars.forEach(bar => {
         bar.addEventListener('mouseenter', function() {
@@ -74,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Add hover effects to habit circles
     const habitCircles = document.querySelectorAll('.habit-circle');
     habitCircles.forEach(circle => {
         circle.addEventListener('mouseenter', function() {
@@ -85,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Animate chart bars on page load
     setTimeout(() => {
         chartBars.forEach((bar, index) => {
             setTimeout(() => {
@@ -94,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, 500);
     
+    // Animate metric numbers on page load
     setTimeout(() => {
         const metricNumbers = document.querySelectorAll('.metric-number');
         metricNumbers.forEach((number, index) => {
@@ -110,11 +117,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, 300);
     
+    // Navigation functionality
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const text = this.textContent.trim();
             
+            // Navigate based on the link text
             switch(text) {
                 case 'Dashboard':
                     window.location.href = '/calendar';
@@ -126,11 +135,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = '/socials';
                 break;
                 case 'Habits':
-    
+                    // For now, stay on progress page since habits functionality might be in calendar
                     console.log('Habits clicked');
                     break;
                 case 'Progress':
-        
+                    // Already on progress page
                     console.log('Already on progress page');
                     break;
                 default:
@@ -139,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Profile dropdown functionality
     const profileAvatar = document.querySelector('.profile-avatar');
     const profileDropdown = document.querySelector('.profile-dropdown');
     
@@ -150,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
             profileDropdown.style.transform = profileDropdown.style.transform === 'translateY(0px)' ? 'translateY(-10px)' : 'translateY(0px)';
         });
         
+        // Close dropdown when clicking outside
         document.addEventListener('click', function() {
             profileDropdown.style.opacity = '0';
             profileDropdown.style.visibility = 'hidden';
@@ -157,6 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Add loading animation for page elements
     const pageElements = document.querySelectorAll('.calendar-container, .metrics-container, .graph-container, .habits-container');
     pageElements.forEach((element, index) => {
         element.style.opacity = '0';

@@ -1,29 +1,35 @@
+// Leaderboard Page JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
-    
+    // Initialize the page
     initializeLeaderboard();
     
+    // Add hover effects and interactions
     addHoverEffects();
     
+    // Add loading animations
     addLoadingAnimations();
 });
 
 function initializeLeaderboard() {
     console.log('Leaderboard page initialized');
     
+    // Add click handlers for navigation
     setupNavigation();
     
+    // Add table row interactions
     setupTableInteractions();
 }
 
 function setupNavigation() {
-    
+    // Handle navbar link clicks
     const navLinks = document.querySelectorAll('.nav-link');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const text = this.textContent.trim();
             
+            // Navigate based on the link text
             switch(text) {
                 case 'Dashboard':
                     window.location.href = '/calendar';
@@ -32,14 +38,14 @@ function setupNavigation() {
                 window.location.href = '/progress';
                 break;
             case 'Leaderboard':
-                
+                // Already on leaderboard page
                 console.log('Already on leaderboard page');
                 break;
             case 'Socials':
                 window.location.href = '/socials';
                 break;
                 case 'Habits':
-                    
+                    // For now, stay on leaderboard page since habits functionality might be in calendar
                     console.log('Habits clicked - staying on leaderboard page');
                     break;
                 default:
@@ -50,7 +56,7 @@ function setupNavigation() {
 }
 
 function setupTableInteractions() {
-   
+    // Add hover effects to table rows
     const tableRows = document.querySelectorAll('.table-row');
     
     tableRows.forEach(row => {
@@ -64,11 +70,12 @@ function setupTableInteractions() {
         });
     });
     
+    // Add click effects to member cards
     const memberCards = document.querySelectorAll('.member-card');
     
     memberCards.forEach(card => {
         card.addEventListener('click', function() {
-           
+            // Add a subtle click effect
             this.style.transform = 'scale(0.95)';
             setTimeout(() => {
                 this.style.transform = 'scale(1)';
@@ -78,7 +85,7 @@ function setupTableInteractions() {
 }
 
 function addHoverEffects() {
-    
+    // Add hover effects to buttons
     const buttons = document.querySelectorAll('.btn');
     
     buttons.forEach(button => {
@@ -93,7 +100,7 @@ function addHoverEffects() {
         });
     });
     
-    
+    // Add hover effects to challenge card
     const challengeCard = document.querySelector('.challenge-card');
     if (challengeCard) {
         challengeCard.addEventListener('mouseenter', function() {
@@ -109,7 +116,7 @@ function addHoverEffects() {
 }
 
 function addLoadingAnimations() {
-    
+    // Add fade-in animation to page elements
     const elements = document.querySelectorAll('.challenge-card, .global-leaderboard-card');
     
     elements.forEach((element, index) => {
@@ -123,6 +130,7 @@ function addLoadingAnimations() {
         }, index * 200);
     });
     
+    // Add staggered animation to table rows
     const tableRows = document.querySelectorAll('.table-row');
     
     tableRows.forEach((row, index) => {
@@ -137,6 +145,7 @@ function addLoadingAnimations() {
     });
 }
 
+// Add smooth scrolling for better UX
 function smoothScrollTo(element) {
     element.scrollIntoView({
         behavior: 'smooth',
@@ -144,9 +153,10 @@ function smoothScrollTo(element) {
     });
 }
 
+// Add keyboard navigation support
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-        
+        // Close any open modals or dropdowns
         const dropdowns = document.querySelectorAll('.profile-dropdown');
         dropdowns.forEach(dropdown => {
             dropdown.style.opacity = '0';
@@ -155,7 +165,7 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-
+// Add touch support for mobile devices
 if ('ontouchstart' in window) {
     const touchElements = document.querySelectorAll('.table-row, .member-card, .btn');
     
@@ -170,6 +180,7 @@ if ('ontouchstart' in window) {
     });
 }
 
+// Add performance optimizations
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -182,8 +193,9 @@ function debounce(func, wait) {
     };
 }
 
+// Optimize scroll events
 const optimizedScrollHandler = debounce(function() {
-  
+    // Handle scroll-based animations if needed
 }, 16);
 
 window.addEventListener('scroll', optimizedScrollHandler); 

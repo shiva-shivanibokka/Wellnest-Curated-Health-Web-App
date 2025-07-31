@@ -1,4 +1,6 @@
+// --- MODAL AND UI MANAGEMENT ---
 
+// Get elements from the DOM
 const form = document.getElementById("habit-form");
 const habitContainer = document.getElementById("habit-container");
 const doneContainer = document.getElementById("done-container");
@@ -6,6 +8,7 @@ const addHabitBtn = document.getElementById("add-habit-button");
 const habitEditor = document.getElementById("habit-editor");
 const deleteHabit = document.getElementById("delete-habit");
 
+// Create modal overlay if it doesn't exist
 let modalOverlay = document.getElementById("modal-overlay");
 if (!modalOverlay) {
     modalOverlay = document.createElement('div');
@@ -23,6 +26,7 @@ if (!modalOverlay) {
     document.body.appendChild(modalOverlay);
 }
 
+// Modal Functions
 function openModal() {
     if (form) {
         form.style.display = "block";
@@ -89,7 +93,9 @@ function closeHabitEditor() {
     }
 }
 
+// --- EVENT LISTENERS ---
 
+// Add habit button opens the modal
 if (addHabitBtn) {
     addHabitBtn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -97,6 +103,7 @@ if (addHabitBtn) {
     });
 }
 
+// Close modal when clicking overlay
 if (modalOverlay) {
     modalOverlay.addEventListener("click", (e) => {
         if (e.target === modalOverlay) {
@@ -106,6 +113,7 @@ if (modalOverlay) {
     });
 }
 
+// Add cancel button functionality
 const cancelBtns = document.querySelectorAll("#form-cancel, #form-cancel-btn");
 cancelBtns.forEach(btn => {
     if (btn) {
@@ -116,6 +124,7 @@ cancelBtns.forEach(btn => {
     }
 });
 
+// Close buttons in modals
 const closeButtons = document.querySelectorAll(".modal-close");
 closeButtons.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -124,10 +133,12 @@ closeButtons.forEach(btn => {
     });
 });
 
+// Handle form submission
 if (form) {
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
         
+        // Add loading state
         const submitBtn = form.querySelector('#form-submit');
         if (submitBtn) {
             const originalText = submitBtn.innerHTML;
@@ -157,7 +168,7 @@ if (form) {
             });
 
             if (response.ok) {
-                
+                // Success animation
                 if (submitBtn) {
                     submitBtn.innerHTML = '<span class="btn-icon">✅</span> Created!';
                     submitBtn.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
@@ -165,7 +176,7 @@ if (form) {
                 
                         setTimeout(() => {
             closeModal();
-            
+            // Reload habits for the current selected date
             if (currentSelectedDate) {
                 loadHabitsForDate(currentSelectedDate);
             } else {
@@ -178,6 +189,7 @@ if (form) {
                 console.error("Failed to create habit:", errorData);
                 showNotification('Failed to create habit. Please try again.', 'error');
                 
+                // Reset button
                 if (submitBtn) {
                     submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
@@ -188,6 +200,7 @@ if (form) {
             console.error("Error creating habit:", error);
             showNotification('Failed to create habit. Please try again.', 'error');
             
+            // Reset button
             if (submitBtn) {
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
@@ -197,6 +210,7 @@ if (form) {
     });
 }
 
+// Function to get selected days from the form
 function getSelectedDays() {
     const selectedDays = [];
     const dayBoxes = document.querySelectorAll('.day-box.selected');
@@ -215,10 +229,12 @@ function getSelectedDays() {
     return selectedDays;
 }
 
+// Add day selection functionality with enhanced animation
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('day-box')) {
         e.target.classList.toggle('selected');
         
+        // Add ripple effect
         const ripple = document.createElement('div');
         ripple.style.position = 'absolute';
         ripple.style.borderRadius = '50%';
@@ -243,6 +259,7 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// Add ripple animation styles
 const style = document.createElement('style');
 style.textContent = `
     @keyframes ripple {
@@ -253,6 +270,8 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// --- HABIT MANAGEMENT ---
 
 async function loadCreatedHabits() {
     const COLOR_MAP = {
@@ -268,6 +287,7 @@ async function loadCreatedHabits() {
         return;
     }
 
+    // Add loading animation
     habitContainer.innerHTML = '<div class="loading-spinner">Loading habits...</div>';
     doneContainer.innerHTML = '<div class="loading-spinner">Loading completed...</div>';
 
@@ -284,9 +304,11 @@ async function loadCreatedHabits() {
         const data = await resp.json();
         console.log("⇨ fetched data:", data);
 
+        // Clear containers
         habitContainer.innerHTML = "";
         doneContainer.innerHTML = "";
 
+        // Process TODO habits with staggered animation
         if (data.todo && data.todo.length > 0) {
             data.todo.forEach((habitObj, index) => {
                 setTimeout(() => {
@@ -295,6 +317,7 @@ async function loadCreatedHabits() {
                     wrapper.style.transform = 'translateX(-30px)';
                     habitContainer.appendChild(wrapper);
                     
+                    // Animate in
                     setTimeout(() => {
                         wrapper.style.transition = 'all 0.4s ease';
                         wrapper.style.opacity = '1';
@@ -306,6 +329,7 @@ async function loadCreatedHabits() {
             habitContainer.innerHTML = '<div class="empty-state">No habits for today. Create one! ✨</div>';
         }
 
+        // Process DONE habits with staggered animation
         if (data.done && data.done.length > 0) {
             data.done.forEach((habitObj, index) => {
                 setTimeout(() => {
@@ -314,6 +338,7 @@ async function loadCreatedHabits() {
                     wrapper.style.transform = 'translateX(30px)';
                     doneContainer.appendChild(wrapper);
                     
+                    // Animate in
                     setTimeout(() => {
                         wrapper.style.transition = 'all 0.4s ease';
                         wrapper.style.opacity = '1';
@@ -325,6 +350,7 @@ async function loadCreatedHabits() {
             doneContainer.innerHTML = '<div class="empty-state">Complete some habits! 🎯</div>';
         }
 
+        // Update badges
         updateHabitBadges(data.todo?.length || 0, data.done?.length || 0);
 
     } catch (err) {
@@ -350,6 +376,7 @@ function createHabitElement(habitObj, COLOR_MAP, isDone) {
     check.addEventListener("click", async (e) => {
         e.stopPropagation();
         
+        // Add click animation
         check.style.transform = 'scale(1.2)';
         setTimeout(() => {
             check.style.transform = 'scale(1)';
@@ -365,8 +392,10 @@ function createHabitElement(habitObj, COLOR_MAP, isDone) {
     habit.appendChild(check);
     habit.appendChild(habitText);
     
+    // Add click handler for habit editing
     habit.addEventListener("click", (e) => {
         if (e.target !== check) {
+            // Add click animation
             habit.style.transform = 'scale(0.98)';
             setTimeout(() => {
                 habit.style.transform = 'scale(1)';
@@ -376,6 +405,7 @@ function createHabitElement(habitObj, COLOR_MAP, isDone) {
         }
     });
 
+    // Add hover effects
     habit.addEventListener("mouseenter", () => {
         habit.style.transform = 'translateX(4px)';
     });
@@ -391,13 +421,14 @@ function createHabitElement(habitObj, COLOR_MAP, isDone) {
 async function toggleHabitCompletion(wrapper, check, habit, habitObj, COLOR_MAP) {
     const isInToDo = wrapper.parentElement === habitContainer;
     
+    // Add loading state
     const originalSrc = check.src;
     check.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M21 12a9 9 0 11-6.219-8.56'/%3E%3C/svg%3E";
     check.style.animation = 'spin 1s linear infinite';
     
     try {
         if (isInToDo) {
-
+            // Move to done with animation
             wrapper.style.transform = 'translateX(100px)';
             wrapper.style.opacity = '0.5';
             
@@ -414,6 +445,7 @@ async function toggleHabitCompletion(wrapper, check, habit, habitObj, COLOR_MAP)
             check.alt = "check";
             check.style.animation = '';
 
+            // Log completion
             await fetch("/api/habit/log/", {
                 method: "POST",
                 credentials: "same-origin",
@@ -433,7 +465,7 @@ async function toggleHabitCompletion(wrapper, check, habit, habitObj, COLOR_MAP)
             showNotification(`Great job! "${habitObj.name}" completed! 🎉`, 'success');
             
         } else {
-
+            // Move back to todo with animation
             wrapper.style.transform = 'translateX(-100px)';
             wrapper.style.opacity = '0.5';
             
@@ -450,6 +482,7 @@ async function toggleHabitCompletion(wrapper, check, habit, habitObj, COLOR_MAP)
             check.alt = "check-empty";
             check.style.animation = '';
 
+            // Remove from log
             await fetch(`/api/habit/log/delete/`, {
                 method: "DELETE",
                 credentials: "same-origin",
@@ -467,12 +500,14 @@ async function toggleHabitCompletion(wrapper, check, habit, habitObj, COLOR_MAP)
             showNotification(`"${habitObj.name}" moved back to todo.`, 'info');
         }
 
+        // Update badges after a delay to account for animation
         setTimeout(() => {
             const todoCount = habitContainer.querySelectorAll('.habit-wrapper').length;
             const doneCount = doneContainer.querySelectorAll('.habit-wrapper').length;
             updateHabitBadges(todoCount, doneCount);
         }, 400);
         
+        // Reload habits for the current date to refresh the view
         setTimeout(() => {
             if (currentSelectedDate) {
                 loadHabitsForDate(currentSelectedDate);
@@ -494,6 +529,7 @@ function showHabitEditor(habitObj) {
 
     openHabitEditor();
     
+    // Populate habit info with animation
     const nameElement = habitEditor.querySelector("h3");
     const descElement = habitEditor.querySelector("h4");
     
@@ -515,6 +551,7 @@ function showHabitEditor(habitObj) {
         }, 200);
     }
 
+    // Show repeating days with staggered animation
     const editorDays = habitEditor.querySelectorAll(".day-box");
     editorDays.forEach((box, index) => {
         box.classList.remove("selected");
@@ -533,12 +570,14 @@ function showHabitEditor(habitObj) {
         }, index * 50);
     });
 
+    // Save data for deletion
     if (habitEditor.dataset) {
         habitEditor.dataset.name = habitObj.name;
         habitEditor.dataset.habitType = habitObj.habit_type;
     }
 }
 
+// Delete habit functionality with confirmation
 if (deleteHabit) {
     deleteHabit.addEventListener("click", async () => {
         if (!habitEditor.dataset.name || !habitEditor.dataset.habitType) {
@@ -546,10 +585,12 @@ if (deleteHabit) {
             return;
         }
 
+        // Enhanced confirmation with custom styling
         const confirmDelete = confirm(`Are you sure you want to delete "${habitEditor.dataset.name}"?\n\nThis action cannot be undone.`);
         
         if (!confirmDelete) return;
 
+        // Add loading state to delete button
         const originalText = deleteHabit.innerHTML;
         deleteHabit.innerHTML = '<span class="btn-icon">⏳</span> Deleting...';
         deleteHabit.disabled = true;
@@ -570,13 +611,13 @@ if (deleteHabit) {
 
             const result = await resp.json();
             if (resp.ok && result.success) {
-                
+                // Success animation
                 deleteHabit.innerHTML = '<span class="btn-icon">✅</span> Deleted!';
                 deleteHabit.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
                 
                 setTimeout(() => {
                     closeHabitEditor();
-                    
+                    // Reload habits for the current selected date
                     if (currentSelectedDate) {
                         loadHabitsForDate(currentSelectedDate);
                     } else {
@@ -591,12 +632,15 @@ if (deleteHabit) {
             console.error("Error deleting habit:", error);
             showNotification('Failed to delete habit. Please try again.', 'error');
             
+            // Reset button
             deleteHabit.innerHTML = originalText;
             deleteHabit.disabled = false;
             deleteHabit.style.background = '';
         }
     });
 }
+
+// --- UTILITY FUNCTIONS ---
 
 function getCSRFToken() {
     return document.cookie
@@ -626,8 +670,9 @@ function updateHabitBadges(todoCount, doneCount) {
     }
 }
 
+// Notification system
 function showNotification(message, type = 'info') {
-
+    // Remove existing notifications
     const existingNotifications = document.querySelectorAll('.notification');
     existingNotifications.forEach(notification => notification.remove());
 
@@ -647,6 +692,7 @@ function showNotification(message, type = 'info') {
         <button class="notification-close">×</button>
     `;
     
+    // Add styles
     const styles = {
         position: 'fixed',
         top: '20px',
@@ -673,10 +719,12 @@ function showNotification(message, type = 'info') {
     
     document.body.appendChild(notification);
     
+    // Animate in
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
     }, 100);
     
+    // Close button functionality
     const closeBtn = notification.querySelector('.notification-close');
     closeBtn.style.background = 'none';
     closeBtn.style.border = 'none';
@@ -691,6 +739,7 @@ function showNotification(message, type = 'info') {
         setTimeout(() => notification.remove(), 300);
     });
     
+    // Auto remove after 5 seconds
     setTimeout(() => {
         if (notification.parentElement) {
             notification.style.transform = 'translateX(100%)';
@@ -699,6 +748,9 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
+// --- NAVIGATION ---
+
+// Progress page navigation
 const progressElement = document.getElementById('streak-progress');
 if (progressElement) {
     progressElement.addEventListener('click', () => {
@@ -711,13 +763,17 @@ if (progressElement) {
     });
 }
 
+// Navigation link functionality
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', (e) => {
         const text = link.textContent.trim();
         
+        // Remove active class from all links
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        // Add active class to clicked link
         link.classList.add('active');
         
+        // Add ripple effect
         const ripple = document.createElement('div');
         ripple.style.position = 'absolute';
         ripple.style.borderRadius = '50%';
@@ -741,11 +797,14 @@ document.querySelectorAll('.nav-link').forEach(link => {
             }
         }, 600);
         
+        // Navigate based on the link text
         switch(text) {
             case 'Dashboard':
+                // Already on dashboard/calendar page
                 console.log('Already on dashboard page');
                 break;
             case 'Habits':
+                // For now, stay on calendar page since habits functionality is here
                 console.log('Habits clicked - staying on calendar page');
                 break;
                             case 'Progress':
@@ -763,6 +822,8 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
+// --- CALENDAR DATE FUNCTIONALITY ---
+
 let currentSelectedDate = new Date().toISOString().split('T')[0]; // Today's date in YYYY-MM-DD format
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -773,26 +834,33 @@ document.addEventListener('DOMContentLoaded', () => {
             const dateStr = day.getAttribute('data-date');
             if (!dateStr) return;
             
+            // Add click animation
             day.style.transform = 'scale(0.95)';
             setTimeout(() => {
                 day.style.transform = 'scale(1.05)';
             }, 100);
             
+            // Remove 'today' class from all days
             calendarDays.forEach(d => {
                 d.classList.remove('today');
                 d.style.transform = 'scale(1)';
             });
             
+            // Add 'today' class to clicked day
             day.classList.add('today');
             
+            // Update current selected date
             currentSelectedDate = dateStr;
             
+            // Add loading state while fetching habits
             habitContainer.innerHTML = '<div class="loading-spinner">Loading habits for selected date...</div>';
             doneContainer.innerHTML = '<div class="loading-spinner">Loading completed habits...</div>';
             
+            // Fetch habits for the selected date
             await loadHabitsForDate(dateStr);
         });
         
+        // Add hover effects
         day.addEventListener('mouseenter', () => {
             if (!day.classList.contains('today')) {
                 day.style.transform = 'translateY(-2px)';
@@ -806,11 +874,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
+    // Initial load with animation
     setTimeout(() => {
         loadCreatedHabits();
     }, 300);
 });
 
+// Function to load habits for a specific date
 async function loadHabitsForDate(dateStr) {
     const COLOR_MAP = {
         Green: "green",
@@ -838,9 +908,11 @@ async function loadHabitsForDate(dateStr) {
         const data = await resp.json();
         console.log("⇨ fetched data for date:", dateStr, data);
 
+        // Clear containers
         habitContainer.innerHTML = "";
         doneContainer.innerHTML = "";
 
+        // Process TODO habits with staggered animation
         if (data.todo && data.todo.length > 0) {
             data.todo.forEach((habitObj, index) => {
                 setTimeout(() => {
@@ -861,6 +933,7 @@ async function loadHabitsForDate(dateStr) {
             habitContainer.innerHTML = '<div class="empty-state">No habits for this date. Create one! ✨</div>';
         }
 
+        // Process DONE habits with staggered animation
         if (data.done && data.done.length > 0) {
             data.done.forEach((habitObj, index) => {
                 setTimeout(() => {
@@ -881,6 +954,7 @@ async function loadHabitsForDate(dateStr) {
             doneContainer.innerHTML = '<div class="empty-state">No completed habits for this date. 🎯</div>';
         }
 
+        // Update badges
         updateHabitBadges(data.todo?.length || 0, data.done?.length || 0);
 
     } catch (err) {
@@ -891,18 +965,22 @@ async function loadHabitsForDate(dateStr) {
     }
 }
 
+// --- KEYBOARD SHORTCUTS ---
+
 document.addEventListener('keydown', (e) => {
-  
+    // Escape key closes modals
     if (e.key === 'Escape') {
         closeModal();
         closeHabitEditor();
     }
     
+    // Ctrl/Cmd + N opens new habit modal
     if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
         e.preventDefault();
         openModal();
     }
     
+    // Ctrl/Cmd + R refreshes habits
     if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
         e.preventDefault();
         loadCreatedHabits();
@@ -910,6 +988,9 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// --- ENHANCED INTERACTIONS ---
+
+// Add smooth scrolling to page sections
 function smoothScrollTo(element) {
     element.scrollIntoView({
         behavior: 'smooth',
@@ -917,6 +998,7 @@ function smoothScrollTo(element) {
     });
 }
 
+// Add loading states and empty states styles
 const additionalStyles = document.createElement('style');
 additionalStyles.textContent = `
     .loading-spinner {
@@ -985,6 +1067,8 @@ additionalStyles.textContent = `
 `;
 document.head.appendChild(additionalStyles);
 
+// --- ERROR HANDLING ---
+
 window.addEventListener('error', (e) => {
     console.error('JavaScript error:', e.error);
     showNotification('An unexpected error occurred. Please refresh the page.', 'error');
@@ -995,6 +1079,9 @@ window.addEventListener('unhandledrejection', (e) => {
     showNotification('A network error occurred. Please check your connection.', 'error');
 });
 
+// --- PERFORMANCE OPTIMIZATIONS ---
+
+// Throttle function for scroll events
 function throttle(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -1007,7 +1094,7 @@ function throttle(func, wait) {
     };
 }
 
-
+// Add scroll-based navbar transparency
 const navbar = document.getElementById('navbar');
 if (navbar) {
     const handleScroll = throttle(() => {
@@ -1020,6 +1107,7 @@ if (navbar) {
     window.addEventListener('scroll', handleScroll);
 }
 
+// Lazy load animations
 const observeElements = () => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -1038,6 +1126,7 @@ const observeElements = () => {
     });
 };
 
+// Initialize lazy loading after DOM is ready
 document.addEventListener('DOMContentLoaded', observeElements);
 
 console.log('🎉 Habit Tracker initialized successfully!');

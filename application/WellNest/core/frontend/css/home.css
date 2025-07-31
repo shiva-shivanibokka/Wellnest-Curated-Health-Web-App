@@ -1,4 +1,4 @@
-
+/* ---------- SF State color palette ---------- */
 :root {
     --sfsu-purple:      #2E1065;
     --sfsu-purple-light:#43167A;
@@ -9,6 +9,7 @@
     --gray-500:         #495057;
 }
 
+/* ---------- Global reset ---------- */
 * {
   margin: 0;
   padding: 0;
@@ -28,11 +29,13 @@ body {
   flex-direction: column;
 }
 
+/* make your #logo sit above a full‑screen container */
 body {
   align-items: center;
   justify-content: flex-start;
 }
 
+/* ---------- Logo ---------- */
 #logo {
   margin: 20px 0;
   opacity: 0;
@@ -45,6 +48,7 @@ body {
   height: auto;
 }
 
+/* ---------- Home container (now full‑screen!) ---------- */
 #home {
   position: relative;
   overflow: hidden;
@@ -56,8 +60,11 @@ body {
   gap: 30px;
   width: 100%;
   height: 100vh; 
+  /* if you want absolute full‑screen under the logo, use: */
+  /* height: 100vh; margin-top: -[logo-height]; */
 }
 
+/* ---------- Text ---------- */
 .mainText {
   font-size: 48px;
   font-weight: 800;
@@ -79,6 +86,7 @@ body {
   animation-delay: 0.6s;
 }
 
+/* ---------- Buttons ---------- */
 #buttons {
   display: flex;
   flex-direction: column;
@@ -128,12 +136,16 @@ button {
   color: var(--sfsu-gold);
 }
 
+/* ---------- Responsive ---------- */
 @media (max-width: 600px) {
   .mainText { font-size: 36px; }
   .subText  { font-size: 20px; }
   button    { font-size: 18px; }
 }
 
+/* ========== ENHANCEMENTS ========== */
+
+/* animate gradient BG */
 html,
 body {
   background-size: 400% 400%;
@@ -146,6 +158,7 @@ body {
   100% { background-position: 0% 50%; }
 }
 
+/* floating blobs */
 #home::before,
 #home::after {
   content: '';
@@ -179,6 +192,7 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* button “shine” */
 button::after {
   content: '';
   position: absolute;
@@ -195,6 +209,7 @@ button:hover::after {
   top: -50%;
 }
 
+/* ---------- Survey Section Redesign ---------- */
 #surveyOptions {
   background: #fff;
   border-radius: 16px;
