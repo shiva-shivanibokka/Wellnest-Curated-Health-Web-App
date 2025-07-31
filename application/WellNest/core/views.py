@@ -208,6 +208,29 @@ def recurring_habits(request):
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def update_recurring_habit(request):
+    user = request.user
+    name = request.data.get('name')
+    habit_type = request.data.get('habit_type')
+
+    if not all([name, habit_type]):
+        return Response({"error": "Missing name or habit_type"}, status=400)
+
+    try:
+        habit = RecurringHabit.objects.get(user=user, name=name, habit_type=habit_type)
+    except RecurringHabit.DoesNotExist:
+        return Response({"error": "Habit not found"}, status=404)
+
+    # Update fields
+    habit.description = request.data.get('description', habit.description)
+    habit.color = request.data.get('color', habit.color)
+    habit.save()
+
+    return Response({"success": True, "message": "Habit updated"})
+
+
 #Habit log, we keep record of Done Habits
 @api_view(['POST', 'GET'])
 @permission_classes([IsAuthenticated])

@@ -114,3 +114,12 @@ dialog::backdrop {
 #delete-habit:hover {
   background: #6b1db1;
 }
+#save-habit {
+  background: #005813;  
+  border-color: transparent;
+  border-radius: 15px;
+  color:white;
+}
+#save-habit:hover {
+  background: #01942d;
+}

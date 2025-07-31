@@ -114,6 +114,9 @@ async function loadCreatedHabits() {
           document.getElementById('editor-name').textContent = habitObj.name;
           document.getElementById('editor-desc').textContent = habitObj.description || '';
 
+          document.getElementById('editor-description').value = habitObj.description || '';
+          document.getElementById('editor-color').value       = habitObj.color;
+
           //selected days
           document.querySelectorAll('#habit-editor-modal .d-box')
             .forEach(box => {
@@ -152,6 +155,41 @@ deleteHabitBtn.addEventListener('click', async () => {
   habitEditorModal.close();
   loadCreatedHabits();
 });
+
+const saveBtn = document.getElementById('save-habit');
+if (saveBtn) {
+  saveBtn.addEventListener('click', async () => {
+    const updatedDesc  = document.getElementById('editor-description').value.trim();
+    const updatedColor = document.getElementById('editor-color').value;
+    const name         = habitEditorModal.dataset.name;
+    const type         = habitEditorModal.dataset.habitType;
+
+    const resp = await fetch('/api/habit/recurring/update/', {
+      method: 'PATCH',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCSRFToken()
+      },
+      body: JSON.stringify({
+        name:        name,
+        habit_type:  type,
+        description: updatedDesc,
+        color:       updatedColor
+      })
+    });
+
+    if (resp.ok) {
+      habitEditorModal.close();
+      loadCreatedHabits();
+    } else {
+      const err = await resp.json();
+      alert('Update failed: ' + JSON.stringify(err));
+    }
+  });
+}
+
+
 
 // Add habit form
 form.addEventListener('submit', async e => {
@@ -235,6 +273,7 @@ function initValuePlaceholder() {
 document.addEventListener('DOMContentLoaded', () => {
     initDayToggles();
     initValuePlaceholder();
+    loadCreatedHabits();
 });
 
 //csrf
@@ -244,4 +283,3 @@ function getCSRFToken() {
     ?.split('=')[1];
 }
 
-document.addEventListener('DOMContentLoaded', loadCreatedHabits);

@@ -186,6 +186,19 @@
     <button type="button" class="close-btn" data-dialog-id="habit-editor-modal">×</button>
     <h3 id="editor-name">Habit Name</h3>
     <h4 id="editor-desc">Description</h4>
+    <!-- desc editor -->
+    <label for="editor-description">Description</label>
+    <input id="editor-description" type="text" placeholder="Description">
+
+    <!-- color editor -->
+    <label for="editor-color">Tag</label>
+    <select id="editor-color">
+      <option value="Green">Green</option>
+      <option value="Purple">Purple</option>
+      <option value="Gold">Gold</option>
+      <option value="Blue">Blue</option>
+      <option value="Red">Red</option>
+    </select>
 
     <p>Repeating on:</p>
     <div class="day-select">
@@ -199,6 +212,7 @@
     </div>
 
     <div class="form-actions">
+      <button id="save-habit">Save Changes</button>
       <button id="delete-habit">Delete Habit</button>
     </div>
   </div>

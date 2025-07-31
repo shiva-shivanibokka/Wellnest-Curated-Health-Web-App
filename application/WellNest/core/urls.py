@@ -5,6 +5,8 @@ from .views import get_today_recurring_habits
 from .views import recurring_habits
 from .views import log_completed_habit, delete_habit_log
 from .views import daily_quote_proxy
+from .views import update_recurring_habit
+
 
 
 urlpatterns = [
@@ -63,4 +65,8 @@ urlpatterns = [
     # Show Wellnest Circles
     path('api/circles/', views.get_wellnest_circles, name='get_wellnest_circles'),
     path('api/circles/search/', views.search_wellnest_circles, name='search_wellnest_circles'),
+
+    #editing habits
+    path('api/habit/recurring/update/', update_recurring_habit, name='update_recurring_habit'),
+
 ]
