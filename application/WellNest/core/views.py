@@ -566,3 +566,43 @@ def search_wellnest_circles(request):
             'success': True,
             'circles': circles_data
         })
+
+
+## user profile
+@api_view(['GET', 'PATCH'])
+@permission_classes([IsAuthenticated])
+def user_profile(request):
+    if request.method == 'GET':
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+        serializer = UserSerializer(request.user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+
+
+# Delete User
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_user_account(request):
+    user = request.user
+
+    # Delete related objects
+    RecurringHabit.objects.filter(user=user).delete()
+    HabitLog.objects.filter(user=user).delete()
+    FriendRequest.objects.filter(Q(sender=user) | Q(receiver=user)).delete()
+    Notification.objects.filter(user=user).delete()
+    Friend.objects.filter(Q(user1=user) | Q(user2=user)).delete()
+
+    # Remove user from circles ASK @KEVIN TO CHECK THIS
+    for circle in user.joined_wellnest_circles.all():
+        circle.members.remove(user)
+    user.created_wellnest_circles.all().delete()
+
+    #delete the user account
+    user.delete()
+
+    return Response(status=204)

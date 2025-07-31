@@ -17,7 +17,7 @@
         <div id="left">
             <form id="signup-form" method="post">
                 {% csrf_token %}
-                <h2 class="form-title">Sign Up</h2>
+                <h2 class="form-title" style="margin-bottom: -.5px;">Sign Up</h2>
 
                 <input type="text" id="username" name="username" placeholder="Username" required>
                 <input type="email" id="email" name="email" placeholder="Email" required>
@@ -32,10 +32,13 @@
                     <option value="O">Other</option>
                 </select>
 
-                <div id="buttons">
+                <div id="buttons" style="margin-top: -20px;">
                     <button type="submit" id="signup-btn" class="btn primary-btn">Sign Up</button>
                     <button type="button" id="signin-btn" class="btn secondary-btn">Sign In</button>
+                   
                 </div>
+
+                 <div style="height: 20px;"></div>
             </form>
 
             <div id="message" style="margin-top: 10px; padding: 10px; display: none;"></div>

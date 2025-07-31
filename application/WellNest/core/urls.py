@@ -69,4 +69,12 @@ urlpatterns = [
     #editing habits
     path('api/habit/recurring/update/', update_recurring_habit, name='update_recurring_habit'),
 
+    #profile
+    path('api/user/profile/', views.user_profile, name='user_profile'),
+
+    #Delete User
+    path('api/user/delete/', views.delete_user_account, name='delete_user_account'),
+
+
+
 ]
