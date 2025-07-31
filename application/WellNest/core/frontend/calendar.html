@@ -1,360 +1,269 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Habit Tracker - Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel="stylesheet" href="{% static 'header.css' %}">
+    <link rel="stylesheet" href="{% static 'sideNav.css' %}">
+    <link rel="stylesheet" href="{% static 'glass.css' %}">
+    <link rel="stylesheet" href="{% static 'form.css' %}">
     <link rel="stylesheet" href="{% static 'calendar.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
-    <!-- Animated Background Elements -->
-    <div class="bg-animation">
-        <div class="floating-shapes">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
-            <div class="shape shape-4"></div>
-            <div class="shape shape-5"></div>
+    <!-- csrf token -->
+    <form style="display: none;">{% csrf_token %}</form>
+
+    <div id="header">
+        <div class="box" id="profile-div">
+            <input type="text" id="search-box" placeholder="Search habits or people..." />
+            <img src="{% static 'streak-hot.png' %}" alt="streak-hot" id="streak-hot">
+            <a href="{% url 'profile' %}"><img src="{% static 'pf.png' %}" href="{% url 'profile' %}" alt="pf icon"id="pf-icon"></a>
+        </div>
+
+        <div class="box" id="search-div"></div>
+        <div class="box" id="menu-div">
+            <img src="{% static 'menu.png' %}" alt="hamburger-menu" id="hamburger-menu">
         </div>
     </div>
 
-    <!-- NAVBAR -->
-    <nav id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <div class="logo-icon">
-                    <img src="{% static 'WellNest.png' %}" alt="WellNest Logo" style="width: 32px; height: 32px; border-radius: 8px;">
+    <div id="sideNav">
+        <div class="nav-top">
+            <div id="icons" style="display: flex; justify-content: space-between; margin-top: -15px;">
+                <div id="icons-left">
+                    <img src="{% static 'wn.png' %}" alt="WN Logo" id="navLogo" style="margin-left: -20px;">
                 </div>
-                <span class="logo-text">WellNest</span>
-            </div>
-            <div class="nav-links">
-                <div class="nav-link active">
-                    <span class="nav-icon">📊</span>
-                    Dashboard
-                </div>
-                <div class="nav-link">
-                    <span class="nav-icon">🎯</span>
-                    Habits
-                </div>
-                <div class="nav-link" onclick="window.location.href='/progress'">
-                    <span class="nav-icon">📈</span>
-                    Progress
-                </div>
-                <div class="nav-link" onclick="window.location.href='/leaderboard'">
-                    <span class="nav-icon">🏆</span>
-                    Leaderboard
-                </div>
-                <div class="nav-link" onclick="window.location.href='/socials'">
-                    <span class="nav-icon">👥</span>
-                    Socials
+                <div id="icons-right">
+                    <img src="{% static 'menu.png' %}" alt="close-nav" style="width: 40px;" id="close-nav">
                 </div>
             </div>
-            <div class="nav-profile">
-                <div class="profile-avatar">{{ user_name|first|upper }}</div>
-                <div class="profile-dropdown">
-                    <div class="profile-info">
-                        <span class="profile-name">{{ user_name }}</span>
-                        <span class="profile-email">{{ user.email }}</span>
-                    </div>
-                    <a href="/" class="logout-btn">
-                        <span class="logout-icon">🚪</span>
-                        Logout
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
 
-    <!-- HEADER -->
-    <header id="dashboard-header">
-        <div class="header-content">
-            <div class="greeting-section">
-                <h1 class="greeting-title">Hello, {{ user_name }}! 👋</h1>
-                <div class="greeting-subtitle">
-                    <span class="day-label">Today</span>
-                    <span class="date-label">July 29th, 2025</span>
-                </div>
-            </div>
-            <div class="header-stats">
-                <div class="stat-card">
-                    <div class="stat-number">12</div>
-                    <div class="stat-label">Day Streak</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">85%</div>
-                    <div class="stat-label">This Week</div>
-                </div>
-            </div>
+            <a href="{% url 'calendar' %}" class="nav-link">Home</a>
+            <a href="{% url 'progress' %}" class="nav-link">Progress</a>
+            <a href="{% url 'socials' %}" class="nav-link">Socials</a>
         </div>
-    </header>
 
-    <!-- CALENDAR BAR -->
-    <div id="calendar-bar">
-        <div class="calendar-container">
+        <div class="nav-bottom">
+            <a href="{% url 'review' %}" class="nav-link">Review</a>
+            <a href="{% url 'about' %}" class="nav-link">About</a>
+        </div>
+    </div>
+
+    
+
+    <div id="today">
+        <div id="right"></div>
+        <div id="center">
+            <h1>Hello, {{ user.first_name|default:user.username }}!</h1>
+            <h2>Today</h2>
+            <h3>{{ today|date:"F jS" }}</h3>
+        </div>
+        <div id="left"></div>
+    </div>
+
+    <div id="calendar">
+        <div id="calendarIcon">
+            <img src="{% static 'image 18.png' %}" alt="calendarIcon-home">
+        </div>
+        <div id="calendarDates">
             {% for day in week_days %}
-            <div class="calendar-day {% if day == today %}today{% endif %}" data-date="{{ day|date:'Y-m-d' }}">
-                <div class="day-date">{{ day.day }}</div>
-                <div class="day-name">{{ day|date:'D' }}</div>
-                {% if day == today %}
-                <div class="today-indicator"></div>
-                {% endif %}
+            <div class="days {% if day == today %}today-box{% endif %}">
+              {{ day|date:"M j" }}
             </div>
-            {% endfor %}
+          {% endfor %}
         </div>
     </div>
 
-    <!-- MAIN CONTENT -->
-    <main id="main-content">
-        <section class="block-left">
-            <div class="dashboard-card todo-card">
-                <div class="card-header">
-                    <h2 class="card-title">
-                        <span class="title-icon">📝</span>
-                        To Do
-                    </h2>
-                    <div class="card-badge">0 left</div>
-                </div>
-                <div id="habit-container" class="habit-list"></div>
-                <button id="add-habit-button" class="add-habit-btn">
-                    <span class="btn-icon">✨</span>
-                    Add New Habit
-                </button>
-            </div>
-
-            <div class="dashboard-card done-card">
-                <div class="card-header">
-                    <h2 class="card-title">
-                        <span class="title-icon">✅</span>
-                        Completed
-                    </h2>
-                    <div class="card-badge success">0 done</div>
-                </div>
-                <div id="done-container" class="habit-list"></div>
-            </div>
-        </section>
-
-        <section class="block-right">
-            <div class="dashboard-card progress-card">
-                <div class="card-header">
-                    <h2 class="card-title">
-                        <span class="title-icon">🔥</span>
-                        Progress
-                    </h2>
-                </div>
-                <div class="progress-content">
-                    <div class="streak-box">
-                        <div class="flame-container">
-                            <svg width="100" height="140" viewBox="0 0 100 140" fill="none" class="flame-svg">
-                                <defs>
-                                    <linearGradient id="flameGradient" x1="0%" y1="100%" x2="0%" y2="0%">
-                                        <stop offset="0%" style="stop-color:#ff6b6b">
-                                            <animate attributeName="stop-color" 
-                                                values="#ff6b6b;#ff8e53;#ff6b6b" 
-                                                dur="2s" 
-                                                repeatCount="indefinite"/>
-                                        </stop>
-                                        <stop offset="50%" style="stop-color:#feca57">
-                                            <animate attributeName="stop-color" 
-                                                values="#feca57;#ff9ff3;#feca57" 
-                                                dur="1.5s" 
-                                                repeatCount="indefinite"/>
-                                        </stop>
-                                        <stop offset="100%" style="stop-color:#48dbfb">
-                                            <animate attributeName="stop-color" 
-                                                values="#48dbfb;#0abde3;#48dbfb" 
-                                                dur="1.8s" 
-                                                repeatCount="indefinite"/>
-                                        </stop>
-                                    </linearGradient>
-                                    <filter id="glow">
-                                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                                        <feMerge> 
-                                            <feMergeNode in="coloredBlur"/>
-                                            <feMergeNode in="SourceGraphic"/>
-                                        </feMerge>
-                                    </filter>
-                                </defs>
-                                <path d="M50 20Q65 55 85 80Q105 108 83 126Q61 141 39 124Q17 107 38 77Q57 53 50 20" 
-                                      fill="url(#flameGradient)" 
-                                      filter="url(#glow)"
-                                      class="flame-path">
-                                    <animateTransform
-                                        attributeName="transform"
-                                        attributeType="XML"
-                                        type="scale"
-                                        values="1 1;1.05 0.95;1 1"
-                                        dur="1.5s"
-                                        repeatCount="indefinite"/>
-                                </path>
-                                <path d="M50 64Q69 95 55 115Q44 127 31 111Q16 95 30 78Q41 67 46 59Q48 54 50 64" 
-                                      fill="rgba(255,255,255,0.3)"
-                                      class="flame-inner">
-                                    <animateTransform
-                                        attributeName="transform"
-                                        attributeType="XML"
-                                        type="scale"
-                                        values="1 1;0.95 1.05;1 1"
-                                        dur="1.2s"
-                                        repeatCount="indefinite"/>
-                                </path>
-                            </svg>
-                        </div>
-                        <div class="streak-info">
-                            <div class="streak-number">12</div>
-                            <div class="streak-label">Day Streak</div>
-                        </div>
-                    </div>
-                    <div class="progress-stats">
-                        <div class="progress-item">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 75%"></div>
-                            </div>
-                            <div class="progress-text">
-                                <span>Weekly Goal</span>
-                                <span>75%</span>
-                            </div>
-                        </div>
-                        <div class="progress-item">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 60%"></div>
-                            </div>
-                            <div class="progress-text">
-                                <span>Monthly Goal</span>
-                                <span>60%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="dashboard-card insights-card">
-                <div class="card-header">
-                    <h2 class="card-title">
-                        <span class="title-icon">💡</span>
-                        Insights
-                    </h2>
-                </div>
-                <div class="insights-content">
-                    <div class="insight-item">
-                        <div class="insight-icon">🎯</div>
-                        <div class="insight-text">
-                            <div class="insight-title">Best Streak</div>
-                            <div class="insight-desc">15 days last month</div>
-                        </div>
-                    </div>
-                    <div class="insight-item">
-                        <div class="insight-icon">⭐</div>
-                        <div class="insight-text">
-                            <div class="insight-title">Most Active</div>
-                            <div class="insight-desc">Monday mornings</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Modal Overlay -->
-    <div class="modal-overlay" id="modal-overlay"></div>
-
-    <!-- Habit Form Modal -->
-    <form id="habit-form" class="habit-modal">
-        <div class="modal-header">
-            <h3>✨ Create New Habit</h3>
-            <button type="button" class="modal-close" id="form-cancel">×</button>
+    <div id="quote-div">
+        <div id="quote-right"></div>
+        <div id="quote-center">
+            <h3 style="margin-bottom: -10px;">Quote of the day</h3>
+            <br> <div id="quote">"Always do your best"</div> <br> <div id="author"></div>
         </div>
-        
-        <div class="modal-body">
-            <div class="form-group">
-                <label for="habit-name">Habit Name</label>
-                <input type="text" name="name" id="habit-name" placeholder="e.g., Drink 8 glasses of water" required>
-            </div>
+        <div id="quote-left"></div>
+    </div>
 
-            <div class="form-group">
-                <label for="habit-description">Description (Optional)</label>
-                <textarea name="description" id="habit-description" placeholder="Add some motivation or details..."></textarea>
-            </div>
+      <script>
+        // to get past cors made Django API proxy u learn smt new everyday ! 
+    fetch("/quote")
+      .then(res => res.json())
+      .then(data => {
+        const quote = data[0];
+        document.getElementById("quote").textContent = `"${quote.q}"`;
+        document.getElementById("author").textContent = `– ${quote.a}`;
+      })
+      .catch(err => {
+        document.getElementById("quote").textContent = "Failed to load quote.";
+        console.error(err);
+      });
+  </script>
 
-            <div class="form-group">
-                <label>Color Theme</label>
-                <div class="color-picker">
-                    <input type="radio" name="color" value="Green" id="color-green" checked>
-                    <label for="color-green" class="color-option green"></label>
-                    
-                    <input type="radio" name="color" value="Purple" id="color-purple">
-                    <label for="color-purple" class="color-option purple"></label>
-                    
-                    <input type="radio" name="color" value="Red" id="color-red">
-                    <label for="color-red" class="color-option red"></label>
-                    
-                    <input type="radio" name="color" value="Blue" id="color-blue">
-                    <label for="color-blue" class="color-option blue"></label>
-                    
-                    <input type="radio" name="color" value="Gold" id="color-gold">
-                    <label for="color-gold" class="color-option gold"></label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Repeat Days</label>
-                <div class="repeat-days">
-                    <div class="day-box" data-day="Mon">M</div>
-                    <div class="day-box" data-day="Tue">T</div>
-                    <div class="day-box" data-day="Wed">W</div>
-                    <div class="day-box" data-day="Thu">T</div>
-                    <div class="day-box" data-day="Fri">F</div>
-                    <div class="day-box" data-day="Sat">S</div>
-                    <div class="day-box" data-day="Sun">S</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal-footer">
-            <button type="button" id="form-cancel-btn" class="btn-secondary">Cancel</button>
-            <button type="submit" id="form-submit" class="btn-primary">
-                <span class="btn-icon">✨</span>
-                Create Habit
+    <div style="margin: 20px;">
+        <div id="todo" style="display: flex;">
+            <h2>To Do</h2>
+            <button id="add-habit-button" > add habit
+            <img src="{% static 'plus.png' %}" style="height: 10px;" alt="">
             </button>
-        </div>
-    </form>
 
-    <!-- Habit Editor Modal -->
-    <div id="habit-editor" class="habit-modal">
-        <div class="modal-header">
-            <h3>Edit Habit</h3>
-            <button type="button" class="modal-close">×</button>
         </div>
-        
-        <div class="modal-body">
-            <h4>Description will appear here</h4>
-            <div class="repeat-days">
-                <div class="day-box">M</div>
-                <div class="day-box">T</div>
-                <div class="day-box">W</div>
-                <div class="day-box">T</div>
-                <div class="day-box">F</div>
-                <div class="day-box">S</div>
-                <div class="day-box">S</div>
+        <div style="display: flex; gap: 20px; justify-content: space-between;">
+
+
+        <div id="habit-container" style=" flex-grow:2;">
+
+        </div>
+
+        <div id="habit-editor">
+            <div style="display: flex; flex-direction: column; text-align: center;"> <h3 style="margin-bottom: -10px;">Habit Name</h3> <h4>Description</h4> </div>
+
+            <p style="text-align: left; margin-left: 40px;">repeating on</p>
+            <div style="display: flex; flex-direction: row; justify-content: space-evenly; text-align: center;">
+            
+            <div class="d-box" data-day="Sunday">S</div>
+            <div class="d-box" data-day="Monday">M</div>
+            <div class="d-box" data-day="Tuesday">T</div>
+            <div class="d-box" data-day="Wednesday">W</div>
+            <div class="d-box" data-day="Thursday">Th</div>
+            <div class="d-box" data-day="Friday">F</div>
+            <div class="d-box" data-day="Saturday">S</div>
+
             </div>
+
+            <div style="margin-top: 20px;"> <button id="delete-habit" style="border: transparent; background-color: #e74c3c; color: white; border-radius: 10px;">Delete Habit</button></div>
+
+
         </div>
 
-        <div class="modal-footer">
-            <button type="button" id="delete-habit" class="btn-danger">
-                <span class="btn-icon">🗑️</span>
-                Delete Habit
-            </button>
+
+        <div id="habit-info" action="">
+            <form id="habit-form" action="">
+                {% csrf_token %}
+                    <div id="habit-form-info"> <input id="habit-form-name" type="text" placeholder="Habit Name" required> 
+                    <input type="text" id="habit-form-description" placeholder="Description"> 
+                                    <div id="habit-color" style="display: flex; flex-direction: row; margin-top: 20px;">
+
+                                    <!--drop down for choosing color-->
+                                    <label for="color-picker" style="margin-left: 20px;">Tag</label>
+                                    <select id="color-picker" name="color-picker" style=" margin-right: 20px;">
+                                    <option value="" disabled selected>Select color</option>
+                                    <option value="Green">Green</option>
+                                    <option value="Purple">Purple</option>
+                                    <option value="Gold">Gold</option>
+                                    <option value="Blue">Blue</option>
+                                    <option value="Red">Red</option>
+                                    </select>
+
+                                    <!--drop down for choosing predefined habits-->
+                                    <label for="habit-type" required>Habits</label>
+                                    <select id="habit-type" name="habit-type" style=" margin-right: 20px;">
+                                    <option value="" disabled selected>Select type</option>
+                                    <option value="water">Water Intake</option>
+                                    <option value="sleep">Sleep Log</option>
+                                    <option value="food">Food Intake</option>
+                                    <option value="workout">Workout</option>
+                                    <option value="custom">Custom</option>
+                                    </select>
+
+                                    <!--choosing value-->
+                                    <input type="number" id="value-input" name="value" placeholder="Enter value" style="width: 100px;">
+
+
+                                    </div>
+
+                    </div>
+
+                    <p style="text-align: left; margin-left: 40px;">repeat</p>
+                    <div style="display: flex; flex-direction: row; justify-content: space-evenly; text-align: center;">
+                    
+                    <div class="day-box" data-day="Sunday">S</div>
+                    <div class="day-box" data-day="Monday">M</div>
+                    <div class="day-box" data-day="Tuesday">T</div>
+                    <div class="day-box" data-day="Wednesday">W</div>
+                    <div class="day-box" data-day="Thursday">Th</div>
+                    <div class="day-box" data-day="Friday">F</div>
+                    <div class="day-box" data-day="Saturday">S</div>
+
+                        
+
+                    </div>
+
+                    <div style="display:flex; justify-content: flex-end; margin-top: 20px;">
+                          <button type="submit" id="form-submit"> add habit
+                          <img src="{% static 'plus.png' %}" style="height: 10px;" alt="">
+                          </button>
+                    </div>
+
+            </form>
+
+
+
+        </div>
+<style>
+    #habit-info{
+display: none;
+flex-grow: 2;
+border: 5px ; 
+padding: 3px;
+border-radius: 15px; 
+box-shadow: 2px 2px 5px gray; 
+
+}
+</style>
+
+
+
+        <!--streak progress element-->
+        <div style="flex-grow: .5; margin-right: 40px; border: 5px solid black; border-radius: 15px;display: flex; align-items: center; justify-content: center; flex-direction: column; max-height: 200px; text-align: center;">
+            <button style="margin-top: 10px; margin-bottom: -40px" id="streak-progress" > Progress </button> <br>
+            <h2 style="font-size: 50px;">59 <img src="{% static 'streak-hot.png' %}" alt="" style="height: 40px;"></h2> <br> <b style="margin-top: -40px; padding-bottom: 10px;">Highest Streak</b>
+        </div>
+        <style>#streak-progress{
+        background-color: #4e148c;
+        color: gold;
+        padding: 36px;
+        border: none;
+        border-radius: 15px;
+        font-size: 20px;
+        font-weight: 500;
+        width: 250px ;
+        min-width: 150px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        }
+        </style>
+
+        </div>
+
+
+
+    </div>
+
+    <div style="margin: 20px;">
+        <div>
+            <h2>Done</h2>
+            <div id="done-container"></div> 
         </div>
     </div>
 
     <script>
-        // Set up static URLs for JavaScript
         window.STATIC_URLS = {
-            checkEmpty: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3C/svg%3E",
-            checkDone: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/%3E%3Cpolyline points='22,4 12,14.01 9,11.01'/%3E%3C/svg%3E"
+            checkEmpty: "{% static 'check-empty.png' %}",
+            checkDone: "{% static 'check.png' %}"
         };
     </script>
+
+    <script src="{% static 'form.js' %}"></script>
     <script src="{% static 'calendar.js' %}"></script>
+    <script src="{% static 'sideNav.js' %}"></script>
 </body>
+
 </html>

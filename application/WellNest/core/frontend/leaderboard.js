@@ -34,16 +34,13 @@ function setupNavigation() {
                 case 'Dashboard':
                     window.location.href = '/calendar';
                     break;
-                            case 'Progress':
-                window.location.href = '/progress';
-                break;
-            case 'Leaderboard':
-                // Already on leaderboard page
-                console.log('Already on leaderboard page');
-                break;
-            case 'Socials':
-                window.location.href = '/socials';
-                break;
+                case 'Progress':
+                    window.location.href = '/progress';
+                    break;
+                case 'Leaderboard':
+                    // Already on leaderboard page
+                    console.log('Already on leaderboard page');
+                    break;
                 case 'Habits':
                     // For now, stay on leaderboard page since habits functionality might be in calendar
                     console.log('Habits clicked - staying on leaderboard page');

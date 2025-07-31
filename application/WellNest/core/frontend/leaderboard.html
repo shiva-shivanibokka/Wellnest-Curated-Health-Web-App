@@ -46,16 +46,14 @@
                     <span class="nav-icon">🏆</span>
                     Leaderboard
                 </div>
-                <div class="nav-link" onclick="window.location.href='/socials'">
-                    <span class="nav-icon">👥</span>
-                    Socials
-                </div>
             </div>
             <div class="nav-profile">
                 <div class="profile-avatar">{{ user_name|first|upper }}</div>
                 <div class="profile-dropdown">
-                    <a href="/profile" class="dropdown-link">👤 Profile</a>
-                    <a href="/settings" class="dropdown-link">⚙️ Settings</a>
+                    <div class="profile-info">
+                        <span class="profile-name">{{ user_name }}</span>
+                        <span class="profile-email">{{ user.email }}</span>
+                    </div>
                     <a href="/" class="logout-btn">
                         <span class="logout-icon">🚪</span>
                         Logout

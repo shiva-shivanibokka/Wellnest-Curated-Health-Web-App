@@ -1,290 +1,117 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Profile - WellNest</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'profile.css' %}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile Page</title>
+  <link rel="stylesheet" href="{% static 'profile.css' %}">
+  <link rel="stylesheet" href="{% static 'header.css' %}">
+  <link rel="stylesheet" href="{% static 'sideNav.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
 </head>
+
 <body>
-    <!-- Animated Background Elements -->
-    <div class="bg-animation">
-        <div class="floating-shapes">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
-            <div class="shape shape-4"></div>
-            <div class="shape shape-5"></div>
-        </div>
+  <div class="page-container">
+    <div id="header">
+      <div class="box" id="profile-div">
+        <input type="text" id="search-box" placeholder="Search habits or people..." />
+        <img src="{% static 'streak-hot.png' %}" alt="streak-hot" id="streak-hot">
+            <a href="{% url 'profile' %}"><img src="{% static 'pf.png' %}" href="{% url 'profile' %}" alt="pf icon"id="pf-icon"></a>
+      </div>
+
+      <div class="box" id="search-div"></div>
+      <div class="box" id="menu-div">
+        <img src="{% static 'menu.png' %}" alt="hamburger-menu" id="hamburger-menu">
+      </div>
     </div>
 
-    <!-- NAVBAR -->
-    <nav id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <div class="logo-icon">
-                    <img src="{% static 'WellNest.png' %}" alt="WellNest Logo" style="width: 32px; height: 32px; border-radius: 8px;">
-                </div>
-                <span class="logo-text">WellNest</span>
-            </div>
-            <div class="nav-links">
-                <div class="nav-link" onclick="window.location.href='/calendar'">
-                    <span class="nav-icon">📊</span>
-                    Dashboard
-                </div>
-                <div class="nav-link">
-                    <span class="nav-icon">🎯</span>
-                    Habits
-                </div>
-                <div class="nav-link" onclick="window.location.href='/progress'">
-                    <span class="nav-icon">📈</span>
-                    Progress
-                </div>
-                <div class="nav-link" onclick="window.location.href='/leaderboard'">
-                    <span class="nav-icon">🏆</span>
-                    Leaderboard
-                </div>
-                <div class="nav-link" onclick="window.location.href='/socials'">
-                    <span class="nav-icon">👥</span>
-                    Socials
-                </div>
-            </div>
-            <div class="nav-profile">
-                <div class="profile-avatar">{{ user_name|first|upper }}</div>
-                <div class="profile-dropdown">
-                    <a href="/profile" class="dropdown-link">👤 Profile</a>
-                    <a href="/settings" class="dropdown-link">⚙️ Settings</a>
-                    <a href="/" class="logout-btn">
-                        <span class="logout-icon">🚪</span>
-                        Logout
-                    </a>
-                </div>
-            </div>
+    <div id="sideNav">
+      <div class="nav-top">
+        <div id="icons" style="display: flex; justify-content: space-between; margin-top: -15px;">
+          <div id="icons-left">
+            <img src="{% static 'wn.png' %}" alt="WN Logo" id="navLogo" style="margin-left: -20px;">
+          </div>
+          <div id="icons-right">
+            <img src="{% static 'menu.png' %}" alt="close-nav" style="width: 40px;" id="close-nav">
+          </div>
         </div>
-    </nav>
 
-    <!-- MAIN CONTENT -->
-    <main id="main-content">
-        <!-- Page Title -->
-        <header class="page-header">
-            <h1 class="page-title">Profile</h1>
-            <p class="page-subtitle">Manage your personal information and preferences</p>
-        </header>
+        <a href="{% url 'calendar' %}" class="nav-link">Home</a>
+        <a href="{% url 'progress' %}" class="nav-link">Progress</a>
+        <a href="{% url 'socials' %}" class="nav-link">Socials</a>
+      </div>
 
-        <!-- Profile Content -->
-        <div class="profile-container">
-            <!-- Profile Card -->
-            <section class="profile-section">
-                <div class="profile-card">
-                    <div class="profile-header">
-                        <div class="profile-avatar-large">
-                            <div class="avatar-initial">{{ user_name|first|upper }}</div>
-                            <button class="edit-avatar-btn">
-                                <span class="edit-icon">📷</span>
-                            </button>
-                        </div>
-                        <div class="profile-info-main">
-                            <h2 class="profile-name-large">{{ user_name }}</h2>
-                            <p class="profile-email-large">{{ user.email }}</p>
-                            <div class="profile-stats">
-                                <div class="stat-item">
-                                    <span class="stat-number">15</span>
-                                    <span class="stat-label">Days Active</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-number">8</span>
-                                    <span class="stat-label">Habits</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-number">85%</span>
-                                    <span class="stat-label">Completion</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+      <div class="nav-bottom">
+        <a href="{% url 'review' %}" class="nav-link">Review</a>
+        <a href="{% url 'about' %}" class="nav-link">About</a>
+      </div>
+    </div>
 
-            <!-- Personal Information -->
-            <section class="profile-section">
-                <div class="profile-card">
-                    <div class="card-header">
-                        <div class="header-icon">👤</div>
-                        <h2 class="card-title">Personal Information</h2>
-                    </div>
-                    <form id="profile-form" class="profile-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="firstName">First Name</label>
-                                <input type="text" id="firstName" name="firstName" value="{{ user.first_name }}" placeholder="Enter first name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName">Last Name</label>
-                                <input type="text" id="lastName" name="lastName" value="{{ user.last_name }}" placeholder="Enter last name" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" value="{{ user.email }}" placeholder="Enter email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="text" id="username" name="username" value="{{ user.username }}" placeholder="Enter username" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="gender">Gender</label>
-                                <select id="gender" name="gender" required>
-                                    <option value="">Select gender</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="age">Age</label>
-                                <input type="number" id="age" name="age" placeholder="Enter age" min="13" max="120">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="bio">Bio</label>
-                            <textarea id="bio" name="bio" placeholder="Tell us about yourself..." rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary save-btn">
-                            <span class="btn-icon">💾</span>
-                            Save Changes
-                        </button>
-                    </form>
-                </div>
-            </section>
+    <div class="card">
+      <div class="profile-icon">&#128100;</div>
+      <button class="edit-btn">Edit</button>
 
-            <!-- Wellness Goals -->
-            <section class="profile-section">
-                <div class="profile-card">
-                    <div class="card-header">
-                        <div class="header-icon">🎯</div>
-                        <h2 class="card-title">Wellness Goals</h2>
-                    </div>
-                    <div class="goals-container">
-                        <div class="goal-item">
-                            <div class="goal-icon">🏃‍♂️</div>
-                            <div class="goal-content">
-                                <h3>Daily Exercise</h3>
-                                <p>30 minutes of physical activity</p>
-                                <div class="goal-progress">
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" style="width: 75%"></div>
-                                    </div>
-                                    <span class="progress-text">75%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="goal-item">
-                            <div class="goal-icon">💧</div>
-                            <div class="goal-content">
-                                <h3>Water Intake</h3>
-                                <p>8 glasses of water per day</p>
-                                <div class="goal-progress">
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" style="width: 90%"></div>
-                                    </div>
-                                    <span class="progress-text">90%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="goal-item">
-                            <div class="goal-icon">😴</div>
-                            <div class="goal-content">
-                                <h3>Sleep Quality</h3>
-                                <p>8 hours of quality sleep</p>
-                                <div class="goal-progress">
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" style="width: 60%"></div>
-                                    </div>
-                                    <span class="progress-text">60%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+      <form id="profile-form">
+        <label>First Name</label>
+        <input type="text" placeholder="Enter first name" name="firstName" required />
 
-            <!-- Achievements -->
-            <section class="profile-section">
-                <div class="profile-card">
-                    <div class="card-header">
-                        <div class="header-icon">🏆</div>
-                        <h2 class="card-title">Achievements</h2>
-                    </div>
-                    <div class="achievements-grid">
-                        <div class="achievement-item unlocked">
-                            <div class="achievement-icon">🔥</div>
-                            <h3>7-Day Streak</h3>
-                            <p>Completed habits for 7 consecutive days</p>
-                        </div>
-                        <div class="achievement-item unlocked">
-                            <div class="achievement-icon">💪</div>
-                            <h3>First Goal</h3>
-                            <p>Completed your first wellness goal</p>
-                        </div>
-                        <div class="achievement-item locked">
-                            <div class="achievement-icon">🌟</div>
-                            <h3>30-Day Master</h3>
-                            <p>Complete habits for 30 consecutive days</p>
-                        </div>
-                        <div class="achievement-item locked">
-                            <div class="achievement-icon">🎯</div>
-                            <h3>Goal Crusher</h3>
-                            <p>Achieve 100% completion rate for a week</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <label>Last Name</label>
+        <input type="text" placeholder="Enter last name" name="lastName" required />
 
-            <!-- Quick Actions -->
-            <section class="profile-section">
-                <div class="profile-card">
-                    <div class="card-header">
-                        <div class="header-icon">⚙️</div>
-                        <h2 class="card-title">Quick Actions</h2>
-                    </div>
-                    <div class="actions-grid">
-                        <button class="action-btn" onclick="window.location.href='/settings'">
-                            <span class="action-icon">⚙️</span>
-                            <span class="action-text">Settings</span>
-                        </button>
-                        <button class="action-btn">
-                            <span class="action-icon">📊</span>
-                            <span class="action-text">Export Data</span>
-                        </button>
-                        <button class="action-btn">
-                            <span class="action-icon">🔔</span>
-                            <span class="action-text">Notifications</span>
-                        </button>
-                        <button class="action-btn">
-                            <span class="action-icon">👥</span>
-                            <span class="action-text">Invite Friends</span>
-                        </button>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
+        <label>Email</label>
+        <input type="email" placeholder="Enter email" name="email" required />
 
-    <!-- Success Popup -->
+        <label>Gender</label>
+        <select name="gender" required>
+          <option value="">Select gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <button type="submit" class="save-btn">Save</button>
+      </form>
+    </div>
+
     <div id="popup" class="popup hidden">
-        <div class="popup-content">
-            <div class="popup-icon">✅</div>
-            <h3>Success!</h3>
-            <p>Your profile information has been saved successfully.</p>
-            <button id="close-popup" class="btn btn-primary">Close</button>
-        </div>
+      <div class="popup-content">
+        <strong>Information Saved!</strong>
+        <button id="close-popup">Close</button>
+      </div>
     </div>
+  </div>
 
-    <script src="{% static 'profile.js' %}"></script>
+  <script src="script.js"></script>
+
+  <script>
+    const form = document.getElementById("profile-form");
+    const popup = document.getElementById("popup");
+    const closePopup = document.getElementById("close-popup");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); // Prevents the page from refreshing
+
+      // Optionally you could add validation or logging here
+
+      // Show the popup
+      popup.classList.remove("hidden");
+    });
+
+    closePopup.addEventListener("click", function () {
+      popup.classList.add("hidden");
+
+      // Optional: Reset form after saving
+      form.reset();
+    });
+  </script>
+  <script src="{% static 'sideNav.js' %}"></script>
+  <script src="{% static 'header.js' %}"></script>
 </body>
+
 </html>
