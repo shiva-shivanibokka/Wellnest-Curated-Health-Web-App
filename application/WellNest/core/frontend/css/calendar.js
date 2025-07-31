@@ -766,8 +766,6 @@ if (progressElement) {
 // Navigation link functionality
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', (e) => {
-        const text = link.textContent.trim();
-        
         // Remove active class from all links
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         // Add active class to clicked link
@@ -796,26 +794,6 @@ document.querySelectorAll('.nav-link').forEach(link => {
                 ripple.parentNode.removeChild(ripple);
             }
         }, 600);
-        
-        // Navigate based on the link text
-        switch(text) {
-            case 'Dashboard':
-                // Already on dashboard/calendar page
-                console.log('Already on dashboard page');
-                break;
-            case 'Habits':
-                // For now, stay on calendar page since habits functionality is here
-                console.log('Habits clicked - staying on calendar page');
-                break;
-                            case 'Progress':
-                    window.location.href = '/progress';
-                    break;
-                case 'Leaderboard':
-                    window.location.href = '/leaderboard';
-                    break;
-            default:
-                console.log('Unknown navigation:', text);
-        }
     });
 });
 

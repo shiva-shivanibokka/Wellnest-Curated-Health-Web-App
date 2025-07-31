@@ -38,13 +38,9 @@
                     <span class="nav-icon">🎯</span>
                     Habits
                 </div>
-                <div class="nav-link" onclick="window.location.href='/progress'">
+                <div class="nav-link">
                     <span class="nav-icon">📈</span>
                     Progress
-                </div>
-                <div class="nav-link" onclick="window.location.href='/leaderboard'">
-                    <span class="nav-icon">🏆</span>
-                    Leaderboard
                 </div>
             </div>
             <div class="nav-profile">
@@ -100,6 +96,59 @@
             {% endfor %}
         </div>
     </div>
+
+    <div id="quote-div">
+        <div id="quote-right"></div>
+        <div id="quote-center">
+            <h3 style="margin-bottom: -10px;">Quote of the day</h3>
+            <br> <div id="quote">"Always do your best"</div> <br> <div id="author"></div>
+        </div>
+        <div id="quote-left"></div>
+    </div>
+
+      <script>
+        // to get past cors made Django API proxy u learn smt new everyday ! 
+    fetch("/quote")
+      .then(res => res.json())
+      .then(data => {
+        const quote = data[0];
+        document.getElementById("quote").textContent = `"${quote.q}"`;
+        document.getElementById("author").textContent = `– ${quote.a}`;
+      })
+      .catch(err => {
+        document.getElementById("quote").textContent = "Failed to load quote.";
+        console.error(err);
+      });
+  </script>
+
+    <div style="margin: 20px;">
+        <div id="todo" style="display: flex;">
+            <h2>To Do</h2>
+            <button id="add-habit-button" > add habit
+            <img src="{% static 'plus.png' %}" style="height: 10px;" alt="">
+            </button>
+
+        </div>
+        <div style="display: flex; gap: 20px; justify-content: space-between;">
+
+
+        <div id="habit-container" style=" flex-grow:2;">
+
+        </div>
+
+        <div id="habit-editor">
+            <div style="display: flex; flex-direction: column; text-align: center;"> <h3 style="margin-bottom: -10px;">Habit Name</h3> <h4>Description</h4> </div>
+
+            <p style="text-align: left; margin-left: 40px;">repeating on</p>
+            <div style="display: flex; flex-direction: row; justify-content: space-evenly; text-align: center;">
+            
+            <div class="d-box" data-day="Sunday">S</div>
+            <div class="d-box" data-day="Monday">M</div>
+            <div class="d-box" data-day="Tuesday">T</div>
+            <div class="d-box" data-day="Wednesday">W</div>
+            <div class="d-box" data-day="Thursday">Th</div>
+            <div class="d-box" data-day="Friday">F</div>
+            <div class="d-box" data-day="Saturday">S</div>
 
     <!-- MAIN CONTENT -->
     <main id="main-content">
