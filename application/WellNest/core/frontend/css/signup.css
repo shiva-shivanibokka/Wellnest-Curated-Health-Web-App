@@ -1,8 +1,8 @@
 /* Container Layout */
 #container {
     display: flex;
-    width: 80vw;
-    height: 70vh;
+    width: 70vw;
+    height: 60vh;
     box-shadow: 0 25px 35px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
     overflow: hidden;
@@ -16,7 +16,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 60px;
+    padding: 40px;
     background-color: #f3ecfe;
 }
 
@@ -36,9 +36,9 @@
 
 /* Typography */
 h2 {
-    font-size: 48px;
+    font-size: 36px;
     color: #3D2376;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     text-align: center;
     width: 100%;
 }
@@ -53,11 +53,11 @@ h2 {
 
 /* Input & Select Styling */
 input, select {
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     width: 100%;
-    max-width: 450px;
-    padding: 16px;
-    font-size: 20px;
+    max-width: 350px;
+    padding: 12px;
+    font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 10px;
     transition: border 0.3s;
@@ -70,24 +70,38 @@ input:focus, select:focus {
     outline: none;
 }
 
+/* Checkbox styling - keep it visible */
+input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+    margin-bottom: 0;
+}
+
+label {
+    margin-bottom: 15px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
 /* Buttons */
 #buttons {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px;
-    margin-top: 30px;
+    gap: 25px;
+    margin-top: 25px;
 }
 
 button {
-    padding: 15px 35px;
-    font-size: 20px;
+    padding: 12px 25px;
+    font-size: 16px;
     font-weight: 600;
     border-radius: 10px;
     cursor: pointer;
     font-family: "Inter", sans-serif;
     transition: all 0.3s ease;
-    width: 170px;
+    width: 140px;
 }
 
 /* Sign Up Button */
@@ -128,4 +142,21 @@ body {
 
 html, body {
     overflow: hidden;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 14px;
+    max-width: 350px;
+    text-align: left;
+    padding: 10px;
+}
+
+.checkbox input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+    margin-bottom: 0;
+    flex-shrink: 0;
 }
