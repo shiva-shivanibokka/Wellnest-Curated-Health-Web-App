@@ -2,6 +2,7 @@ from rest_framework import generics, filters
 from .models import User
 from .serializers import UserSerializer, UserCreateSerializer
 from django.conf import settings
+import requests
 import os
 from django.db.models import Q
 import calendar
@@ -176,6 +177,18 @@ def get_today_recurring_habits(request):
 
     return JsonResponse({"todo": todo, "done": done})
 
+
+
+# quote of the day
+@api_view(['GET'])
+def daily_quote_proxy(request):
+    try:
+        response = requests.get("https://zenquotes.io/api/today", timeout=5)
+
+        return Response(response.json())
+    except Exception as e:
+        print("[ERROR] Exception occurred:", str(e))
+        return Response({"error": "Unable to fetch quote"}, status=500)
 
 # recurring habit GET and POST API we can see what habits a user has and post habits they want to create
 @api_view(['GET', 'POST'])

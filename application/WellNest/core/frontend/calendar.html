@@ -87,10 +87,34 @@
         <div id="quote-right"></div>
         <div id="quote-center">
             <h3 style="margin-bottom: -10px;">Quote of the day</h3>
-            <br>"Always do your best"
+            <br> 
+            <p id="quote-text" style="font-size: 20px; font-weight: bold; color:black; margin-bottom: -10px;">Loading...</p>
+            <br>
+            <p id="quote-author" style="text-align: center; font-weight: bold;"></p>
         </div>
         <div id="quote-left"></div>
     </div>
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch("/quote")
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        if (Array.isArray(data) && data.length > 0) {
+          const quoteObj = data[0];
+          document.getElementById("quote-text").textContent = `"${quoteObj.q}"`;
+          document.getElementById("quote-author").textContent = `– ${quoteObj.a || "Unknown"}`;
+        } else {
+          document.getElementById("quote-text").textContent = "No quote available.";
+        }
+      })
+      .catch(function (error) {
+        console.error("Quote fetch error:", error);
+        document.getElementById("quote-text").textContent = "Failed to load quote.";
+      });
+  });
+</script>
 
     <div style="margin: 20px;">
         <div id="todo" style="display: flex;">
