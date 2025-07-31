@@ -4,11 +4,14 @@ from .views import UserLoginView
 from .views import get_today_recurring_habits
 from .views import recurring_habits
 from .views import log_completed_habit, delete_habit_log
-
+from .views import daily_quote_proxy
 
 urlpatterns = [
     # path('users/', views.UserListCreateView.as_view(), name='user-list-create'),
     # path('users/<int:pk>/', views.UserDetailView.as_view(), name='user-detail'),
+
+    #quote proxy
+    path('quote/', daily_quote_proxy),
 
     # API Routes
     path('api/users/', views.UserListView.as_view(), name='user-list'),

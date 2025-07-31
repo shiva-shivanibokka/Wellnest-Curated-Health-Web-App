@@ -2,6 +2,7 @@ from rest_framework import generics, filters
 from .models import User
 from .serializers import UserSerializer, UserCreateSerializer
 from django.conf import settings
+import requests
 import os
 from django.db.models import Q
 import calendar
@@ -123,7 +124,21 @@ def profile(request):
     return render(request, 'profile.html')
 
 def wellnest_group_view(request):
-    return render(request, 'core/group.html')
+    return render(request, 'group.html')
+
+
+
+
+## quote proxy Get
+@api_view(['GET'])
+def daily_quote_proxy(request):
+    try:
+        response = requests.get("https://zenquotes.io/api/today")
+        return Response(response.json())
+    except Exception as e:
+        return Response({"error": "Unable to fetch quote"}, status=500)
+
+
 
 #showing habits for that day
 @login_required
@@ -152,8 +167,9 @@ def get_today_recurring_habits(request):
     logged_names = set( HabitLog.objects.filter(
         user=user,
         timestamp__range=(start, end)
-    ).values_list('name', flat=True)
+    ).values_list('name', 'habit_type')
     )
+    print("Found logs today:", list(logged_names))
 
     #accounting for done and to do habits 
     todo = []
@@ -236,6 +252,8 @@ def delete_habit_log(request):
         )
 
         print(f"[DEBUG] Found {logs.count()} logs to delete for {name} on {date_str}")
+        print("Remaining logs after deletion:", HabitLog.objects.filter(user=user).values_list('name', 'timestamp'))
+
 
         deleted_count, _ = logs.delete()
         return Response({"deleted": deleted_count})

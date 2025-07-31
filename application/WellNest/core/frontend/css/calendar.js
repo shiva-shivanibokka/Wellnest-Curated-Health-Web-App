@@ -110,6 +110,7 @@ async function loadCreatedHabits() {
                             date: new Date().toISOString().split("T")[0],  
                         }),
                     });
+            
                 }
             });
 
@@ -242,6 +243,25 @@ deleteHabit.addEventListener("click", async () => {
         alert("Delete failed: " + (result.error || resp.statusText));
     }
 });
+
+
+//cancel habit creation
+const cancelHabitBtn = document.getElementById("cancel-habit-creation");
+
+cancelHabitBtn.addEventListener("click", () => {
+    container.style.display = "none";
+    form.style.display = "none";
+    form.reset(); // clear form
+});
+
+// close editor
+const habitEditor = document.getElementById("habit-editor");
+const closeEditorBtn = document.getElementById("close-editor");
+closeEditorBtn.addEventListener("click", () => {
+    habitEditor.classList.remove("on");
+});
+
+
 
   
 
