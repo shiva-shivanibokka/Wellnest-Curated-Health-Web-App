@@ -6,7 +6,7 @@ Based on the usability test work submitted, it’s clear that many team members 
 
 More importantly, I'm concerned with the overall direction of your Beta prototype. I haven’t seen meaningful progress from your horizontal prototype to this version. Additionally, much of the feedback I provided earlier still hasn’t been addressed. That’s a serious issue, especially at this point in the semester because your Beta prototype is expected to reflect a more complete and polished product, and you're currently falling short of that mark.
 
-**Beta Prototype Grade: 8/14**
+**Beta Prototype Grade: 11/14**
 
 Please make sure to correct all issues in M4v2. Time is running out, and you need to revise quickly.
 
