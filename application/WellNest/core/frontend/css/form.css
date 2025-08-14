@@ -5,10 +5,11 @@ dialog {
   padding: 0;
   background: #fff;
   box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-  width: 90vw;
-  max-width: 700px;
-  max-height: 90vh;
+  width: 120vw;
+  max-width: 800px;
+  max-height: 100vh;
   overflow-y: auto;
+  padding: 20px;
 }
 
 dialog::backdrop {
@@ -65,7 +66,7 @@ dialog::backdrop {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 24px;
 }
 
 

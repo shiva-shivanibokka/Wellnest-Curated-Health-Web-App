@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{% static 'sideNav.css' %}">
     <link rel="stylesheet" href="{% static 'glass.css' %}">
     <link rel="stylesheet" href="{% static 'form.css' %}">
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+    <link rel="stylesheet" href="{% static 'social.css' %}">
     <link rel="stylesheet" href="{% static 'calendar.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,13 +22,18 @@
 </head>
 
 <body>
+    
     <!-- csrf token -->
     <form style="display: none;">{% csrf_token %}</form>
 
     <div id="header">
         <div class="box" id="profile-div">
-            <input type="text" id="search-box" placeholder="Search habits or people..." />
-            <img src="{% static 'streak-hot.png' %}" alt="streak-hot" id="streak-hot">
+        
+          <img src="{% static 'notification-off.png' %}" alt="notification-icon" id="notification-icon" style="width: 30px; ">
+        
+            {% if not user.is_authenticated %}
+            <img src="{% static 'streak-cold.png' %}" alt="streak-cold" id="streak-cold">
+            {% endif %}
             <a href="{% url 'profile' %}"><img src="{% static 'pf.png' %}" href="{% url 'profile' %}" alt="pf icon"id="pf-icon"></a>
         </div>
 
@@ -60,28 +67,125 @@
 
     
 
+
     <div id="today">
         <div id="right"></div>
-        <div id="center">
-            <h1>Hello, {{ user.first_name|default:user.username }}!</h1>
+        <div id="center" style="color: white;">
+            {% if user.is_authenticated %}
+              <h1>Hello, {{ user.first_name|default:user.username }}!</h1>
+            {% else %}
+              <h1>Hello Gator!</h1>
+            {% endif %}
             <h2>Today</h2>
             <h3>{{ today|date:"F jS" }}</h3>
         </div>
-        <div id="left"></div>
+        <div id="left">
+
+        </div>
     </div>
 
-    <div id="calendar">
-        <div id="calendarIcon">
-            <img src="{% static 'image 18.png' %}" alt="calendarIcon-home">
+    <script
+  src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js"
+  type="module"
+></script>
+
+
+
+</style>
+
+
+<div id="calendar">
+  <div id="calendarIcon">
+    <img src="{% static 'image 18.png' %}" alt="calendarIcon-home">
+  </div>
+  <div id="calendarDates">
+    {% for day in week_days %}
+      <div class="days {% if day == today %}today-box{% endif %}">
+        <div style="display: flex; flex-direction: column;">
+          <div class="day-name">{{ day|date:"l" }}</div> 
+          <div class="day-date">{{ day|date:"M j" }}</div> 
         </div>
-        <div id="calendarDates">
-            {% for day in week_days %}
-            <div class="days {% if day == today %}today-box{% endif %}">
-              {{ day|date:"M j" }}
-            </div>
-          {% endfor %}
-        </div>
-    </div>
+
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+   <!-- Container w crocs-->
+<div id="moonwalk-zone" style="position: absolute; width: 50%; height: 200px; justify-self: center; z-index: -5; overflow: hidden;">
+
+  <!-- Left White Fade -->
+  <div style="
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100%;
+    background: linear-gradient(to right, white 90%, transparent);
+    z-index: 2;
+    pointer-events: none;
+  "></div>
+
+  <!-- Right White Fade -->
+  <div style="
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100%;
+    background: linear-gradient(to left, white 90%, transparent);
+    z-index: 2;
+    pointer-events: none;
+  "></div>
+
+  <!-- Left Crocodile -->
+  <dotlottie-wc
+    id="moonwalker-left"
+    src="https://lottie.host/33fc78a2-2c79-402c-b710-75affa30e149/gxT9e5W3SG.lottie"
+    style="width: 300px; position: absolute; top: 50px; left: -120px; transform: scaleX(-1); z-index: 1;"
+    speed="1"
+    autoplay
+    loop
+  ></dotlottie-wc>
+
+  <!-- Right Crocodile -->
+  <dotlottie-wc
+    id="moonwalker-right"
+    src="https://lottie.host/33fc78a2-2c79-402c-b710-75affa30e149/gxT9e5W3SG.lottie"
+    style="width: 300px; position: absolute; top: 50px; right: -120px; transform: scaleX(1); z-index: 1;"
+    speed="1"
+    autoplay
+    loop
+  ></dotlottie-wc>
+
+  <script>
+    const leftWalker = document.getElementById("moonwalker-left");
+    const rightWalker = document.getElementById("moonwalker-right");
+
+    let leftX = -120;
+    let rightX = -120;
+    const moonwalkSpeed = .5;
+
+    function animateMoonwalk() {
+      const zoneWidth = document.getElementById("moonwalk-zone").offsetWidth;
+
+      leftX += moonwalkSpeed;
+      if (leftX > zoneWidth) leftX = -120;
+      leftWalker.style.left = `${leftX}px`;
+
+      rightX += moonwalkSpeed;
+      rightWalker.style.right = `${rightX}px`;
+      if (rightX > zoneWidth) rightX = -120;
+
+      requestAnimationFrame(animateMoonwalk);
+    }
+
+    animateMoonwalk();
+  </script>
+</div>
+
+
 
     <div id="quote-div">
         <div id="quote-right"></div>
@@ -116,25 +220,10 @@
   });
 </script>
 
-      <script>
-        // to get past cors made Django API proxy u learn smt new everyday ! 
-    fetch("/quote")
-      .then(res => res.json())
-      .then(data => {
-        const quote = data[0];
-        document.getElementById("quote").textContent = `"${quote.q}"`;
-        document.getElementById("author").textContent = `– ${quote.a}`;
-      })
-      .catch(err => {
-        document.getElementById("quote").textContent = "Failed to load quote.";
-        console.error(err);
-      });
-  </script>
-
-    <div style="margin: 20px;">
-        <div id="todo" style="display: flex;">
+    <div style="width: 60%; justify-self: center;">
+        <div id="todo" style="display: flex; width: 30%;">
             <h2>To Do</h2>
-            <button id="add-habit-button" > add habit
+            <button id="add-habit-button" class="main-button requires-auth" style="color: white;" > add habit
             <img src="{% static 'plus.png' %}" style="height: 10px;" alt="">
             </button>
 
@@ -142,21 +231,72 @@
         <div style="display: flex; gap: 20px; justify-content: space-between;">
 
 
-        <div id="habit-container" style=" flex-grow:2;">
+        <div id="habit-container">
 
         </div>
 
-<dialog id="habit-modal">
+        <div style="flex-grow: .75;"></div>
+
+        <!--streak progress element-->
+        <div id="progress-element" style="flex-grow: .5; margin-right: 40px; border-radius: 15px;display: flex; align-items: center; justify-content: center; flex-direction: column; max-height: 200px; text-align: center;">
+            <button style="margin-top: 10px; margin-bottom: -40px" id="streak-progress" > Progress </button> <br>
+            <h2 id="streak-value" style="font-size: 50px;"> 0 <img src="{% static 'streak-hot.png' %}" alt="" style="height: 40px;"></h2> <br> <b id="streak-label" style="margin-top: -40px; padding-bottom: 10px;">Highest Streak</b>
+        </div>
+        <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+          try {
+            const response = await fetch('/api/habit/streak/highest/');
+            const data = await response.json();
+
+            if (data && typeof data.streak === 'number') {
+              document.getElementById('streak-value').innerHTML =
+                `${data.streak} <img src="{% static 'streak-hot.png' %}" alt="" style="height: 40px;">`;
+            }
+
+            if (data && data.name) {
+              document.getElementById('streak-label').innerText = data.name;
+            }
+          } catch (err) {
+            console.error("Failed to fetch streak data:", err);
+          }
+        });
+        </script>
+        <style>
+        #streak-progress{
+        background-color: #4e148c;
+        color: gold;
+        padding: 36px;
+        border: none;
+        border-radius: 15px;
+        font-size: 20px;
+        font-weight: 500;
+        width: 250px ;
+        min-width: 150px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        }
+        </style>
+
+        </div>
+
+
+
+    </div>
+
+
+  <dialog id="habit-modal">
   <form id="habit-form" method="dialog">
     <button type="button" class="close-btn" data-dialog-id="habit-modal">×</button>
 
     <h3>Add New Habit</h3>
     <div id="habit-form-info">
-      <input id="habit-form-name" type="text" placeholder="Habit Name" required>
-      <input id="habit-form-description" type="text" placeholder="Description">
+        <input id="habit-form-name" type="text" placeholder="Habit Name" required>
+        <input id="habit-form-description" type="text" placeholder="Description">
+
+
       <div id="habit-color">
-        <label for="color-picker">Tag</label>
-        <select id="color-picker" required>
+        <label for="color-picker" style="font-size: 20px;" >Tag</label>
+        <select id="color-picker" style="margin-right: 10px;" required>
           <option disabled selected>Select tag</option>
           <option value="Green">Green</option>
           <option value="Purple">Purple</option>
@@ -165,8 +305,8 @@
           <option value="Red">Red</option>
         </select>
 
-        <label for="habit-type">Type</label>
-        <select id="habit-type" required>
+        <label for="habit-type" style="font-size: 20px;">Type</label>
+        <select id="habit-type" style="margin-right: 10px;" required>
           <option disabled selected>Select type</option>
           <option value="water">Water Intake</option>
           <option value="sleep">Sleep Log</option>
@@ -179,7 +319,7 @@
       </div>
     </div>
 
-    <p>Repeat on:</p>
+    <p style="justify-self: center;">Repeat on:</p>
     <div class="day-select">
       <div class="day-box" data-day="Sunday">S</div>
       <div class="day-box" data-day="Monday">M</div>
@@ -202,11 +342,15 @@
     <h3 id="editor-name">Habit Name</h3>
     <h4 id="editor-desc">Description</h4>
     <!-- desc editor -->
-    <label for="editor-description">Description</label>
+<div style="display: flex; justify-self: center;">
+    <label for="editor-description" style="font-size: 20px;"><img src="{% static 'edit.png' %}" alt="" style="width: 25px;"> Description </label>
     <input id="editor-description" type="text" placeholder="Description">
 
+
+
+
     <!-- color editor -->
-    <label for="editor-color">Tag</label>
+    <label for="editor-color" style="padding-left: 20px;">Tag</label>
     <select id="editor-color">
       <option value="Green">Green</option>
       <option value="Purple">Purple</option>
@@ -214,7 +358,7 @@
       <option value="Blue">Blue</option>
       <option value="Red">Red</option>
     </select>
-
+</div>
     <p>Repeating on:</p>
     <div class="day-select">
       <div class="d-box" data-day="Sunday">S</div>
@@ -235,44 +379,98 @@
 
 
 
-<style>
-
-</style>
 
 
-
-        <!--streak progress element-->
-        <div style="flex-grow: .5; margin-right: 40px; border: 5px solid black; border-radius: 15px;display: flex; align-items: center; justify-content: center; flex-direction: column; max-height: 200px; text-align: center;">
-            <button style="margin-top: 10px; margin-bottom: -40px" id="streak-progress" > Progress </button> <br>
-            <h2 style="font-size: 50px;">59 <img src="{% static 'streak-hot.png' %}" alt="" style="height: 40px;"></h2> <br> <b style="margin-top: -40px; padding-bottom: 10px;">Highest Streak</b>
-        </div>
-        <style>#streak-progress{
-        background-color: #4e148c;
-        color: gold;
-        padding: 36px;
-        border: none;
-        border-radius: 15px;
-        font-size: 20px;
-        font-weight: 500;
-        width: 250px ;
-        min-width: 150px;
-        padding-top: 16px;
-        padding-bottom: 16px;
-        }
-        </style>
-
-        </div>
-
-
-
-    </div>
-
-    <div style="margin: 20px;">
+    <div style="width: 60%; justify-self: center;">
         <div>
             <h2>Done</h2>
             <div id="done-container"></div> 
         </div>
     </div>
+
+    <div style="height: 300px;"></div>
+
+
+
+
+
+   <div id="notification-modal" class="modal hidden">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <h2>Notifications</h2>
+            <ul id="notification-list">
+                <li>No new notifications</li>
+            </ul>
+        </div>
+    </div>
+
+<!--ask user to sign in-->
+<dialog id="signinDialog"></dialog>
+
+<script>
+window.IS_AUTHENTICATED = {% if user.is_authenticated %}true{% else %}false{% endif %};
+</script>
+
+<template id="signin-template">
+<div class="wrapper">
+    <div>
+      <input type="checkbox" id="toggle" />
+      <div class="container">
+        <div class="form-container">
+          <div id="signInForm">
+            <h1>Sign In</h1>
+            <form id="signin-form" method="post">
+              {% csrf_token %}
+              <input type="email" name="email" placeholder="Email" required />
+              <input type="password" name="password" placeholder="Password" required />
+              <div id="error" style="color:red; display:none;"></div>
+              <input type="submit" id="signin-btn" value="Sign In" />
+            </form>
+            <div id="message" style="margin-top: 10px; padding: 10px; display: none;"></div>
+          </div>
+
+          <div id="signUpForm" style="display:none;">
+            <h1 style="margin-top: -10%;">Sign Up</h1>
+            <form id="signup-form" method="post">
+              {% csrf_token %}
+              <input type="text" id="username" name="username" placeholder="Username" required>
+              <input type="email" id="email" name="email" placeholder="Email" required>
+              <input type="password" id="password" name="password" placeholder="Password" required>
+              <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
+              <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
+
+              <select id="gender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="O">Other</option>
+              </select>
+              <input type="submit" id="signup-btn" value="Sign Up" />
+            </form>
+          </div>
+        </div>
+
+        <div class="img-container">
+          <img src="{% static 'WellNestMDimg.jpg' %}" alt="" style="max-width: 80%">
+          <h2 id="slideText">Don't have an account?</h2>
+          <label for="toggle" class="toggle-btn" id="slideBtn">Sign Up</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<dialog id="recommendation-modal">
+  <form method="dialog">
+    <h3>We recommend:</h3>
+    <p><strong>Drink Water</strong><br>Stay hydrated by drinking 64oz/day.</p>
+    <menu>
+      <button id="declineHabitBtn" value="cancel">No Thanks</button>
+      <button id="acceptHabitBtn" value="default">Yes, Add It</button>
+    </menu>
+  </form>
+</dialog>
+
 
     <script>
         window.STATIC_URLS = {
@@ -282,8 +480,48 @@
     </script>
 
 
+<script>
+  //calendar scroll
+  const calendarDates = document.getElementById('calendarDates');
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  calendarDates.addEventListener('mousedown', (e) => {
+    isDown = true;
+    calendarDates.classList.add('active');
+    startX = e.pageX - calendarDates.offsetLeft;
+    scrollLeft = calendarDates.scrollLeft;
+  });
+
+  calendarDates.addEventListener('mouseleave', () => {
+    isDown = false;
+    calendarDates.classList.remove('active');
+  });
+
+  calendarDates.addEventListener('mouseup', () => {
+    isDown = false;
+    calendarDates.classList.remove('active');
+  });
+
+  calendarDates.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - calendarDates.offsetLeft;
+    const walk = (x - startX) * 2; 
+    calendarDates.scrollLeft = scrollLeft - walk;
+  });
+</script>
+
+   <script src="{% static 'login.js' %}"></script>
+ 
     <script src="{% static 'calendar.js' %}"></script>
     <script src="{% static 'sideNav.js' %}"></script>
+    <script src="{% static 'notification.js' %}"></script>
+   
+
+
+
 </body>
 
 </html>

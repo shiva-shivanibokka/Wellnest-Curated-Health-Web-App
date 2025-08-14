@@ -17,36 +17,6 @@ const getUserCircles = async () => {
     return res.json();
 }
 
-const loadUserCircles = async () => {
-    const circles = await getUserCircles();
-    if (circles.success == false) return;
-
-    console.log(circles)
-
-    const circlesDiv = document.querySelector('#wellNestCircles-container');
-    circlesDiv.innerHTML = circles.circles.map(circle => {
-        return `<div class="circle">
-                <div>
-                    <h3>${circle.name}</h3>
-                </div>
-
-                <div class="info">
-                    <div>
-                        ${circle.description}
-                    </div>
-                    <div>
-                        ${circle.member_count} members
-                    </div>
-                </div>
-
-            </div>`
-    }).join('');
-}
-
-document.addEventListener('DOMContentLoaded', async () => {
-    loadUserCircles();
-})
-
 
 //using modal for notification is easier use dive if necessary 
 
@@ -55,54 +25,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('notification-modal');
     const closeModal = document.getElementById('close-modal');
 
-    notifIcon.addEventListener('click', () => {
-        modal.classList.remove('hidden');
+notifIcon.addEventListener('click', () => {
+    modal.classList.remove('hidden');
 
-        fetch('/api/notifications/')
-            .then(res => res.json())
-            .then(data => {
-                const list = document.getElementById('notification-list');
-                list.innerHTML = '';
+    // change icon to off
+    markNotificationsAsRead();
 
-                data.forEach(n => {
-                    const li = document.createElement('li');
-                    li.textContent = n.message;
+    fetch('/api/notifications/')
+        .then(res => res.json())
+        .then(data => {
+            const list = document.getElementById('notification-list');
+            list.innerHTML = '';
 
-                    // accept button
-                    if (n.message.includes("sent you a friend request") && n.request_id) {
-                        const acceptBtn = document.createElement("button");
-                        acceptBtn.textContent = "Accept";
-                        acceptBtn.style.marginLeft = "10px";
-                        acceptBtn.style.padding = "5px 10px";
-                        acceptBtn.style.backgroundColor = "#135715ff";
-                        acceptBtn.style.color = "white";
-                        acceptBtn.style.border = "none";
-                        acceptBtn.style.borderRadius = "5px";
-                        acceptBtn.style.cursor = "pointer";
+            data.forEach(n => {
+                const li = document.createElement('li');
+                li.textContent = n.message;
 
-                        acceptBtn.addEventListener("click", () => {
-                            fetch('/api/friends/accept/', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRFToken': getCSRFToken()
-                                },
-                                body: JSON.stringify({ request_id: n.request_id })
+                // Friend request logic 
+                if (n.message.includes("sent you a friend request") && n.request_id) {
+                    const acceptBtn = document.createElement("button");
+                    acceptBtn.textContent = "Accept";
+                   
+                    acceptBtn.addEventListener("click", () => {
+                        fetch('/api/friends/accept/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': getCSRFToken()
+                            },
+                            body: JSON.stringify({ request_id: n.request_id })
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                alert(data.message || data.error);
+                                li.textContent = `${n.message} Accepted`;
+                                loadFriendsList();
                             })
-                                .then(res => res.json())
-                                .then(data => {
-                                    alert(data.message || data.error);
-                                    li.textContent = `${n.message} Accepted`;
-                                })
-                                .catch(err => console.error("Error accepting friend request:", err));
-                        });
+                            .catch(err => console.error("Error accepting friend request:", err));
+                    });
+                    li.appendChild(acceptBtn);
+                }
 
-                        li.appendChild(acceptBtn);
-                    }
-                    list.appendChild(li);
-                });
+                list.appendChild(li);
             });
-    });
+        });
+});
+
 
     closeModal.addEventListener('click', () => {
         modal.classList.add('hidden');
@@ -114,6 +82,46 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+//Read and unread notifications
+const checkUnreadNotifications = async () => {
+    try {
+        const response = await fetch('/api/notifications/');
+        const notifications = await response.json();
+        
+        const notifIcon = document.getElementById('notification-icon');
+        const hasUnread = notifications.some(n => !n.is_read);
+        
+        if (hasUnread) {
+            notifIcon.src = notifIcon.src.replace('notification-off.png', 'notification-on.png');
+        } else {
+            notifIcon.src = notifIcon.src.replace('notification-on.png', 'notification-off.png');
+        }
+    } catch (error) {
+        console.error('Error checking notifications:', error);
+    }
+};
+
+const markNotificationsAsRead = async () => {
+    try {
+        await fetch('/api/notifications/mark-read/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken()
+            }
+        });
+
+        // Turn the bell off
+        const notifIcon = document.getElementById('notification-icon');
+        notifIcon.src = notifIcon.src.replace('notification-on.png', 'notification-off.png');
+    } catch (error) {
+        console.error('Error marking notifications as read:', error);
+    }
+};
+
+
+
 
 
 
@@ -137,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const query = this.value.trim();
 
         const resultElement = document.getElementById('searchResults');
-        const circlesResult = document.getElementById('circlesResult-list');  // Moved this line here
+        const circlesResult = document.getElementById('circlesResult-list'); 
 
         if (query.length === 0) {
             resultElement.textContent = '';
@@ -235,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // CIRCLE MOCK SEARCH
-        const res = await fetch('http://127.0.0.1:8000/api/circles/search/?name=' + query);
+        const res = await fetch('/api/circles/search/?name=' + encodeURIComponent(query));
         const data = await res.json();
         console.log(data)
 
@@ -269,34 +277,69 @@ document.addEventListener('DOMContentLoaded', function () {
                 circleCard.appendChild(description);
                 circleCard.appendChild(members);
 
+                if (!c.is_member) {
+                    const joinBtn = document.createElement('button');
+                    joinBtn.textContent = "Join";
+                    joinBtn.style.marginTop = '10px';
+                    joinBtn.style.padding = '5px 10px';
+                    joinBtn.style.border = 'none';
+                    joinBtn.style.borderRadius = '5px';
+                    joinBtn.style.backgroundColor = '#4CAF50';
+                    joinBtn.style.color = 'white';
+                    joinBtn.style.cursor = 'pointer';
+
+                    joinBtn.addEventListener('click', async () => {
+                        try {
+                            const res = await fetch(`/api/circle/join/${c.id}/`, {
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRFToken': getCSRFToken()
+                                }
+                            });
+
+                            const result = await res.json();
+                            if (result.success) {
+                                alert(`Joined "${c.name}" successfully!`);
+                                joinBtn.disabled = true;
+                                joinBtn.textContent = "Joined";
+                            } else {
+                                alert(result.error || "Failed to join circle");
+                            }
+
+                        
+                            loadUserCircles();
+                        } catch (error) {
+                            console.error("Error joining circle:", error);
+                        }
+                    });
+
+                    circleCard.appendChild(joinBtn);
+                }
+
                 circlesResult.appendChild(circleCard);
             });
         }
     });
 
 
+
+
+
+});
+
     // display friends on page load
-    fetch('/api/friends/list/')
-        .then(res => res.json())
-        .then(data => {
+    const loadFriendsList = async () => {
+        try {
+            const res = await fetch('/api/friends/list/');
+            const data = await res.json();
             const friendsList = document.getElementById('friends-list');
             friendsList.innerHTML = ''; // clear placeholder
 
             data.forEach(friend => {
                 const friendBox = document.createElement('div');
                 friendBox.id = 'friend-element-info';
-
-                /* pfp maybe later?
-                const pfImg = document.createElement('img');
-                pfImg.src = "/static/pf.png";  
-                pfImg.alt = "profile icon";
-                pfImg.style.width = "40px";
-                pfImg.style.margin = "-20px";
-                */
                 const name = document.createElement('h3');
                 name.textContent = `${friend.first_name} ${friend.last_name || ''}` || friend.username;
-
-                //friendBox.appendChild(pfImg);
                 friendBox.appendChild(name);
 
                 const wrapper = document.createElement('div');
@@ -306,40 +349,162 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 friendsList.appendChild(wrapper);
             });
-        })
-        .catch(err => console.error("Error loading friends:", err));
+        } catch (err) {
+            console.error("Error loading friends:", err);
+        }
+    };
 
 
 
 
-});
+
+
+// add circles and link with habit
 
 document.querySelector('#create-circle-button').addEventListener('click', async function (e) {
     const name = document.querySelector('#circle-name').value;
     const description = document.querySelector('#circle-description').value;
-    console.log(name)
-    console.log(description)
 
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+    const raw = JSON.stringify({ name, description });
 
-    const raw = JSON.stringify({
-        "name": name,
-        "description": description
+    const res = await fetch("/api/circle/create/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: raw,
     });
 
-    const requestOptions = {
+    const data = await res.json();
+    if (!data.success) return;
+
+    document.querySelector('#createWellnestCircle').style.display = 'none';
+
+    // Show habit modal
+    const modal = document.getElementById('habitTemplateModal');
+    modal.style.display = 'block';
+
+    // Store circle ID
+    modal.dataset.circleId = data.circle_id;
+});
+
+document.querySelector('#createHabitTemplateForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const modal = document.getElementById('habitTemplateModal');
+    const circleId = modal.dataset.circleId;
+
+    const name = document.querySelector('#habit-name').value;
+    const habit_type = document.querySelector('#habit-type').value;
+    const color = document.querySelector('#habit-color').value;
+    const weekdays = Array.from(document.querySelectorAll('input[name="weekdays"]:checked'))
+    .map(cb => cb.value);
+
+    const body = JSON.stringify({
+        circle_id: circleId,
+        name,
+        habit_type,
+        color,
+        weekdays
+    });
+
+    await fetch("/api/circle/habit-template/add/", {
         method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
+        headers: { "Content-Type": "application/json" },
+        body
+    });
+
+    // Close modal and refresh
+    modal.style.display = 'none';
+    loadUserCircles();
+});
+document.getElementById('close-habit-modal').addEventListener('click', () => {
+    document.getElementById('habitTemplateModal').style.display = 'none';
+});
+
+    const loadUserCircles = async () => {
+        const circles = await getUserCircles();
+        if (!circles.success) return;
+
+        const circlesDiv = document.querySelector('#wellNestCircles-container');
+        circlesDiv.innerHTML = circles.circles.map(circle => {
+            return `<div class="circle" data-circle-id="${circle.id}" style="cursor:pointer;">
+                <div>
+                    <h3>${circle.name}</h3>
+                </div>
+                <div class="info">
+                    <div>${circle.description}</div>
+                    <div>${circle.member_count} members</div>
+                </div>
+            </div>`;
+        }).join('');
+
+        // Add event listeners to each circle
+        document.querySelectorAll('.circle').forEach(el => {
+            el.addEventListener('click', async () => {
+                const id = el.dataset.circleId;
+                const res = await fetch(`/api/circle/details/${id}/`);
+                const data = await res.json();
+
+                if (data.success) {
+                    document.getElementById('circle-title').textContent = data.name;
+                    document.getElementById('circle-description-info').textContent = data.description;
+                    document.getElementById('circle-habit').textContent = data.habit_name;
+                    document.getElementById('circle-members-count').textContent = data.member_count;
+
+                    // Top 5 members
+                    const topList = document.getElementById('top-members-list');
+                    topList.innerHTML = '';
+                    data.top_members.forEach((member, index) => {
+                        const li = document.createElement('li');
+                        li.textContent = `${index + 1}. ${member.user__username} - Streak: ${member.streak}`;
+                        topList.appendChild(li);
+                    });
+
+                    // User placement
+                    document.getElementById('your-placement').textContent = data.user_placement;
+
+                    document.getElementById('circle-info-modal').classList.remove('hidden');
+                }
+            });
+        });
     };
 
-    const res = await fetch("/api/circle/create/", requestOptions);
-    if (res.success == false) return;
-
+    
     loadUserCircles();
 
-    const formDiv = document.querySelector('#createWellnestCircle');
-    formDiv.style.display = 'none';
-})
+    // Safe modal handling
+    const closeBtn = document.getElementById('close-circle-info');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            document.getElementById('circle-info-modal').classList.add('hidden');
+        });
+    }
+
+    window.addEventListener('click', (e) => {
+        const modal = document.getElementById('circle-info-modal');
+        if (e.target === modal) {
+            modal.classList.add('hidden');
+        }
+    });
+
+
+document.querySelector('#add-friends-button').addEventListener("click", () => {
+    const searchBox = document.getElementById("search-box");
+
+
+    searchBox.classList.toggle("active");
+    if (searchBox.classList.contains("active")) {
+        searchBox.focus();
+    }
+});
+
+
+
+document.addEventListener('DOMContentLoaded', async () => {
+
+    // Check for unread notifications
+    checkUnreadNotifications();
+    loadFriendsList();
+    // Check for new notifications every 30 seconds
+    setInterval(checkUnreadNotifications, 30000);
+});
+

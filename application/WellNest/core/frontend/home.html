@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome Page</title>
-    <!-- Your original static CSS import -->
+    <!-- <link rel="stylesheet" href="css/home.css"> -->
     <link rel="stylesheet" href="{% static 'home.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,36 +16,134 @@
 </head>
 
 <body>
-    <!-- Logo stays outside #home as in your original -->
-    
-
+    <div id="logo" style="display: flex; justify-content: center; height: 100px; width: 50%; justify-self: center; margin: auto;">
+        <img src="{% static 'WellNest.png' %}" alt="">
+    </div>
     <div id="home">
-        <span id="logo">
-            <img src="{% static 'WellNest.png' %}" alt="WellNest logo">
-        </span>
-        <span class="mainText">
-            Better habits. Better development.<br>Bigger Goals
-        </span>
-        <span class="subText">
-            A Habit Tracker For Gators of SF State
-        </span>
+        <span class="mainText">Better habits. Better development.<br>Bigger Goals</span>
+        <span class="subText">A Habit Tracker For Gators</span>
 
         <div id="buttons">
             <button id="getStartedButton">Get Started</button>
             <button id="haveAccountButton">Have an Account?</button>
         </div>
     </div>
+</body>
 
-    <script>
-        document.querySelector('#getStartedButton').addEventListener('click', () => {
-            document.querySelector('.mainText').innerHTML = `Let's get to know you!`;
-            document.querySelector('.subText').innerHTML = 'How did you hear about us?';
+<script>
+    let surveyStep = 0;
 
-            const homeDiv = document.querySelector('#home');
+    const homeDiv = document.querySelector('#home');
+    const mainText = document.querySelector('.mainText');
+    const subText = document.querySelector('.subText');
+    const buttonsDiv = document.querySelector('#buttons');
 
-            const surveyOptions = document.createElement('div');
+    const surveyData = [
+        {
+            title: "Let's get to know you!",
+            subtitle: "How did you hear about us?",
+            options: [
+                { id: "school", label: "School" },
+                { id: "friends", label: "Friends" },
+                { id: "socialMedia", label: "Social Media" },
+                { id: "other", label: "Other" }
+            ]
+        },
+        {
+            title: "Let's get to know you!",
+            subtitle: "What are you hoping to achieve?",
+            options: [
+                { id: "creatingHabits", label: "Creating new habits" },
+                { id: "trackingHabits", label: "Tracking my habits" },
+                { id: "personalGoals", label: "Achieve personal goals" },
+                { id: "betterHealth", label: "Better personal health" },
+                { id: "otherGoals", label: "Other" }
+            ]
+        },
+        {
+            title: "Let's get to know you!",
+            subtitle: "How often do you record your habits per week?",
+            options: [
+                { id: "onceWeek", label: "Once a week" },
+                { id: "twiceThreeWeek", label: "Twice or three times a week" },
+                { id: "fourSixWeek", label: "Four to six times a week" },
+                { id: "never", label: "Never" }
+            ]
+        }
+    ];
+
+    function renderSurveyStep() {
+        const step = surveyData[surveyStep];
+
+        mainText.innerHTML = step.title;
+        subText.innerHTML = step.subtitle;
+
+        let surveyOptions = document.querySelector('#surveyOptions');
+        if (!surveyOptions) {
+            surveyOptions = document.createElement('div');
             surveyOptions.id = 'surveyOptions';
-            surveyOptions.innerHTML = `
+            homeDiv.insertBefore(surveyOptions, buttonsDiv);
+        }
+
+        surveyOptions.innerHTML = step.options.map(opt => `
+            <div class="survey-option">
+                <input type="checkbox" id="${opt.id}" name="step${surveyStep}" value="${opt.id}">
+                <label for="${opt.id}">${opt.label}</label>
+            </div>
+        `).join('');
+
+        buttonsDiv.innerHTML = `
+            ${surveyStep > 0 ? `<button id="backButton">Back</button>` : ''}
+            ${surveyStep < surveyData.length - 1 
+                ? `<button id="nextButton">Next</button>` 
+                : `<button id="finishButton">Finish</button>`}
+        `;
+
+        if (surveyStep > 0) {
+            document.querySelector('#backButton').addEventListener('click', () => {
+                surveyStep--;
+                renderSurveyStep();
+            });
+        }
+
+        if (surveyStep < surveyData.length - 1) {
+            document.querySelector('#nextButton').addEventListener('click', () => {
+                surveyStep++;
+                renderSurveyStep();
+            });
+        } else {
+            document.querySelector('#finishButton').addEventListener('click', () => {
+                
+                localStorage.setItem('comingFromSurvey', 'true');
+                window.location.href = '/calendar';
+                
+            });
+        }
+    }
+
+
+    document.querySelector('#getStartedButton').addEventListener('click', () => {
+        surveyStep = 0;
+        renderSurveyStep();
+    });
+
+    document.querySelector('#haveAccountButton').addEventListener('click', () => {
+        window.location.href = '/signin';
+    });
+</script>
+
+
+<!--
+<script>
+    document.querySelector('#getStartedButton').addEventListener('click', () => {
+        document.querySelector('.mainText').innerHTML = `Let's get to know you!`;
+        document.querySelector('.subText').innerHTML = 'How did you hear about us?';
+
+        const homeDiv = document.querySelector('#home');
+
+        const surveyOptions = document.createElement('div');
+        surveyOptions.id = 'surveyOptions';
+        surveyOptions.innerHTML = `
         <div class="survey-option">
             <input type="checkbox" id="school" name="hearAbout" value="school">
             <label for="school">School</label>
@@ -64,23 +162,24 @@
         </div>
     `;
 
-            const buttonsDiv = document.querySelector('#buttons');
-            homeDiv.insertBefore(surveyOptions, buttonsDiv);
+        const buttonsDiv = document.querySelector('#buttons');
+        homeDiv.insertBefore(surveyOptions, buttonsDiv);
 
-            buttonsDiv.classList.add('survey-buttons');
-            buttonsDiv.innerHTML = `
+        buttonsDiv.classList.add('survey-buttons');
+        buttonsDiv.innerHTML = `
         <button id="skipSurveyButton">Skip Survey</button>
         <button id="nextButton">Next</button>`;
 
-            document.querySelector('#skipSurveyButton').addEventListener('click', () => {
-                window.location.href = '/signup';
-            });
+        document.querySelector('#skipSurveyButton').addEventListener('click', () => {
+            window.location.href = '/signup';
+            console.log('test')
+        })
 
-            document.querySelector('#nextButton').addEventListener('click', () => {
-                document.querySelector('.mainText').innerHTML = `Let's get to know you!`;
-                document.querySelector('.subText').innerHTML = 'What are you hoping to achieve?';
+        document.querySelector('#nextButton').addEventListener('click', () => {
+            document.querySelector('.mainText').innerHTML = `Let's get to know you!`;
+            document.querySelector('.subText').innerHTML = 'What are you hoping to achieve?';
 
-                document.querySelector('#surveyOptions').innerHTML = `
+            document.querySelector('#surveyOptions').innerHTML = `
             <div class="survey-option">
                 <input type="checkbox" id="creatingHabits" name="goals" value="creatingHabits">
                 <label for="creatingHabits">Creating new habits</label>
@@ -103,45 +202,45 @@
             </div>
         `;
 
-                document.querySelector('#buttons').innerHTML = `
+            document.querySelector('#buttons').innerHTML = `
             <button id="nextButton">Next</button>`;
 
-                document.querySelector('#nextButton').addEventListener('click', () => {
-                    document.querySelector('.mainText').innerHTML = `Let's get to know you!`;
-                    document.querySelector('.subText').innerHTML = 'How often do you record your habits per week?';
+            document.querySelector('#nextButton').addEventListener('click', () => {
+                document.querySelector('.mainText').innerHTML = `Let's get to know you!`;
+                document.querySelector('.subText').innerHTML = 'How often do you record your habits per week?';
 
-                    document.querySelector('#surveyOptions').innerHTML = `
-                        <div class="survey-option">
-                            <input type="checkbox" id="onceWeek" name="frequency" value="onceWeek">
-                            <label for="onceWeek">Once a week</label>
-                        </div>
-                        <div class="survey-option">
-                            <input type="checkbox" id="twiceThreeWeek" name="frequency" value="twiceThreeWeek">
-                            <label for="twiceThreeWeek">Twice or three times a week</label>
-                        </div>
-                        <div class="survey-option">
-                            <input type="checkbox" id="fourSixWeek" name="frequency" value="fourSixWeek">
-                            <label for="fourSixWeek">Four to six times a week</label>
-                        </div>
-                        <div class="survey-option">
-                            <input type="checkbox" id="never" name="frequency" value="never">
-                            <label for="never">Never</label>
-                        </div>
-                    `;
+                document.querySelector('#surveyOptions').innerHTML = `
+                    <div class="survey-option">
+                        <input type="checkbox" id="onceWeek" name="frequency" value="onceWeek">
+                        <label for="onceWeek">Once a week</label>
+                    </div>
+                    <div class="survey-option">
+                        <input type="checkbox" id="twiceThreeWeek" name="frequency" value="twiceThreeWeek">
+                        <label for="twiceThreeWeek">Twice or three times a week</label>
+                    </div>
+                    <div class="survey-option">
+                        <input type="checkbox" id="fourSixWeek" name="frequency" value="fourSixWeek">
+                        <label for="fourSixWeek">Four to six times a week</label>
+                    </div>
+                    <div class="survey-option">
+                        <input type="checkbox" id="never" name="frequency" value="never">
+                        <label for="never">Never</label>
+                    </div>
+                `;
 
-                    document.querySelector('#buttons').innerHTML = `
-                        <button id="finishButton">Finish</button>`;
+                document.querySelector('#buttons').innerHTML = `
+                    <button id="finishButton">Finish</button>`;
 
-                    document.querySelector('#finishButton').addEventListener('click', () => {
-                        window.location.href = '/signup';
-                    });
-                });
+                document.querySelector('#finishButton').addEventListener('click', () => {
+                    window.location.href = '/calendar';
+                })
             });
         });
+    })
 
-        document.querySelector('#haveAccountButton').addEventListener('click', () => {
-            window.location.href = '/signin';
-        });
-    </script>
-
+    document.querySelector('#haveAccountButton').addEventListener('click', () => {
+        window.location.href = '/signin';
+    })
+</script>
+-->
 </html>

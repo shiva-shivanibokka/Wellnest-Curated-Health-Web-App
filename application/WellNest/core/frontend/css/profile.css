@@ -80,6 +80,18 @@ body {
   font-weight: bold;
 }
 
+#delete-account-btn{
+
+  background-color: #f5728e;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 5px;
+
+}
+
 /* Form layout */
 form {
   display: flex;
@@ -152,4 +164,18 @@ body {
     height: 100%;
     overflow: hidden;
     font-family: "Inter", sans-serif;
+}
+
+.logout-btn {
+  align-self: center;
+  width: 200px;
+  background-color: #76bd87;
+  padding: 5px;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 20px;
+
 }

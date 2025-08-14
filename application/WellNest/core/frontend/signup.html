@@ -1,122 +1,208 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>signup</title>
-  <link rel="stylesheet" href="{% static 'signup.css' %}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signup</title>
+    <link rel="stylesheet" href="{% static 'signup.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
-  <div id="container">
-    <div id="left">
-      <form id="signup-form" method="post">
-        {% csrf_token %}
-        <h2 class="form-title" style="margin-bottom: -.5px;">Sign Up</h2>
+    
+    <div id="container">
+        <div id="left">
+            <form id="signup-form" method="post">
+                {% csrf_token %}
+                <h2 class="form-title" style="margin-bottom: -.5px; padding-top: 5px;">Sign Up</h2>
 
-        <input type="text" id="username" name="username" placeholder="Username" required>
-        <input type="email" id="email" name="email" placeholder="Email" required>
-        <input type="password" id="password" name="password" placeholder="Password" required>
-        <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
-        <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
+                <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
 
-        <select id="gender" name="gender" required>
-          <option value="">Select Gender</option>
-          <option value="M">Male</option>
-          <option value="F">Female</option>
-          <option value="O">Other</option>
-        </select>
+                <select id="gender" name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                    <option value="O">Other</option>
+                </select>
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                    <input type="checkbox" id="termsCheckbox" required style="transform: scale(1.2); cursor: pointer;">
+                    <label for="termsCheckbox" style="font-size: 14px; color: #3D2376;">
+                        I agree to the <span id="openTermsModal" style="color: #5D3FD3; text-decoration: underline; cursor: pointer;">Terms of Service</span>
+                    </label>
+                </div>
 
-        <label for="tos" class="checkbox">
-          <input type="checkbox" id="tos" name="tos" required>
-          Accept our terms and conditions
-        </label>
+                <div id="buttons" style="padding-bottom: 5px; margin-top: 0;" >
+                    <button type="submit" id="signup-btn" class="btn primary-btn">Sign Up</button>
+                    <button type="button" id="signin-btn" class="btn secondary-btn">Sign In</button>
+                   
+                </div>
 
-        <div id="buttons" style="margin-top: -20px;">
-          <button type="submit" id="signup-btn" class="btn primary-btn">Sign Up</button>
-          <button type="button" id="signin-btn" class="btn secondary-btn">Sign In</button>
+                 <div style="height: 20px;"></div>
+            </form>
 
+            <div id="message" style="margin-top: 10px; padding: 10px; display: none;"></div>
         </div>
 
-        <div style="height: 20px;"></div>
-      </form>
-
-      <div id="message" style="margin-top: 10px; padding: 10px; display: none;"></div>
+        <div id="right">
+            <img src="{% static 'WellNest.png' %}" alt="WellNest Logo">
+        </div>
     </div>
 
-    <div id="right">
-      <img src="{% static 'WellNest.png' %}" alt="WellNest Logo">
+    <!--terms and services modal-->
+    <div id="termsModal" style="display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); justify-content: center; align-items: center;">
+    <div style="background-color: white; padding: 30px; border-radius: 15px; max-width: 600px; width: 90%; box-shadow: 0 5px 20px rgba(0,0,0,0.3); position: relative;">
+        <button id="closeTermsModal" style="position: absolute; top: 10px; right: 15px; font-size: 20px; background: none; border: none; cursor: pointer;">&times;</button>
+        <h3 style="color: #3D2376;">Terms of Service</h3>
+        <p style="margin-top: 20px; font-size: 14px; line-height: 1.6;">
+Terms of Service
+Last Updated: August 4, 2025
+
+Welcome to WellNest! These Terms of Service ("Terms") govern your access to and use of the WellNest platform, including our website, mobile app, and related services ("Service"). By using the Service, you agree to be bound by these Terms.
+
+If you do not agree to these Terms, do not use the Service.
+
+1. Who Can Use the Service
+To use WellNest, you must:
+
+Be at least 13 years old (or the minimum age required by law in your country)
+
+Create an account with accurate, complete information
+
+Agree to these Terms
+
+You are responsible for maintaining the confidentiality of your account credentials.
+
+2. Your Content and Activity
+By using WellNest, you may create or share content such as habit logs, circle names, descriptions, and messages ("User Content"). You retain ownership of your content, but you grant us a non-exclusive, worldwide, royalty-free license to use, display, and store your content to operate and improve the Service.
+
+You agree not to:
+
+Post offensive, harmful, or misleading content
+
+Harass or impersonate others
+
+Use the Service for any unlawful purpose
+
+We reserve the right to remove content or suspend users who violate these rules.
+
+3. WellNest Circles and Social Features
+You may create or join Circles to participate in shared habits with friends. While Circles promote collaboration and social encouragement, your participation is voluntary. We do not moderate circle activity, so please report any misuse or abuse.
+
+4. Privacy
+Your privacy is important to us. Please review our Privacy Policy to understand how we collect, use, and protect your data.
+
+5. Availability and Changes
+We strive to keep the Service available and functioning, but we do not guarantee uninterrupted access. We may change or discontinue parts of the Service at any time, with or without notice.
+
+6. Termination
+You may stop using the Service at any time. We may suspend or terminate your account if you violate these Terms, or if we suspect misuse, fraud, or unauthorized activity.
+
+7. Disclaimers and Limitations
+The Service is provided "as is" without warranties of any kind. We are not liable for:
+
+Loss of data or content
+
+Interruption or errors in the Service
+
+Harm caused by user interactions or third-party content
+
+In no event shall our liability exceed the amount you paid us (if any) for use of the Service.
+
+8. Changes to These Terms
+We may update these Terms from time to time. If we make material changes, we’ll notify you by email or through the Service. Continued use of the Service after changes means you accept the new Terms.
+        </p>
     </div>
-  </div>
+    </div>
+    <script>
+  document.getElementById('openTermsModal').addEventListener('click', () => {
+    document.getElementById('termsModal').style.display = 'flex';
+  });
 
-  <script>
-    document.getElementById('signup-form').addEventListener('submit', async e => {
-      e.preventDefault();
+  document.getElementById('closeTermsModal').addEventListener('click', () => {
+    document.getElementById('termsModal').style.display = 'none';
+  });
 
-      const messageDiv = document.getElementById('message');
-      const submitBtn = document.getElementById('signup-btn');
+  window.addEventListener('click', (e) => {
+    const modal = document.getElementById('termsModal');
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+</script>
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Signing up...';
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', async e => {
+            e.preventDefault();
 
-      const formData = {
-        username: document.getElementById('username').value,
-        email: document.getElementById('email').value,
-        password: document.getElementById('password').value,
-        first_name: document.getElementById('first_name').value,
-        last_name: document.getElementById('last_name').value,
-        gender: document.getElementById('gender').value
-      };
+            const messageDiv = document.getElementById('message');
+            const submitBtn = document.getElementById('signup-btn');
 
-      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Signing up...';
 
-      try {
-        const response = await fetch('/api/users/create/', {
-          method: 'POST',
-          credentials: 'same-origin',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken
-          },
-          body: JSON.stringify(formData)
+            const formData = {
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                first_name: document.getElementById('first_name').value,
+                last_name: document.getElementById('last_name').value,
+                gender: document.getElementById('gender').value
+            };
+
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            try {
+                const response = await fetch('/api/users/create/', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    window.location.href = '/calendar';
+                } else {
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.color = 'red';
+
+                    if (result.username) {
+                        messageDiv.textContent = `Username error: ${result.username[0]}`;
+                    } else if (result.email) {
+                        messageDiv.textContent = `Email error: ${result.email[0]}`;
+                    } else if (result.password) {
+                        messageDiv.textContent = `Password error: ${result.password[0]}`;
+                    } else {
+                        messageDiv.textContent = 'Error creating account. Please try again.';
+                    }
+                }
+            } catch (error) {
+                messageDiv.style.display = 'block';
+                messageDiv.style.color = 'red';
+                messageDiv.textContent = 'Network error. Please try again.';
+                console.error('Error:', error);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Sign Up';
+            }
         });
 
-        const result = await response.json();
-
-        if (response.ok) {
-          window.location.href = '/calendar';
-        } else {
-          messageDiv.style.display = 'block';
-          messageDiv.style.color = 'red';
-
-          if (result.username) {
-            messageDiv.textContent = `Username error: ${result.username[0]}`;
-          } else if (result.email) {
-            messageDiv.textContent = `Email error: ${result.email[0]}`;
-          } else if (result.password) {
-            messageDiv.textContent = `Password error: ${result.password[0]}`;
-          } else {
-            messageDiv.textContent = 'Error creating account. Please try again.';
-          }
-        }
-      } catch (error) {
-        messageDiv.style.display = 'block';
-        messageDiv.style.color = 'red';
-        messageDiv.textContent = 'Network error. Please try again.';
-        console.error('Error:', error);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Sign Up';
-      }
-    });
-
-    document.getElementById('signin-btn').addEventListener('click', () => {
-      window.location.href = '/signin';
-    });
-  </script>
+        document.getElementById('signin-btn').addEventListener('click', () => {
+            window.location.href = '/signin';
+        });
+    </script>
 </body>
 
 </html>

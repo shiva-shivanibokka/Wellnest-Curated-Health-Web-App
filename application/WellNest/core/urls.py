@@ -6,7 +6,7 @@ from .views import recurring_habits
 from .views import log_completed_habit, delete_habit_log
 from .views import daily_quote_proxy
 from .views import update_recurring_habit
-
+from .views import logout_view
 
 
 
@@ -32,6 +32,7 @@ urlpatterns = [
     path('calendar/', views.calendar_view, name='calendar'),
     path('progress/', views.progress_view, name='progress'),
     path('profile/', views.profile, name='profile'),
+    path('group/', views.wellnest_group_view, name='wellnest_group'),
     #login api
     path('api/users/login/', UserLoginView.as_view(), name='user-login'),
     #creating habit apis
@@ -75,6 +76,24 @@ urlpatterns = [
     #Delete User
     path('api/user/delete/', views.delete_user_account, name='delete_user_account'),
 
+
+    #Get habits for specific day
+    path('api/habit/recurring/date/', views.get_recurring_habits_for_date),
+
+
+    #logout
+    path('logout/', views.logout_view, name='logout'),
+    #notification icon change
+    path('api/notifications/mark-read/', views.mark_notifications_read, name='mark_notifications_read'),
+
+    #streak
+    path('api/habit/streak/highest/', views.get_highest_streak, name='get_highest_streak'),
+
+    #linking habit and circle
+    path('api/circle/habit-template/add/', views.add_circle_habit_template, name='add_circle_habit_template'),
+
+    #details of circles
+    path('api/circle/details/<int:id>/', views.get_circle_details, name='get_circle_details'),
 
 
 ]

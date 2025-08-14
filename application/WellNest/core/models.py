@@ -77,6 +77,8 @@ class RecurringHabit(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=20)
     color = models.CharField(max_length=10, choices=COLOR_CHOICES, default='Green')
+    streak = models.PositiveIntegerField(default=0)
+    circle_origin = models.ForeignKey('Wellnest_Circle', on_delete=models.SET_NULL, null=True, blank=True, related_name='circle_habits') ## for linking habit to crcle
 
 
     def __str__(self):
@@ -164,3 +166,35 @@ class Wellnest_Circle(models.Model):
 
     def __str__(self):
         return f"{self.name} (by {self.created_by.username})"
+
+
+
+#Circle Template for creating instances of habit ig 
+class CircleHabitTemplate(models.Model):
+    circle = models.OneToOneField(Wellnest_Circle, on_delete=models.CASCADE, related_name='habit_template')
+    
+    HABIT_TYPE_CHOICES = [
+        ('water', 'Water Intake'),
+        ('food', 'Food Intake'),
+        ('sleep', 'Sleep Log'),
+        ('workout', 'Workout Log'),
+        ('custom', 'Custom'), 
+    ]
+    COLOR_CHOICES = [
+        ('Green', 'Green'),
+        ('Purple', 'Purple'),
+        ('Gold', 'Gold'),
+        ('Red', 'Red'),
+        ('Blue', 'Blue'),
+    ]
+
+    name = models.CharField(max_length=50)
+    habit_type = models.CharField(max_length=10, choices=HABIT_TYPE_CHOICES)
+    description = models.CharField(max_length=100, blank=True)
+    color = models.CharField(max_length=10, choices=COLOR_CHOICES, default='Green')
+    value = models.FloatField(null=True, blank=True)
+    weekdays = models.JSONField()  
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.circle.name} - {self.name}"
