@@ -38,6 +38,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.utils import timezone
 from .models import Wellnest_Circle
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import logout
+from django.views.decorators.http import require_http_methods
+from .models import CircleHabitTemplate
+from django.db.models import F
+
+
 
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -86,7 +93,7 @@ class UserSearchView(generics.ListAPIView):
         return User.objects.none()
 
 #simple calendar view python rather than google calendar
-@login_required(login_url='/signin/')
+
 def calendar_view(request):
     today = date.today()
 
@@ -110,35 +117,21 @@ def login(request):
 
 def about(request):
     return render(request, 'about.html')
-
+@login_required
 def socials(request):
     return render(request, 'socials.html')
-
+@login_required
 def review(request):
     return render(request, 'review.html')
-
+@login_required
 def progress_view(request):
     return render(request, 'progress.html')
-
+@login_required
 def profile(request):
     return render(request, 'profile.html')
 
 def wellnest_group_view(request):
-    return render(request, 'group.html')
-
-
-
-
-## quote proxy Get
-@api_view(['GET'])
-def daily_quote_proxy(request):
-    try:
-        response = requests.get("https://zenquotes.io/api/today")
-        return Response(response.json())
-    except Exception as e:
-        return Response({"error": "Unable to fetch quote"}, status=500)
-
-
+    return render(request, 'core/group.html')
 
 #showing habits for that day
 @login_required
@@ -169,7 +162,6 @@ def get_today_recurring_habits(request):
         timestamp__range=(start, end)
     ).values_list('name', 'habit_type')
     )
-    print("Found logs today:", list(logged_names))
 
     #accounting for done and to do habits 
     todo = []
@@ -254,6 +246,7 @@ def log_completed_habit(request):
         serializer = HabitLogSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)  # attach user
+            update_habit_streaks(request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     # If GET
@@ -285,12 +278,11 @@ def delete_habit_log(request):
             timestamp__gte=start,
             timestamp__lt=end
         )
-
+        
         print(f"[DEBUG] Found {logs.count()} logs to delete for {name} on {date_str}")
-        print("Remaining logs after deletion:", HabitLog.objects.filter(user=user).values_list('name', 'timestamp'))
-
 
         deleted_count, _ = logs.delete()
+        update_habit_streaks(user)
         return Response({"deleted": deleted_count})
     except Exception as e:
         return Response({"error": str(e)}, status=400)
@@ -515,11 +507,41 @@ def create_wellnest_circle(request):
 @csrf_exempt
 def join_wellnest_circle(request, circle_id):
     if request.method == 'POST':
-        circle = get_object_or_404(Wellnest_Circle, id=circle_id)
-        circle.add_member(request.user)
-        
+        user = request.user
+        try:
+            circle = Wellnest_Circle.objects.get(id=circle_id)
+        except Wellnest_Circle.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Circle not found'})
+
+        # Add member
+        circle.members.add(user)
+
+        # Copy habit if template exists and user doesn't already have it
+        if hasattr(circle, 'habit_template'):
+            template = circle.habit_template
+
+            already_exists = RecurringHabit.objects.filter(
+                user=user,
+                name=template.name,
+                habit_type=template.habit_type,
+                circle_origin=circle
+            ).exists()
+
+            if not already_exists:
+                RecurringHabit.objects.create(
+                    user=user,
+                    name=template.name,
+                    habit_type=template.habit_type,
+                    description=template.description,
+                    color=template.color,
+                    value=template.value,
+                    weekdays=template.weekdays,
+                    circle_origin=circle
+                )
+
         return JsonResponse({
             'success': True,
+            'message': 'Joined circle and habit assigned (if applicable)',
         })
 
 @login_required
@@ -623,3 +645,233 @@ def delete_user_account(request):
     user.delete()
 
     return Response(status=204)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_recurring_habits_for_date(request):
+    user = request.user
+    date_str = request.GET.get("date")
+    try:
+        target_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+    except:
+        return Response({"error": "Invalid date"}, status=400)
+
+    weekday_name = target_date.strftime("%A")
+
+    habits = RecurringHabit.objects.filter(user=user)
+    today_habits = []
+    for habit in habits:
+        weekdays = habit.weekdays or []
+        if isinstance(weekdays, str):
+            try:
+                weekdays = json.loads(weekdays)
+            except:
+                weekdays = []
+        if weekday_name in weekdays:
+            today_habits.append(habit)
+
+    start = datetime.combine(target_date, time.min).astimezone()
+    end = datetime.combine(target_date, time.max).astimezone()
+
+    logged_names = set(HabitLog.objects.filter(
+        user=user,
+        timestamp__range=(start, end)
+    ).values_list('name', 'habit_type'))
+
+    todo = []
+    done = []
+    for habit in today_habits:
+        habit_data = {
+            "name": habit.name,
+            "habit_type": habit.habit_type,
+            "description": habit.description,
+            "color": habit.color,
+            "value": habit.value,
+            "weekdays": habit.weekdays,
+        }
+        if habit.name in logged_names:
+            done.append(habit_data)
+        else:
+            todo.append(habit_data)
+
+    return Response({"todo": todo, "done": done})
+
+#logout
+@csrf_exempt
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        return JsonResponse({"message": "Logged out successfully"})
+    return JsonResponse({"error": "Invalid request"}, status=400)
+
+
+#Read and unread notifications
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def mark_notifications_read(request):
+    """Mark all notifications for the current user as read"""
+    Notification.objects.filter(user=request.user, is_read=False).update(is_read=True)
+    return Response({'message': 'Notifications marked as read'}, status=200)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_notifications(request):
+    notifications = Notification.objects.filter(user=request.user).order_by('-timestamp')
+    serializer = NotificationSerializer(notifications, many=True)
+    return Response(serializer.data)
+    
+#streak logic
+def update_habit_streaks(user):
+    today = timezone.localdate()
+    habits = RecurringHabit.objects.filter(user=user)
+
+    for habit in habits:
+        weekdays = habit.weekdays if isinstance(habit.weekdays, list) else json.loads(habit.weekdays)
+        weekdays = set(weekdays)
+
+        streak = 0
+        current_date = today + timedelta(days=1)  # INCLUDE today
+
+        for _ in range(30):
+            current_date -= timedelta(days=1)
+            if current_date.strftime("%A") not in weekdays:
+                continue
+
+            start = timezone.make_aware(datetime.combine(current_date, datetime.min.time()))
+            end = timezone.make_aware(datetime.combine(current_date, datetime.max.time()))
+
+            logged = HabitLog.objects.filter(
+                user=user,
+                name=habit.name,
+                habit_type=habit.habit_type,
+                timestamp__range=(start, end)
+            ).exists()
+
+            if logged:
+                streak += 1
+            else:
+                break
+
+        habit.streak = streak
+        habit.save()
+
+#get streak
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_highest_streak(request):
+    user = request.user
+    top_habit = (
+        RecurringHabit.objects
+        .filter(user=user)
+        .order_by('-streak')
+        .first()
+    )
+
+    if not top_habit or top_habit.streak == 0:
+        return Response({"streak": 0, "name": "No streak yet"})
+
+    return Response({
+        "streak": top_habit.streak,
+        "name": top_habit.name
+    })
+
+# linking habit to circle
+@csrf_exempt
+@require_http_methods(["POST"])
+def add_circle_habit_template(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'success': False, 'error': 'User not logged in'})
+
+    data = json.loads(request.body)
+
+    circle_id = data.get('circle_id')
+    name = data.get('name')
+    habit_type = data.get('habit_type')
+    weekdays = data.get('weekdays', [])
+    color = data.get('color', 'Green') 
+    description = data.get('description', '')
+    value = data.get('value') 
+
+    try:
+        circle = Wellnest_Circle.objects.get(id=circle_id)
+    except Wellnest_Circle.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Circle not found'})
+
+    # Enforce 1:1 template per circle (optional based on design)
+    if hasattr(circle, 'habit_template'):
+        return JsonResponse({'success': False, 'error': 'Habit already exists for this circle'})
+
+    # Create shared template
+    habit_template = CircleHabitTemplate.objects.create(
+        circle=circle,
+        name=name,
+        habit_type=habit_type,
+        weekdays=weekdays,
+        description=description,
+        color=color,
+        value=value
+    )
+
+    # Create personal recurring habits for all circle members
+    for member in circle.members.all():
+        RecurringHabit.objects.create(
+            user=member,
+            name=name,
+            habit_type=habit_type,
+            weekdays=weekdays,
+            description=description,
+            color=color,
+            value=value,
+            circle_origin=circle  
+        )
+
+    return JsonResponse({'success': True, 'habit_id': habit_template.id})
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_circle_details(request, id):
+    user = request.user
+    try:
+        circle = Wellnest_Circle.objects.get(id=id)
+    except Wellnest_Circle.DoesNotExist:
+        return Response({'success': False, 'error': 'Circle not found'}, status=404)
+
+    # Habit Template
+    habit_name = None
+    if hasattr(circle, 'habit_template'):
+        habit_name = circle.habit_template.name
+
+    all_habits = RecurringHabit.objects.filter(circle_origin=circle)
+
+    # Top 5 members by streak
+    top_members = (
+        all_habits
+        .order_by('-streak')[:5]
+        .values('user__username', 'streak')
+    )
+
+    # Get user placement
+    all_ranked = (
+        all_habits
+        .order_by('-streak')
+        .values_list('user__id', flat=True)
+    )
+
+    try:
+        placement = list(all_ranked).index(user.id) + 1
+    except ValueError:
+        placement = "Not ranked"
+
+    return Response({
+        'success': True,
+        'name': circle.name,
+        'description': circle.description,
+        'habit_name': habit_name,
+        'member_count': circle.members.count(),
+        'top_members': list(top_members),
+        'user_placement': placement
+    })

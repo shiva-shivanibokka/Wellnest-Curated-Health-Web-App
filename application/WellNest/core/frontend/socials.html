@@ -95,7 +95,7 @@
         }
     </style>
 
-    <div class="wellNestCircles-text">
+    <div class="wellNestCircles-text" style="width: 80%; justify-self: center;">
 
         <h2>Your WellNest Circles</h2>
         <button class="main-button" id="addCircle">add circle <img src="{% static 'plus.png' %}" style="height: 10px;"
@@ -103,31 +103,31 @@
 
 
     </div>
+    
+    <div id="circle-list-container" style="display: flex; flex-direction: row; width: 80%; justify-self: center;">
+        <div id="circle-container" style="display: flex; flex-direction: row; justify-self: left; padding: 5px;">
 
-    <div style="display: flex; flex-direction: row;">
+            <div id="wellNestCircles-container" style="flex-grow: 1;"></div>
 
-
-
-
-        <div id="wellNestCircles-container" style="flex-grow: 1;"></div>
-
-
-        <div id="circle-info" style="flex-grow: 2; "></div>
+        </div>
 
     </div>
 
-    <div class="wellNestCircles-text" style="height: 100px;">
+
+    <div class="wellNestCircles-text" style="height: 100px; width: 80%; justify-self: center;">
 
         <h2>Your Friends</h2>
-        <button class="main-button">add friends <img src="{% static 'plus.png' %}" style="height: 10px;"
+        <button id="add-friends-button" class="main-button">add friends <img src="{% static 'plus.png' %}" style="height: 10px;"
                 alt="add friends" id="addFriends"> </button>
 
 
     </div>
+    <div style="display: flex; justify-self: center; width: 80%;">
+        <div id="friends-list-container" style="justify-self: left; display: block; visibility: visible;">
 
-    <div id="friends-list">
+            <div id="friends-list" >
 
-        <div id="friend-element" style="display: flex;">
+            <div id="friend-element" style="display: flex;">
 
             <div id="friend-element-info">
 
@@ -135,9 +135,16 @@
                 <h3>name</h3>
             </div>
 
+            </div>
+
+            </div>
+
+
         </div>
 
+
     </div>
+
 
     <div id="createWellnestCircle">
         <form id="createWellnestCircleForm">
@@ -215,6 +222,93 @@
         }
     </style>
 
+
+    <div id="habitTemplateModal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close" id="close-habit-modal">&times;</span>
+        <h2>Create a Habit Template for Your Circle</h2>
+        <form id="createHabitTemplateForm">
+            <div class="form-field">
+                <label for="habit-name">Habit Name:</label>
+                <input type="text" id="habit-name" required>
+            </div>
+            <div class="form-field">
+                <label for="habit-type">Type:</label>
+                <select id="habit-type">
+                    <option value="water">Water</option>
+                    <option value="food">Food</option>
+                    <option value="sleep">Sleep</option>
+                    <option value="workout">Workout</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+            <div class="form-field">
+                <label for="habit-color">Color:</label>
+                <select id="habit-color">
+                    <option value="Green">Green</option>
+                    <option value="Purple">Purple</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Red">Red</option>
+                    <option value="Blue">Blue</option>
+                </select>
+            </div>
+            <div class="form-field">
+            <label>Choose Weekdays:</label>
+            <div id="habit-weekdays">
+                <label><input type="checkbox" name="weekdays" value="Monday"> Monday</label><br>
+                <label><input type="checkbox" name="weekdays" value="Tuesday"> Tuesday</label><br>
+                <label><input type="checkbox" name="weekdays" value="Wednesday"> Wednesday</label><br>
+                <label><input type="checkbox" name="weekdays" value="Thursday"> Thursday</label><br>
+                <label><input type="checkbox" name="weekdays" value="Friday"> Friday</label><br>
+                <label><input type="checkbox" name="weekdays" value="Saturday"> Saturday</label><br>
+                <label><input type="checkbox" name="weekdays" value="Sunday"> Sunday</label>
+            </div>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="purple-button">Create Habit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    #habitTemplateModal .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #888;
+    width: 400px;
+    border-radius: 15px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+</style>
+
+
+
+
+
+
     <div id="notification-modal" class="modal hidden">
         <div class="modal-content">
             <span id="close-modal" class="close">&times;</span>
@@ -226,10 +320,157 @@
     </div>
 
 
+<!--Circle info model/ leaderboard-->
+<div id="circle-info-modal" class="modal hidden">
+  <div class="modal-content">
+    <button class="close-btn" id="close-circle-info" aria-label="Close Modal">&times;</button>
+    
+    <h2 id="circle-title" class="modal-title">Circle Title</h2>
+    <p id="circle-description-info" class="modal-description">Circle description goes here...</p>
+
+    <div class="circle-meta">
+      <span class="habit-badge" id="circle-habit">Habit Name</span>
+      <span class="member-count"><strong></strong> <span id="circle-members-count">0</span> members</span>
+    </div>
+
+    <div id="top-members" class="leaderboard">
+      <h4>🏆 Top 5 Members</h4>
+      <ul id="top-members-list" class="leaderboard-list">
+
+      </ul>
+    </div>
+
+    <div class="placement">
+      <p><strong>Your placement:</strong> <span id="your-placement">-</span></p>
+    </div>
+  </div>
+</div>
+
+
+<style>
+    #circle-info-modal .modal {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.6);
+}
+
+#circle-info-modal .modal-content {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  font-family: 'Inter', sans-serif;
+  animation: fadeIn 0.3s ease-out;
+}
+
+#circle-info-modal .close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border: none;
+  background: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+#circle-info-modal .close-btn:hover {
+  transform: scale(1.2);
+}
+
+#circle-info-modal .modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 10px;
+}
+#circle-info-modal .modal-description {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Circle Meta Info */
+#circle-info-modal .circle-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+#circle-info-modal .habit-badge {
+  background: #7B61FF;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+#circle-info-modal .member-count {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Leaderboard */
+#circle-info-modal .leaderboard h4 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #222;
+}
+#circle-info-modal .leaderboard-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#circle-info-modal .leaderboard-list li {
+  background: #f7f7f7;
+  margin-bottom: 8px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 500;
+  color: #444;
+}
+#circle-info-modal .leaderboard-list li:nth-child(1) {
+  background: linear-gradient(to right, #ffd700, #fff2a6);
+}
+#circle-info-modal .leaderboard-list li:nth-child(2) {
+  background: linear-gradient(to right, #c0c0c0, #e0e0e0);
+}
+#circle-info-modal .leaderboard-list li:nth-child(3) {
+  background: linear-gradient(to right, #cd7f32, #e7b185);
+}
+
+
+#circle-info-modal .placement {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+  font-size: 14px;
+  color: #333;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
 
 
 
 
+    <script src="{% static 'circleInfo.js' %}"></script>
     <script src="{% static 'sideNav.js' %}"></script>
     <script src="{% static 'header.js' %}"></script>
     <script src="{% static 'socials.js' %}"></script>

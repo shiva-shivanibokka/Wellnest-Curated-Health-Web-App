@@ -49,8 +49,9 @@ class RecurringHabitSerializer(serializers.ModelSerializer):
             'description',
             'color',
             'timestamp',
+            'streak',
         ]
-        read_only_fields = ['id', 'timestamp']
+        read_only_fields = ['id', 'timestamp', 'streak']
 
 # Logging habit
 
@@ -75,7 +76,7 @@ class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notification
         fields = '__all__'
-        read_only_fields = ['timestamp', 'is_read']
+        read_only_fields = ['timestamp']
 
     def get_request_id(self, obj):
         # find friend request
@@ -88,3 +89,5 @@ class NotificationSerializer(serializers.ModelSerializer):
             except:
                 return None
         return None
+
+

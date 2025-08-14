@@ -1,7 +1,11 @@
 #header{
+    position: sticky;
+    top: 0;
     display: flex;
     flex: 1;
     flex-direction: row-reverse;
+     z-index: 900;
+    background-color: white;
 
 }
 
@@ -20,6 +24,9 @@
 }
 
 #streak-hot{
+    height: 35px;
+}
+#streak-cold{
     height: 35px;
 }
 

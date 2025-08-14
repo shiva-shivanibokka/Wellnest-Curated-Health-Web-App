@@ -17,6 +17,7 @@
 </head>
 
 <body>
+  {% csrf_token %}
   <div class="page-container">
     <div id="header">
       <div class="box" id="profile-div">
@@ -74,7 +75,44 @@
           </select>
 
           <button type="submit" class="save-btn">Save</button>
+
+         <!--Logout-->
+          <button type="button" id="logout-btn" class="logout-btn">Log Out</button>
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+              const logoutBtn = document.getElementById("logout-btn");
+              logoutBtn.addEventListener("click", () => {
+                fetch("/logout/", {
+                  method: "POST",
+                  headers: {
+                    "X-CSRFToken": getCookie("csrftoken")
+                  }
+                }).then(() => {
+                  window.location.href = "/calendar/";
+                });
+              });
+
+              function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== "") {
+                  const cookies = document.cookie.split(";");
+                  for (let cookie of cookies) {
+                    cookie = cookie.trim();
+                    if (cookie.startsWith(name + "=")) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                    }
+                  }
+                }
+                return cookieValue;
+              }
+            });
+          </script>
+
+
+
         </form>
+
 
         <button type="button" id="delete-account-btn" class="delete-btn">Delete Account</button>
         <div id="delete-confirm-popup" class="popup hidden">

@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    {% csrf_token %}
     <div id="header">
         <div class="box" id="profile-div">
             <input type="text" id="search-box" placeholder="Search habits or people..." />
@@ -135,7 +136,6 @@
                     <strong>{{ habit.value }}%</strong><br>
                     <span>{{ habit.name }}</span>
                 </div>
-                <div> <b> All time Habit Completion </b></div>
             </div>
             {% endfor %}
         </div>
@@ -185,44 +185,48 @@
         });
     </script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", async () => {
-            try {
-                const [dayRes, habitRes] = await Promise.all([
-                    fetch("/api/progress/days/"),
-                    fetch("/api/progress/habits/")
-                ]);
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        try {
+            const [dayRes, habitRes] = await Promise.all([
+                fetch("/api/progress/days/"),
+                fetch("/api/progress/habits/")
+            ]);
 
-                const dayData = await dayRes.json();
-                const habitData = await habitRes.json();
+            const dayData = await dayRes.json();
+            const habitData = await habitRes.json();
 
-                // Fill in the bar chart
-                dailyChart.data.labels = dayData.labels.map(day => day.slice(0, 2));
-                dailyChart.data.datasets[0].data = dayData.percentages;
-                dailyChart.update();
+            console.log("Day Data:", dayData);
+            console.log("Habit Data:", habitData);
 
-                // Fill in circular habits
-                const habitContainer = document.querySelector(".habit-circles");
-                habitContainer.innerHTML = habitData.map(habit => `
-            <div class="habit-circle">
-                <svg class="progress-ring" width="120" height="120">
-                    <circle cx="60" cy="60" r="54" fill="#32006E" />
-                    <circle class="progress-ring__circle" cx="60" cy="60" r="54"
-                        stroke="goldenrod" stroke-width="12" fill="none"
-                        stroke-dasharray="339.292" stroke-dashoffset="${habit.offset}"
-                        stroke-linecap="round" transform="rotate(-90 60 60)" />
-                </svg>
-                <div class="habit-label">
-                    <strong>${habit.value}%</strong><br>
-                    <span>${habit.name}</span>
+           
+            dailyChart.data.labels = dayData.labels.map(day => day.slice(0, 2));
+            dailyChart.data.datasets[0].data = dayData.percentages;
+            dailyChart.update();
+
+          
+            const habitContainer = document.querySelector(".habit-circles");
+            habitContainer.innerHTML = habitData.map(habit => `
+                <div class="habit-circle">
+                    <svg class="progress-ring" width="120" height="120">
+                        <circle cx="60" cy="60" r="54" fill="#32006E" />
+                        <circle class="progress-ring__circle" cx="60" cy="60" r="54"
+                            stroke="goldenrod" stroke-width="12" fill="none"
+                            stroke-dasharray="339.292" stroke-dashoffset="${habit.offset}"
+                            stroke-linecap="round" transform="rotate(-90 60 60)" />
+                    </svg>
+                    <div class="habit-label">
+                        <strong>${habit.value}%</strong><br>
+                        <span>${habit.name}</span>
+                    </div>
                 </div>
-            </div>
-        `).join('');
-            } catch (err) {
-                console.error("Failed to load progress data:", err);
-            }
-        });
-    </script>
+            `).join('');
+        } catch (err) {
+            console.error("Failed to load progress data:", err);
+        }
+    });
+</script>
+
 
 
     <script src="{% static 'sideNav.js' %}"></script>
