@@ -1,119 +1,189 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/ZWhHXcAi)
-# CSC648-848 Repository
+## Wellnest — Habit & Wellness Tracker
 
-## Initial Setup Instructions
-
-### **Team Lead or GitHub Master:**
-Please complete the following steps as soon as this repository is created, and no later than the end of the first week of the semester. By Monday of the second week, any student who does not have a team and has not completed all the required steps below will be dropped from the course **No exceptions.**
-
-1. **Repository Naming:**
-   - Replace your GitHub username in the repository's name with your team number.
-   - For example, if you are in team 9 and your repository's name is `csc648-848-05-sw-engineering-sp25-joseortizcostadev`, then 
-     replace `joseortizcostadev` with `T09`.
-   - The updated repository name should look like this: `csc648-848-05-sw-engineering-sp25-T09`.
-
-2. **Add Team Members:**
-   - Once the Team Lead or GitHub Master creates the repository, the instructor will assign admin permissions to 
-     these roles, and you can then proceed with the next steps:
-      - Add **ALL** team members to this repository as collaborators with **WRITE** permissions only.
-      - They **MUST** accept the invitation for it to count.
-      - Only the team lead and the GitHub master should have **ADMIN** permissions in this repository.
+Wellnest is a lightweight wellness companion that helps users build sustainable habits through daily tracking, friendly competition, and smart recommendations. Users complete a short intake survey, sign up, and start logging habits like sleep, water, food, and workouts. A social layer—Wellnest Circle—lets friends create or join group challenges and climb a shared leaderboard.
 
 ---
 
-### **All Team Members:**
-The following step should be performed by every student in the team, including the team lead.
+## Table of Contents
 
-- **Sign the Team Contract:**
-   - All team members **MUST** sign the following [Team Contract](https://forms.gle/dxATAsa9isXKbcBn7). 
-   - This contract **MUST** be signed by the second lecture of the semester. Failure to sign the contract may result 
-     in being dropped from the course. 
----
-
-### **Fill Out Team Information:**
-   - Team Lead or GitHub Master must complete the table below with all your team's members' information.
-
-   | Student | Full Name | SFSU Email | GitHub Username | Discord Username | Role(s) | Contract Signed (Yes or No) |
-   |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-   | #1 | Jacob Cordano | jcordano1@sfsu.edu | JTCSnaps | JacobSnaps | Team-lead/Github Master | Yes |
-   | #2 | Hamed Emari | hemari@sfsu.edu | HamedEmari | hamedak | Back-end Lead | Yes |
-   | #3 | Jacob Vuong | jvuong@sfsu.edu | jacobvuong | Jacob Vuong | Scrum Master/Software Architect | Yes |
-   | #4 | Shivani Bokka | sbokka@sfsu.edu | shivani-shivanibokka | shivanibokka_76817 | Database Administrator | Yes |
-   | #5 | Kevin Hu | zhu6@sfsu.edu | kevinhu03 | kevinhu03 | Bank-end Lead | Yes |
-   | #6 | Diego Antunez | dantunez1@sfsu.edu | diegoantunez03 | 101blue | Technical Writer | Yes |
-   
-
-   - A role, in this course, indicates the main responsibility each student will handle, but **EVERY STUDENT** must 
-     contribute to **ALL** aspects of the project and documentation for this course.
-   - Below is a list of suggested roles that team members can take on. Note that roles can be changed during the 
-     semester except the `team lead` role.
-       - **Team Lead:** Oversees the team’s progress, coordinates tasks, and ensures that project goals are met on time.
-       - **Backend Lead:** Manages the server-side development, ensuring the backend is robust, scalable, and efficient.
-       - **Frontend Lead:** Leads the development of the user interface, ensuring a seamless and responsive user experience.
-       - **Software Architect:** Designs the overall software structure, making high-level design decisions to align with project requirements.
-       - **Database Administrator:** Manages the database systems, ensuring data integrity, performance, and security.
-       - **GitHub Master:** Oversees the version control system, manages branches, merges code, and maintains repository integrity.
-       - **Technical Writer:** Creates clear and comprehensive documentation for the software, making technical information accessible to users.
-       - **Scrum Master:** Facilitates Agile processes, removes impediments, and supports the team in following Scrum practices.
-   - Students can hold more than one role as long as all members of the team have at least one role assigned.
-   - Roles must be assigned no later than the second lecture of the semester, except for the team lead role, which must be chosen immediately.
-   - When ready, fill out the table below. The Team Lead or GitHub Master is responsible for keeping this information 
-     up to date throughout the semester, as this URL will be used to test all prototypes and the final version of your project. 
-
-**Important:** If the URL does not work at the time of testing, the team will receive no credit for the prototype or 
-project. It is crucial to ensure that the URL is always functional and accessible.
-
-
-   |      Team Alias       |     Name of the Project     |     URL of the Project      | Decision-Making Policy (Consensus or Majority Rule) |
-   |:---------------------:|:---------------------------:|:---------------------------:|:---------------------------------------------------:|
-   |            Coding Gators           |            <br> WELLNEST             |            <br> [WellNest.com](http://ec2-3-147-96-129.us-east-2.compute.amazonaws.com)            |           <br>  Majority Rule                                   |
-
-
-**Important:** Remember to complete the copyright section at the bottom.
+- [Features](#features)
+- [Screens & Flows](#screens--flows)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Local Development](#local-development)
+  - [Prerequisites](#1-prerequisites)
+  - [Clone & Setup](#2-clone--set-up-a-virtual-environment)
+  - [Configure Environment](#3-configure-environment)
+  - [Migrate & Run](#4-apply-migrations--run)
+- [Project Structure](#project-structure)
+- [Team](#team)
+- [Role Rotation & Individual Contributions](#role-rotation--individual-contributions)
+- [Roadmap Ideas](#roadmap-ideas)
+- [License](#license)
+- [Notes for Recruiters / Reviewers](#notes-for-recruiters--reviewers)
 
 ---
 
-## Repository Structure
+## Features
 
-- **No code should be stored in the root of your repository.**
-- You may rename the `application` folder to match your team's application name, but all source code related to your 
-  project should be stored inside the `application` folder.
-- **Milestone Documents:** All milestone documents must be placed in their corresponding milestone folder.
+- Onboarding survey → Tailors recommended habits to the user’s goals.
 
-  - Once version 1 (V1) of a milestone is submitted, the folder for the previous milestone must contain the following:
-    1. **Version 1 (V1):** This version will be frozen and cannot be edited anymore after it is submitted.
-    2. **Version 2 (V2):** Where all the feedback from the instructor and TA has been revised. 
-    This version must be completed by the time the next milestone's Version 1 (V1) is submitted.
-  
-  - For example, if your team is submitting milestone 2 (V1) by its deadline, then your milestone 1 folder must contain 
-    both milestone 1 (V1) and milestone 1 (V2) with the feedback revisions.
-  
-  - Each README file for all milestones will include sections on submission guidelines and grading rubrics. 
-    These rubrics will be used precisely to assess your milestones. They are transparent and available to students, 
-    ensuring you always know where points may be deducted.
-  
-- **Credentials Folder:** The `application/credentials/` folder **must not** be renamed, as it will store all 
-  essential information and tutorials required by the CTO or other authorized personnel to access all components 
-  of the application. Additional details will be provided when Milestone 1 is assigned.
+- Account system → Sign up / sign in; profile with name, DOB, gender.
 
+- Home dashboard → See your current streak, recent activity, and quick actions.
 
----
+- Habits
 
-## 🚀 Keep Up the Great Work! 💪
+  - Add custom habits or choose from pre-built: Sleep, Food, Water, Workout.
 
-Remember, this project is an incredible opportunity to apply your skills, collaborate with your peers, and create 
-something truly amazing. Not only will you be developing a functional application, but the work you do here—along 
-with the documentation—can be a valuable asset to showcase to future employers. Stay focused, communicate openly 
-with your team, and don't hesitate to reach out for help when needed. Together, you can achieve great things. 
-Best of luck, and let's make this semester one to remember!
+  - Log values with date & time.
+
+  - Persistent streak tracking & summaries.
+
+- Wellnest Circle (Social)
+
+  - Create or join group challenges.
+
+  - Invite friends, view leaderboard, and track challenge progress.
+
+- Responsive vanilla front end for clarity and speed.
 
 ---
 
-© 2025 **Coding Gators Team 03**. All rights reserved.
+## Screens & Flows
 
-No part of this repository may be reproduced, distributed, or transmitted in any form or by any means, 
-including photocopying, recording, or other electronic or mechanical methods, without the prior written 
-permission of the instructor or team.
+- Intake Survey → Sign Up / Sign In → Home (streaks + shortcuts)
+
+- Habits Page
+
+  - Add habit (custom or recommended)
+
+  - Log entries with value + timestamp
+
+- Wellnest Circle
+
+  - Create challenge → invite users → leaderboard
+
+  - Join existing challenge → appear on leaderboard
+
+- Profile
+
+  - Edit personal info; view basic stats
+
+ ---
+
+## Tech Stack
+
+- Platform & Ops
+
+  - Server: AWS EC2 (t2.micro free tier)
+
+  - OS: Ubuntu 24.04
+
+  - SSL: Let’s Encrypt (Certbot)
+
+  - Docker: 28.2.2
+
+- Backend
+
+  - Language: Python 3.12.3
+
+  - Framework: Django 5.2.3
+
+  - App/WSGI: Gunicorn 23
+
+  - HTTP Server / Reverse Proxy: Nginx 1.24
+
+  - Database: MySQL 8.0.42
+
+- Frontend
+
+  - Tech: HTML / CSS / JavaScript (vanilla)
+
+- Tooling
+
+  - Visual Studio Code, MySQL Workbench
+ 
+---
+
+- Architecture
+
+  - Client (vanilla JS) calls Django views / REST endpoints for auth, habits, and Wellnest Circle.
+
+  - Gunicorn runs the Django app; Nginx serves static assets and proxies requests to Gunicorn.
+
+  - MySQL persists users, habits, logs, groups, and leaderboard state.
+
+  - Docker used during deployment to achieve parity and repeatability.
+
+Browser (HTML/CSS/JS) ──► Nginx (443/80) ──► Gunicorn (Django) ──► MySQL 8.0 (habit logs, users, groups)
+                           
+---
+
+## Project Structure
+
+The repo also contains course deliverables. The app lives under application/.
+
+.
+├─ application/                 # Django project (backend + templates/static)
+
+│  ├─ WellNest/                 # Django app(s)
+
+│  ├─ manage.py
+│  └─ ...                       # settings, urls, views, models
+
+├─ Final_Milestone/             # Curated docs for final submission
+
+│  ├─ M5V1.md                   # Consolidated spec
+
+│  ├─ files_M5/                 # Final images/assets (curated)
+
+│  └─ _archive/                 # Older milestone docs, feedback, ERD/EER, etc.
+
+├─ README.md                    # This file
+
+├─ LICENSE                      # MIT
+
+└─ ...                          # Remaining course artifacts
 
 ---
 
+## Team
+
+- Jacob Cordano
+
+- Hamed Emari
+
+- Jacob Vuong
+
+- Shivani Bokka
+
+- Kevin Hu
+
+- Diego Antunez
+
+Roles rotated each milestone. All Team Members - 
+
+- Participated in design discussions, code reviews, and QA across milestones.
+
+- Swapped roles (frontend/backend/database/dev-ops/docs) to ensure shared ownership and coverage.
+
+As part of the team, the following are my contributions:
+
+- **Backend Lead (Vertical Prototype):** Led the earliest end-to-end slice; stood up Django app, routes, and persistence for a working demonstrator.
+
+- **Database Lead:** Designed schema, authored ERD and EER diagrams, created mock seed data to support integration and testing.
+
+- **Frontend Lead:** Implemented Home, Sign In, Sign Up, Profile, and contributed to Leaderboard UI.
+
+- **Technical Writer:** Owned repo documentation and milestone deliverables; curated final documentation set.
+
+---
+
+## Notes for Recruiters / Reviewers
+
+The Final_Milestone folder contains a clean set of documents (the _archive subfolder preserves older milestone materials).
+
+The application folder is the Django app used for the final demo deployment (EC2 + Nginx + Gunicorn + MySQL; SSL via Let’s Encrypt).
+
+For a quick walk-through, start at the Home → Habits → Wellnest Circle flows.
